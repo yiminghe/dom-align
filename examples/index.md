@@ -1,4 +1,5 @@
 # dom-align@1.x
+---
 
 
 source: <select id='source_align_tb'>
@@ -39,14 +40,12 @@ target node
 </div>
 </div>
 ````
-<script>
+
+````js
 function selectVal(sel){
   sel = document.getElementById(sel);
   return sel.value;
 }
-</script>
-
-````js
 var domAlign = require('../');
 document.getElementById('align').onclick = function(){
   domAlign(document.getElementById('source'),document.getElementById('target'),{

@@ -1,4 +1,5 @@
 # dom-align
+---
 
 align source html element with target html element flexibly.
 port from [kissyteam/component align](https://github.com/kissyteam/component/blob/master/lib/component/extension/align.js)

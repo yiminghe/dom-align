@@ -10,6 +10,9 @@ port from [kissyteam/component align](https://github.com/kissyteam/component/blo
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
+[![Sauce Test Status](https://saucelabs.com/buildstatus/dom-align)](https://saucelabs.com/u/dom-align)
+
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/dom-align.svg)](https://saucelabs.com/u/dom-align)
 
 [npm-image]: http://img.shields.io/npm/v/dom-align.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/dom-align

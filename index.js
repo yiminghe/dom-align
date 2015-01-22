@@ -291,7 +291,7 @@ function domAlign(el, refNode, align) {
 
   // 如果可视区域不能完全放置当前节点时允许调整
   if (visibleRect && (overflow.adjustX || overflow.adjustY)) {
-    if(overflow.adjustX) {
+    if (overflow.adjustX) {
       // 如果横向不能放下
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
         fail = 1;
@@ -305,7 +305,7 @@ function domAlign(el, refNode, align) {
       }
     }
 
-    if(overflow.adjustY) {
+    if (overflow.adjustY) {
       // 如果纵向不能放下
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
         fail = 1;
@@ -356,6 +356,12 @@ function domAlign(el, refNode, align) {
   if (newElRegion.height !== elRegion.height) {
     utils.css(el, 'height', el.height() + newElRegion.height - elRegion.height);
   }
+
+  return {
+    points: points,
+    offset: offset,
+    overflow: overflow
+  };
 }
 
 module.exports = domAlign;

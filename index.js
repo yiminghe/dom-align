@@ -276,6 +276,7 @@ function domAlign(el, refNode, align) {
   var overflow = align.overflow;
   offset = offset && [].concat(offset) || [0, 0];
   overflow = overflow || {};
+  var newOverflowCfg = {};
 
   var fail = 0;
   // 当前节点可以被放置的显示区域
@@ -325,8 +326,6 @@ function domAlign(el, refNode, align) {
       utils.mix(newElRegion, elFuturePos);
     }
 
-    var newOverflowCfg = {};
-
     // 检查反下后的位置是否可以放下了
     // 如果仍然放不下只有指定了可以调整当前方向才调整
     newOverflowCfg.adjustX = overflow.adjustX &&
@@ -360,7 +359,7 @@ function domAlign(el, refNode, align) {
   return {
     points: points,
     offset: offset,
-    overflow: overflow
+    overflow: newOverflowCfg
   };
 }
 

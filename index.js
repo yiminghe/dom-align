@@ -208,7 +208,7 @@ domAlign.__getVisibleRectForElement = getVisibleRectForElement;
 
 function getRegion(node) {
   var offset, w, h;
-  if (!utils.isWindow(node)) {
+  if (!utils.isWindow(node) && node.nodeType !== 9) {
     offset = utils.offset(node);
     w = utils.outerWidth(node);
     h = utils.outerHeight(node);

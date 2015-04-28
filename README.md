@@ -43,7 +43,7 @@ port from [kissyteam/component align](https://github.com/kissyteam/component/blo
 
 ## Online Demo
 
-* http://spmjs.io/docs/dom-align/examples/
+* http://yiminghe.github.io/dom-align/build/examples/
 
 ## Usage
 

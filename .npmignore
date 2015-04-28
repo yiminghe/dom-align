@@ -1,5 +1,6 @@
 bower_components/
 *.cfg
+build/
 node_modules/
 nohup.out
 *.iml

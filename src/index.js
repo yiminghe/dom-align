@@ -116,7 +116,6 @@ function getVisibleRectForElement(element) {
       // add border
       pos.left += el.clientLeft;
       pos.top += el.clientTop;
-
       visibleRect.top = Math.max(visibleRect.top, pos.top);
       visibleRect.right = Math.min(visibleRect.right,
         // consider area without scrollBar

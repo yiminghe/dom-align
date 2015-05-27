@@ -1,4 +1,29 @@
-var RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
+'use strict';
+
+var RE_NUM = (/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/).source;
+
+var getComputedStyleX;
+if (typeof window !== 'undefined') {
+  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
+}
+
+function css(el, name, value) {
+  if (typeof name === 'object') {
+    for (var i in name) {
+      css(el, i, name[i]);
+    }
+    return undefined;
+  }
+  if (typeof value !== 'undefined') {
+    if (typeof value === 'number') {
+      value = value + 'px';
+    }
+    el.style[name] = value;
+    return undefined;
+  } else {
+    return getComputedStyleX(el, name);
+  }
+}
 
 function getClientPosition(elem) {
   var box, x, y;
@@ -127,11 +152,6 @@ function _getComputedStyleIE(elem, name) {
   return ret === '' ? 'auto' : ret;
 }
 
-var getComputedStyleX;
-if (typeof window !== 'undefined') {
-  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
-}
-
 // 设置 elem 相对 elem.ownerDocument 的坐标
 function setOffset(elem, offset) {
   // set position first, in-case top/left are set even on static elem
@@ -210,7 +230,7 @@ function getPBMWidth(elem, props, which) {
  */
 function isWindow(obj) {
   // must use == for ie8
-  /*jshint eqeqeq:false*/
+  /*eslint eqeqeq:0*/
   return obj != null && obj == obj.window;
 }
 
@@ -328,28 +348,11 @@ each(['width', 'height'], function (name) {
         }
         return css(elem, name, val);
       }
-      return;
+      return undefined;
     }
     return elem && getWHIgnoreDisplay(elem, name, CONTENT_INDEX);
   };
 });
-
-function css(el, name, value) {
-  if (typeof name === 'object') {
-    for (var i in name) {
-      css(el, i, name[i]);
-    }
-    return;
-  }
-  if (typeof value !== 'undefined') {
-    if (typeof value === 'number') {
-      value = value + 'px';
-    }
-    el.style[name] = value;
-  } else {
-    return getComputedStyleX(el, name);
-  }
-}
 
 function mix(to, from) {
   for (var i in from) {
@@ -359,7 +362,7 @@ function mix(to, from) {
 }
 
 var utils = module.exports = {
-  getWindow: function (node) {
+  getWindow(node) {
     if (node && node.document && node.setTimeout) {
       return node;
     }
@@ -376,9 +379,10 @@ var utils = module.exports = {
   isWindow: isWindow,
   each: each,
   css: css,
-  clone: function (obj) {
+  clone(obj) {
+    var i;
     var ret = {};
-    for (var i in obj) {
+    for (i in obj) {
       ret[i] = obj[i];
     }
     var overflow = obj.overflow;
@@ -390,13 +394,13 @@ var utils = module.exports = {
     return ret;
   },
   mix: mix,
-  getWindowScrollLeft: function (w) {
+  getWindowScrollLeft(w) {
     return getScrollLeft(w);
   },
-  getWindowScrollTop: function (w) {
+  getWindowScrollTop(w) {
     return getScrollTop(w);
   },
-  merge: function () {
+  merge() {
     var ret = {};
     for (var i = 0; i < arguments.length; i++) {
       utils.mix(ret, arguments[i]);

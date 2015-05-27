@@ -3,9 +3,44 @@
  * @author yiminghe@gmail.com
  */
 
+'use strict';
+
 var utils = require('./utils');
 
 // http://yiminghe.iteye.com/blog/1124720
+
+
+/**
+ * 获取 node 上的 align 对齐点 相对于页面的坐标
+ */
+
+function getAlignOffset(region, align) {
+  var V = align.charAt(0),
+    H = align.charAt(1),
+    w = region.width,
+    h = region.height,
+    x, y;
+
+  x = region.left;
+  y = region.top;
+
+  if (V === 'c') {
+    y += h / 2;
+  } else if (V === 'b') {
+    y += h;
+  }
+
+  if (H === 'c') {
+    x += w / 2;
+  } else if (H === 'r') {
+    x += w;
+  }
+
+  return {
+    left: x,
+    top: y
+  };
+}
 
 /**
  * 得到会导致元素显示不全的祖先元素
@@ -57,7 +92,7 @@ function getVisibleRectForElement(element) {
       top: 0,
       bottom: Infinity
     },
-    el,
+    el = element,
     scrollX,
     scrollY,
     winSize,
@@ -68,8 +103,7 @@ function getVisibleRectForElement(element) {
 
   // Determine the size of the visible rect by climbing the dom accounting for
   // all scrollable containers.
-  for (el = element;
-       (el = getOffsetParent(el));) {
+  while (el) {
     // clientWidth is zero for inline block elements in ie.
     if ((navigator.userAgent.indexOf('MSIE') === -1 || el.clientWidth !== 0) &&
         // body may have overflow set on it, yet we still get the entire
@@ -90,7 +124,10 @@ function getVisibleRectForElement(element) {
       visibleRect.bottom = Math.min(visibleRect.bottom,
         pos.top + el.clientHeight);
       visibleRect.left = Math.max(visibleRect.left, pos.left);
+    } else if (el === body || el === documentElement) {
+      break;
     }
+    el = getOffsetParent(el);
   }
 
   // Clip by window's viewport.
@@ -202,10 +239,6 @@ function flipOffset(offset, index) {
   return offset;
 }
 
-domAlign.__getOffsetParent = getOffsetParent;
-
-domAlign.__getVisibleRectForElement = getVisibleRectForElement;
-
 function getRegion(node) {
   var offset, w, h;
   if (!utils.isWindow(node) && node.nodeType !== 9) {
@@ -224,38 +257,6 @@ function getRegion(node) {
   offset.width = w;
   offset.height = h;
   return offset;
-}
-
-/**
- * 获取 node 上的 align 对齐点 相对于页面的坐标
- */
-
-function getAlignOffset(region, align) {
-  var V = align.charAt(0),
-    H = align.charAt(1),
-    w = region.width,
-    h = region.height,
-    x, y;
-
-  x = region.left;
-  y = region.top;
-
-  if (V === 'c') {
-    y += h / 2;
-  } else if (V === 'b') {
-    y += h;
-  }
-
-  if (H === 'c') {
-    x += w / 2;
-  } else if (H === 'r') {
-    x += w;
-  }
-
-  return {
-    left: x,
-    top: y
-  };
 }
 
 /*
@@ -362,6 +363,10 @@ function domAlign(el, refNode, align) {
     overflow: newOverflowCfg
   };
 }
+
+domAlign.__getOffsetParent = getOffsetParent;
+
+domAlign.__getVisibleRectForElement = getVisibleRectForElement;
 
 module.exports = domAlign;
 /**

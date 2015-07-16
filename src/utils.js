@@ -3,9 +3,6 @@
 var RE_NUM = (/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/).source;
 
 var getComputedStyleX;
-if (typeof window !== 'undefined') {
-  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
-}
 
 function css(el, name, value) {
   if (typeof name === 'object') {
@@ -152,20 +149,28 @@ function _getComputedStyleIE(elem, name) {
   return ret === '' ? 'auto' : ret;
 }
 
+if (typeof window !== 'undefined') {
+  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
+}
+
 // 设置 elem 相对 elem.ownerDocument 的坐标
 function setOffset(elem, offset) {
   // set position first, in-case top/left are set even on static elem
   if (css(elem, 'position') === 'static') {
     elem.style.position = 'relative';
   }
-
-  var old = getOffset(elem),
-    ret = {},
-    current, key;
-
+  var preset = -9999;
+  if ('left' in offset) {
+    elem.style.left = `${preset}px`;
+  }
+  if ('top' in offset) {
+    elem.style.top = `${preset}px`;
+  }
+  var old = getOffset(elem);
+  var ret = {};
+  var key;
   for (key in offset) {
-    current = parseFloat(css(elem, key)) || 0;
-    ret[key] = current + offset[key] - old[key];
+    ret[key] = preset + offset[key] - old[key];
   }
   css(elem, ret);
 }

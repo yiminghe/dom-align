@@ -67,7 +67,7 @@ var div = (<div>
         target node
       </div>
 
-      <div style={{background:'red',width:50,height:50,position:'absolute',top:-9999,left:-9999,position:'relative'}} id='source'>
+      <div style={{background:'red',width:50,height:50,position:'absolute',position:'relative'}} id='source'>
       </div>
     </div>
   </div>

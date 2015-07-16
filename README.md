@@ -43,7 +43,7 @@ port from [kissyteam/component align](https://github.com/kissyteam/component/blo
 
 ## Online Demo
 
-* http://yiminghe.github.io/dom-align/build/examples/
+* http://yiminghe.github.io/dom-align/examples/
 
 ## Usage
 
@@ -104,7 +104,7 @@ npm start
 
 ## Example
 
-http://localhost:8000/examples/index.md
+http://localhost:8000/examples/
 
 ## Test Case
 

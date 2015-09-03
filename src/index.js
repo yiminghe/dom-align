@@ -3,9 +3,7 @@
  * @author yiminghe@gmail.com
  */
 
-'use strict';
-
-var utils = require('./utils');
+import utils from './utils';
 
 // http://yiminghe.iteye.com/blog/1124720
 
@@ -15,11 +13,12 @@ var utils = require('./utils');
  */
 
 function getAlignOffset(region, align) {
-  var V = align.charAt(0),
-    H = align.charAt(1),
-    w = region.width,
-    h = region.height,
-    x, y;
+  const V = align.charAt(0);
+  const H = align.charAt(1);
+  const w = region.width;
+  const h = region.height;
+  let x;
+  let y;
 
   x = region.left;
   y = region.top;
@@ -38,7 +37,7 @@ function getAlignOffset(region, align) {
 
   return {
     left: x,
-    top: y
+    top: y,
   };
 }
 
@@ -62,11 +61,11 @@ function getOffsetParent(element) {
   //            return element.offsetParent;
   //        }
   // 统一的 offsetParent 方法
-  var doc = element.ownerDocument,
-    body = doc.body,
-    parent,
-    positionStyle = utils.css(element, 'position'),
-    skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
+  const doc = element.ownerDocument;
+  const body = doc.body;
+  let parent;
+  let positionStyle = utils.css(element, 'position');
+  const skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
 
   if (!skipStatic) {
     return element.nodeName.toLowerCase() === 'html' ? null : element.parentNode;
@@ -86,20 +85,20 @@ function getOffsetParent(element) {
  */
 
 function getVisibleRectForElement(element) {
-  var visibleRect = {
-      left: 0,
-      right: Infinity,
-      top: 0,
-      bottom: Infinity
-    },
-    el = element,
-    scrollX,
-    scrollY,
-    winSize,
-    doc = element.ownerDocument,
-    win = doc.defaultView || doc.parentWindow,
-    body = doc.body,
-    documentElement = doc.documentElement;
+  const visibleRect = {
+    left: 0,
+    right: Infinity,
+    top: 0,
+    bottom: Infinity,
+  };
+  let el = element;
+  let scrollX;
+  let scrollY;
+  let winSize;
+  const doc = element.ownerDocument;
+  const win = doc.defaultView || doc.parentWindow;
+  const body = doc.body;
+  const documentElement = doc.documentElement;
 
   // Determine the size of the visible rect by climbing the dom accounting for
   // all scrollable containers.
@@ -112,7 +111,7 @@ function getVisibleRectForElement(element) {
       (el !== body &&
       el !== documentElement &&
       utils.css(el, 'overflow') !== 'visible')) {
-      var pos = utils.offset(el);
+      const pos = utils.offset(el);
       // add border
       pos.left += el.clientLeft;
       pos.top += el.clientTop;
@@ -136,7 +135,7 @@ function getVisibleRectForElement(element) {
   visibleRect.top = Math.max(visibleRect.top, scrollY);
   winSize = {
     width: utils.viewportWidth(win),
-    height: utils.viewportHeight(win)
+    height: utils.viewportHeight(win),
   };
   visibleRect.right = Math.min(visibleRect.right, scrollX + winSize.width);
   visibleRect.bottom = Math.min(visibleRect.bottom, scrollY + winSize.height);
@@ -147,14 +146,14 @@ function getVisibleRectForElement(element) {
 }
 
 function getElFuturePos(elRegion, refNodeRegion, points, offset) {
-  var xy,
-    diff,
-    p1,
-    p2;
+  let xy;
+  let diff;
+  let p1;
+  let p2;
 
   xy = {
     left: elRegion.left,
-    top: elRegion.top
+    top: elRegion.top,
   };
 
   p1 = getAlignOffset(refNodeRegion, points[1]);
@@ -164,7 +163,7 @@ function getElFuturePos(elRegion, refNodeRegion, points, offset) {
 
   return {
     left: xy.left - diff[0] + (+offset[0]),
-    top: xy.top - diff[1] + (+offset[1])
+    top: xy.top - diff[1] + (+offset[1]),
   };
 }
 
@@ -179,11 +178,11 @@ function isFailY(elFuturePos, elRegion, visibleRect) {
 }
 
 function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
-  var pos = utils.clone(elFuturePos),
-    size = {
-      width: elRegion.width,
-      height: elRegion.height
-    };
+  const pos = utils.clone(elFuturePos);
+  const size = {
+    width: elRegion.width,
+    height: elRegion.height,
+  };
 
   if (overflow.adjustX && pos.left < visibleRect.left) {
     pos.left = visibleRect.left;
@@ -224,9 +223,9 @@ function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
 }
 
 function flip(points, reg, map) {
-  var ret = [];
-  utils.each(points, function (p) {
-    ret.push(p.replace(reg, function (m) {
+  const ret = [];
+  utils.each(points, (p) => {
+    ret.push(p.replace(reg, (m) => {
       return map[m];
     }));
   });
@@ -239,16 +238,18 @@ function flipOffset(offset, index) {
 }
 
 function getRegion(node) {
-  var offset, w, h;
+  let offset;
+  let w;
+  let h;
   if (!utils.isWindow(node) && node.nodeType !== 9) {
     offset = utils.offset(node);
     w = utils.outerWidth(node);
     h = utils.outerHeight(node);
   } else {
-    var win = utils.getWindow(node);
+    const win = utils.getWindow(node);
     offset = {
       left: utils.getWindowScrollLeft(win),
-      top: utils.getWindowScrollTop(win)
+      top: utils.getWindowScrollTop(win),
     };
     w = utils.viewportWidth(win);
     h = utils.viewportHeight(win);
@@ -271,24 +272,24 @@ function getRegion(node) {
  *    }
  */
 function domAlign(el, refNode, align) {
-  var points = align.points;
-  var offset = align.offset;
-  var overflow = align.overflow;
+  let points = align.points;
+  let offset = align.offset;
+  let overflow = align.overflow;
   offset = offset && [].concat(offset) || [0, 0];
   overflow = overflow || {};
-  var newOverflowCfg = {};
+  const newOverflowCfg = {};
 
-  var fail = 0;
+  let fail = 0;
   // 当前节点可以被放置的显示区域
-  var visibleRect = getVisibleRectForElement(el);
+  const visibleRect = getVisibleRectForElement(el);
   // 当前节点所占的区域, left/top/width/height
-  var elRegion = getRegion(el);
+  const elRegion = getRegion(el);
   // 参照节点所占的区域, left/top/width/height
-  var refNodeRegion = getRegion(refNode);
+  const refNodeRegion = getRegion(refNode);
   // 当前节点将要被放置的位置
-  var elFuturePos = getElFuturePos(elRegion, refNodeRegion, points, offset);
+  let elFuturePos = getElFuturePos(elRegion, refNodeRegion, points, offset);
   // 当前节点将要所处的区域
-  var newElRegion = utils.merge(elRegion, elFuturePos);
+  let newElRegion = utils.merge(elRegion, elFuturePos);
 
   // 如果可视区域不能完全放置当前节点时允许调整
   if (visibleRect && (overflow.adjustX || overflow.adjustY)) {
@@ -299,7 +300,7 @@ function domAlign(el, refNode, align) {
         // 对齐位置反下
         points = flip(points, /[lr]/ig, {
           l: 'r',
-          r: 'l'
+          r: 'l',
         });
         // 偏移量也反下
         offset = flipOffset(offset, 0);
@@ -313,7 +314,7 @@ function domAlign(el, refNode, align) {
         // 对齐位置反下
         points = flip(points, /[tb]/ig, {
           t: 'b',
-          b: 't'
+          b: 't',
         });
         // 偏移量也反下
         offset = flipOffset(offset, 1);
@@ -329,10 +330,10 @@ function domAlign(el, refNode, align) {
     // 检查反下后的位置是否可以放下了
     // 如果仍然放不下只有指定了可以调整当前方向才调整
     newOverflowCfg.adjustX = overflow.adjustX &&
-    isFailX(elFuturePos, elRegion, visibleRect);
+      isFailX(elFuturePos, elRegion, visibleRect);
 
     newOverflowCfg.adjustY = overflow.adjustY &&
-    isFailY(elFuturePos, elRegion, visibleRect);
+      isFailY(elFuturePos, elRegion, visibleRect);
 
     // 确实要调整，甚至可能会调整高度宽度
     if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
@@ -359,7 +360,7 @@ function domAlign(el, refNode, align) {
   return {
     points: points,
     offset: offset,
-    overflow: newOverflowCfg
+    overflow: newOverflowCfg,
   };
 }
 
@@ -367,7 +368,7 @@ domAlign.__getOffsetParent = getOffsetParent;
 
 domAlign.__getVisibleRectForElement = getVisibleRectForElement;
 
-module.exports = domAlign;
+export default domAlign;
 /**
  *  2012-04-26 yiminghe@gmail.com
  *   - 优化智能对齐算法

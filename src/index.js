@@ -259,6 +259,24 @@ function getRegion(node) {
   return offset;
 }
 
+function convertOffset(str, offsetLen) {
+  let n;
+  if (/%$/.test(str)) {
+    n = parseInt(str.substring(0, str.length - 1), 10) / 100 * offsetLen;
+  } else {
+    n = parseInt(str, 10);
+  }
+  if (isNaN(n)) {
+    n = 0;
+  }
+  return n;
+}
+
+function normalizeOffset(offset, el) {
+  offset[0] = convertOffset(offset[0], el.width);
+  offset[1] = convertOffset(offset[1], el.height);
+}
+
 /*
  * align node
  * @param {Element} node current dom node
@@ -286,6 +304,8 @@ function domAlign(el, refNode, align) {
   const elRegion = getRegion(el);
   // 参照节点所占的区域, left/top/width/height
   const refNodeRegion = getRegion(refNode);
+  // 将 offset 转换成数值，支持百分比
+  normalizeOffset(offset, elRegion);
   // 当前节点将要被放置的位置
   let elFuturePos = getElFuturePos(elRegion, refNodeRegion, points, offset);
   // 当前节点将要所处的区域

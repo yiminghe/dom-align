@@ -10,7 +10,10 @@ var domAlign = require('dom-align');
 function align() {
   domAlign(document.getElementById('source'), document.getElementById('target'), {
     points: [selectVal('source_align_tb') + selectVal('source_align_lr'), selectVal('target_align_tb') + selectVal('target_align_lr')],
-    offset: [parseInt(document.getElementById('offset1').value), parseInt(document.getElementById('offset2').value)],
+    offset: [
+      document.getElementById('offset1').value,
+      document.getElementById('offset2').value
+    ],
     overflow: {
       adjustX: document.getElementById('adjustX').checked,
       adjustY: document.getElementById('adjustY').checked

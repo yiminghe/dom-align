@@ -177,7 +177,7 @@ describe("dom-align", function () {
 
       var target = node.children().eq(0);
       //upper = node.children().eq(1),
-     var   lower = node.children().eq(2);
+      var lower = node.children().eq(2);
 
       var containerOffset = node.offset();
       var targetOffset = target.offset();
@@ -217,6 +217,13 @@ describe("dom-align", function () {
       var actual = target.offset().top;
       var expected = containerOffset.top + 30;
       expect(actual - expected).within(-5, 5);
+
+      domAlign(target[0], lower[0], {
+        points: ['bl', 'tl'],
+        offset: ['50%', '50%']
+      });
+      expect(target.offset().left - containerOffset.left).to.be(25);
+      expect(target.offset().top - containerOffset.top).to.be(55);
     });
 
     it('auto works 2', function () {

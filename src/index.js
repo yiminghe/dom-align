@@ -91,7 +91,7 @@ function getVisibleRectForElement(element) {
     top: 0,
     bottom: Infinity,
   };
-  let el = element;
+  let el = getOffsetParent(element);
   let scrollX;
   let scrollY;
   let winSize;

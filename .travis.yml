@@ -14,8 +14,6 @@ before_install:
       echo "Only docs were updated, stopping build process."
       exit
     fi
-    npm install mocha-phantomjs -g
-    phantomjs --version
 
 script:
 - |

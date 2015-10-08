@@ -239,7 +239,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>dom-align@1.0.12</h1>
+    <h1>dom-align@1.1.0</h1>
 
     <p>Align DOM Node Flexibly </p>
   </div>
@@ -249,26 +249,38 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <div class="highlight">
     <pre><code><span class="xml">var React = require('react');
 
-function selectVal(sel) {
-  sel = document.getElementById(sel);
+function $id(id) {
+  return document.getElementById(id);
+}
+
+function $val(sel) {
+  sel = $id(sel);
   return sel.value;
 }
 
 var domAlign = require('dom-align');
 
 function align() {
-  domAlign(document.getElementById('source'), document.getElementById('target'), {
-    points: [selectVal('source_align_tb') + selectVal('source_align_lr'), selectVal('target_align_tb') + selectVal('target_align_lr')],
-    offset: [parseInt(document.getElementById('offset1').value), parseInt(document.getElementById('offset2').value)],
+  domAlign($id('source'), $id('target'), {
+    points: [$val('source_align_tb') + $val('source_align_lr'), $val('target_align_tb') + $val('target_align_lr')],
+    offset: [
+      $val('offset1'),
+      $val('offset2'),
+    ],
+    targetOffset: [
+      $val('targetOffset1'),
+      $val('targetOffset2'),
+    ],
     overflow: {
-      adjustX: document.getElementById('adjustX').checked,
-      adjustY: document.getElementById('adjustY').checked
+      adjustX: $id('adjustX').checked,
+      adjustY: $id('adjustY').checked
     }
   });
 }
 
 var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>dom-align<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+
   <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
     source:
     <span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'source_align_tb'</span>&gt;</span>
@@ -282,6 +294,8 @@ var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</s
       <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">'r'</span>&gt;</span>r<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
 
+    &amp;nbsp;
+
     target:
     <span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'target_align_tb'</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">'t'</span>&gt;</span>t<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
@@ -294,35 +308,56 @@ var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</s
       <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">'r'</span>&gt;</span>r<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
 
+    &amp;nbsp;
+
     offset: [
-    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'offset1'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'2'</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'offset1'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
     ,
-    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'offset2'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'2'</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'offset2'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
     ]
 
+    &amp;nbsp;
+
+    targetOffset: [
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'targetOffset1'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
+    ,
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'targetOffset2'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
+    ]
+
+    &amp;nbsp;
+
     overflow:
+
+    &amp;nbsp;
+
     <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>adjustX:
       <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'checkbox'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'adjustX'</span>/&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+
+    &amp;nbsp;
+
     <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>adjustY:
       <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'checkbox'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'adjustY'</span>/&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+
+    &amp;nbsp;
 
     <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'align'</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{align}</span>&gt;</span>align<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">width</span>:180,<span class="hljs-variable">height</span>:180,<span class="hljs-variable">overflow</span>:'<span class="hljs-variable">auto</span>',<span class="hljs-variable">border</span>:'1<span class="hljs-variable">px</span> <span class="hljs-variable">solid</span> <span class="hljs-variable">green</span>'}}</span><span class="xml"><span class="hljs-tag">&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">background</span>:'<span class="hljs-variable">yellow</span>',<span class="hljs-variable">width</span>:100,<span class="hljs-variable">height</span>:100,<span class="hljs-variable">margin</span>:100}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">id</span>=<span class="hljs-value">'target'</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">background</span>:'<span class="hljs-variable">yellow</span>',<span class="hljs-variable">width</span>:240,<span class="hljs-variable">height</span>:240,<span class="hljs-variable">margin</span>:50}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">id</span>=<span class="hljs-value">'target'</span>&gt;</span>
         target node
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">background</span>:'<span class="hljs-variable">red</span>',<span class="hljs-variable">width</span>:50,<span class="hljs-variable">height</span>:50,<span class="hljs-variable">position</span>:'<span class="hljs-variable">absolute</span>',<span class="hljs-variable">position</span>:'<span class="hljs-variable">relative</span>'}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">id</span>=<span class="hljs-value">'source'</span>&gt;</span>
+        source node
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
 
-React.render(div, document.getElementById('__react-content'));
+React.render(div, $id('__react-content'));
 </span></code></pre>
   </div>
 </div>

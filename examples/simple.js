@@ -1,28 +1,37 @@
 var React = require('react');
 
-function selectVal(sel) {
-  sel = document.getElementById(sel);
+function $id(id) {
+  return document.getElementById(id);
+}
+
+function $val(sel) {
+  sel = $id(sel);
   return sel.value;
 }
 
 var domAlign = require('dom-align');
 
 function align() {
-  domAlign(document.getElementById('source'), document.getElementById('target'), {
-    points: [selectVal('source_align_tb') + selectVal('source_align_lr'), selectVal('target_align_tb') + selectVal('target_align_lr')],
+  domAlign($id('source'), $id('target'), {
+    points: [$val('source_align_tb') + $val('source_align_lr'), $val('target_align_tb') + $val('target_align_lr')],
     offset: [
-      document.getElementById('offset1').value,
-      document.getElementById('offset2').value
+      $val('offset1'),
+      $val('offset2'),
+    ],
+    targetOffset: [
+      $val('targetOffset1'),
+      $val('targetOffset2'),
     ],
     overflow: {
-      adjustX: document.getElementById('adjustX').checked,
-      adjustY: document.getElementById('adjustY').checked
+      adjustX: $id('adjustX').checked,
+      adjustY: $id('adjustY').checked
     }
   });
 }
 
 var div = (<div>
   <h1>dom-align</h1>
+
   <div>
     source:
     <select id='source_align_tb'>
@@ -36,6 +45,8 @@ var div = (<div>
       <option value='r'>r</option>
     </select>
 
+    &nbsp;
+
     target:
     <select id='target_align_tb'>
       <option value='t'>t</option>
@@ -48,32 +59,53 @@ var div = (<div>
       <option value='r'>r</option>
     </select>
 
+    &nbsp;
+
     offset: [
-    <input type='offset' id='offset1' defaultValue='0' size='2'/>
+    <input type='offset' id='offset1' defaultValue='0' size='3'/>
     ,
-    <input type='offset' id='offset2' defaultValue='0' size='2'/>
+    <input type='offset' id='offset2' defaultValue='0' size='3'/>
     ]
 
+    &nbsp;
+
+    targetOffset: [
+    <input type='offset' id='targetOffset1' defaultValue='0' size='3'/>
+    ,
+    <input type='offset' id='targetOffset2' defaultValue='0' size='3'/>
+    ]
+
+    &nbsp;
+
     overflow:
+
+    &nbsp;
+
     <label>adjustX:
       <input type='checkbox' id='adjustX'/>
     </label>
+
+    &nbsp;
+
     <label>adjustY:
       <input type='checkbox' id='adjustY'/>
     </label>
+
+    &nbsp;
 
     <button id='align' onClick={align}>align</button>
     <br/>
 
     <div style={{width:180,height:180,overflow:'auto',border:'1px solid green'}}>
-      <div style={{background:'yellow',width:100,height:100,margin:100}} id='target'>
+      <div style={{background:'yellow',width:240,height:240,margin:50}} id='target'>
         target node
       </div>
 
       <div style={{background:'red',width:50,height:50,position:'absolute',position:'relative'}} id='source'>
+        source node
       </div>
     </div>
   </div>
 </div>);
 
-React.render(div, document.getElementById('__react-content'));
+React.render(div, $id('__react-content'));

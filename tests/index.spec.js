@@ -24,16 +24,16 @@ describe("dom-align", function () {
     test[1] = "<div><div style='position: relative;'></div></div>";
 
     test[2] = "<div>" +
-    "<div>" +
-    "<div style='position: absolute;'></div>" +
-    "</div>" +
-    "</div>";
+      "<div>" +
+      "<div style='position: absolute;'></div>" +
+      "</div>" +
+      "</div>";
 
     test[3] = "<div style='position: relative;'>" +
-    "<div>" +
-    "<div style='position: absolute;'></div>" +
-    "</div>" +
-    "</div>";
+      "<div>" +
+      "<div style='position: absolute;'></div>" +
+      "</div>" +
+      "</div>";
 
     var dom = [];
 
@@ -62,20 +62,20 @@ describe("dom-align", function () {
     test[0] = "<div><div></div></div>";
 
     test[1] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
-    "<div style='position: relative;'></div></div>";
+      "<div style='position: relative;'></div></div>";
 
     test[2] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
-    "<div>" +
-    "<div style='position: absolute;'></div>" +
-    "</div>" +
-    "</div>";
+      "<div>" +
+      "<div style='position: absolute;'></div>" +
+      "</div>" +
+      "</div>";
 
     test[3] = "<div style='position: relative;width: 100px;" +
-    "height: 100px;overflow: hidden;'>" +
-    "<div>" +
-    "<div style='position: absolute;'></div>" +
-    "</div>" +
-    "</div>";
+      "height: 100px;overflow: hidden;'>" +
+      "<div>" +
+      "<div style='position: absolute;'></div>" +
+      "</div>" +
+      "</div>";
 
     var dom = [];
 
@@ -165,15 +165,15 @@ describe("dom-align", function () {
       var node;
 
       node = $("<div style='position: absolute;left:0;top:0;" +
-      "width: 100px;height: 100px;" +
-      "overflow: hidden'>" +
-      "<div style='position: absolute;" +
-      "width: 50px;" +
-      "height: 50px;'>" +
-      "</div>" +
-      "<div style='position: absolute;left:0;top:20px;'></div>" +
-      "<div style='position: absolute;left:0;top:80px;'></div>" +
-      "</div>").appendTo('body');
+        "width: 100px;height: 100px;" +
+        "overflow: hidden'>" +
+        "<div style='position: absolute;" +
+        "width: 50px;" +
+        "height: 50px;'>" +
+        "</div>" +
+        "<div style='position: absolute;left:0;top:20px;'></div>" +
+        "<div style='position: absolute;left:0;top:80px;'></div>" +
+        "</div>").appendTo('body');
 
       var target = node.children().eq(0);
       //upper = node.children().eq(1),
@@ -226,17 +226,17 @@ describe("dom-align", function () {
       expect(target.offset().top - containerOffset.top).to.be(55);
     });
 
-    it('auto works 2', function () {
+    it('should auto adjust if current position is not right', function () {
       var node = $("<div style='position: absolute;left:100px;top:100px;" +
-      "width: 100px;height: 100px;" +
-      "overflow: hidden'>" +
-      "<div style='position: absolute;" +
-      "width: 50px;" +
-      "height: 90px;'>" +
-      "</div>" +
-      "<div style='position: absolute;left:0;top:20px;'></div>" +
-      "<div style='position: absolute;left:0;top:80px;'></div>" +
-      "</div>").appendTo('body');
+        "width: 100px;height: 100px;" +
+        "overflow: hidden'>" +
+        "<div style='position: absolute;" +
+        "width: 50px;" +
+        "height: 90px;'>" +
+        "</div>" +
+        "<div style='position: absolute;left:0;top:20px;'></div>" +
+        "<div style='position: absolute;left:0;top:80px;'></div>" +
+        "</div>").appendTo('body');
 
       var target = node.children().eq(0),
       //upper = node.children().eq(1),
@@ -275,6 +275,30 @@ describe("dom-align", function () {
       expect(target.offset().left - containerOffset.left).within(-5, 5);
 
       expect(target.offset().top - containerOffset.top).within(-5, 5);
+    });
+  });
+
+  it('offset and percentage offset support percentage', function () {
+    var node = $('<div>' +
+      '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
+      '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
+      '</div>').appendTo(document.body);
+    var target = node[0].firstChild;
+    var source = target.nextSibling;
+
+    domAlign(source, target, {
+      points: ['tl', 'tl'],
+      overflow: {
+        adjustX: 0,
+        adjustY: 0
+      },
+      offset: ['-50%', '-50%'],
+      targetOffset: ['-50%', '-50%'],
+    });
+
+    expect($(source).offset()).to.eql({
+      top:20,
+      left: 25,
     });
   });
 });

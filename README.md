@@ -2,7 +2,6 @@
 ---
 
 align source html element with target html element flexibly.
-port from [kissyteam/component align](https://github.com/kissyteam/component/blob/master/lib/component/extension/align.js)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -52,8 +51,9 @@ var domAlign = require('dom-align');
 // use domAlign
 // sourceNode's initial style should be position:absolute;left:-9999px;top:-9999px;
 domAlign(sourceNode, targetNode, {
-  points: ['tl', 'tr'] // align top left point of sourceNode with top right point of targetNode
-  offset: [10, 20] // the offset sourceNode by 10px in x and 20px in y
+  points: ['tl', 'tr'], // align top left point of sourceNode with top right point of targetNode
+  offset: [10, 20], // the offset sourceNode by 10px in x and 20px in y,
+  targetOffset: [30%,40%], // the offset targetNode by 30% of targetNode width in x and 40% of targetNode height in y,
 });
 ```
 
@@ -83,7 +83,14 @@ domAlign(sourceNode, targetNode, {
       <tr>
           <td>offset</td>
           <td>Number[2]</td>
-          <td>offset source node by offset[0] in x and offset[1] in y</td>
+          <td>offset source node by offset[0] in x and offset[1] in y. 
+          If offset contains percentage string value, it is relative to sourceNode region.</td>
+      </tr>
+      <tr>
+          <td>targetOffset</td>
+          <td>Number[2]</td>
+          <td>offset target node by offset[0] in x and offset[1] in y. 
+          If targetOffset contains percentage string value, it is relative to targetNode region.</td>
       </tr>
       <tr>
           <td>overflow</td>

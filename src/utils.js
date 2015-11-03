@@ -100,9 +100,10 @@ function _getComputedStyle(elem, name, cs) {
   let computedStyle = cs;
   let val = '';
   const d = elem.ownerDocument;
+  computedStyle = (computedStyle || d.defaultView.getComputedStyle(elem, null));
 
   // https://github.com/kissyteam/kissy/issues/61
-  if ((computedStyle = (computedStyle || d.defaultView.getComputedStyle(elem, null)))) {
+  if (computedStyle) {
     val = computedStyle.getPropertyValue(name) || computedStyle[name];
   }
 
@@ -156,25 +157,66 @@ if (typeof window !== 'undefined') {
   getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
 }
 
+function getOffsetDirection(dir, option) {
+  if (dir === 'left') {
+    return option.useCssRight ? 'right' : dir;
+  }
+  return option.useCssBottom ? 'bottom' : dir;
+}
+
+function oppositeOffsetDirection(dir) {
+  if (dir === 'left') {
+    return 'right';
+  } else if (dir === 'right') {
+    return 'left';
+  } else if (dir === 'top') {
+    return 'bottom';
+  } else if (dir === 'bottom') {
+    return 'top';
+  }
+}
+
 // 设置 elem 相对 elem.ownerDocument 的坐标
-function setOffset(elem, offset) {
+function setOffset(elem, offset, option) {
   // set position first, in-case top/left are set even on static elem
   if (css(elem, 'position') === 'static') {
     elem.style.position = 'relative';
   }
-  const preset = -9999;
+  let presetH = -9999;
+  let presetV = -9999;
+  const horizontalProperty = getOffsetDirection('left', option);
+  const verticalProperty = getOffsetDirection('top', option);
+  const oppositeHorizontalProperty = oppositeOffsetDirection(horizontalProperty);
+  const oppositeVerticalProperty = oppositeOffsetDirection(verticalProperty);
+
+  if (horizontalProperty !== 'left') {
+    presetH = 9999;
+  }
+
+  if (verticalProperty !== 'top') {
+    presetV = 9999;
+  }
+
   if ('left' in offset) {
-    elem.style.left = `${preset}px`;
+    elem.style[oppositeHorizontalProperty] = '';
+    elem.style[horizontalProperty] = `${presetH}px`;
   }
   if ('top' in offset) {
-    elem.style.top = `${preset}px`;
+    elem.style[oppositeVerticalProperty] = '';
+    elem.style[verticalProperty] = `${presetV}px`;
   }
   const old = getOffset(elem);
   const ret = {};
   let key;
   for (key in offset) {
     if (offset.hasOwnProperty(key)) {
-      ret[key] = preset + offset[key] - old[key];
+      const dir = getOffsetDirection(key, option);
+      const preset = key === 'left' ? presetH : presetV;
+      if (dir === key) {
+        ret[dir] = preset + offset[key] - old[key];
+      } else {
+        ret[dir] = preset + old[key] - offset[key];
+      }
     }
   }
   css(elem, ret);
@@ -391,9 +433,9 @@ const utils = {
     const doc = node.ownerDocument || node;
     return doc.defaultView || doc.parentWindow;
   },
-  offset(el, value) {
+  offset(el, value, option) {
     if (typeof value !== 'undefined') {
-      setOffset(el, value);
+      setOffset(el, value, option || {});
     } else {
       return getOffset(el);
     }

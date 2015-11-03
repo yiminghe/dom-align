@@ -1,6 +1,6 @@
 {
   "name": "dom-align",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
@@ -37,12 +37,12 @@
   "devDependencies": {
     "expect.js": "^0.3.1",
     "jquery": "^1.11.2",
-    "precommit-hook": "^1.0.7",
+    "pre-commit": "1.x",
     "rc-server": "3.x",
     "rc-tools": "4.x",
     "react": "^0.13.0"
   },
-  "precommit": [
+  "pre-commit": [
     "lint"
   ]
 }

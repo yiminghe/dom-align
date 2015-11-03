@@ -16,148 +16,207 @@ describe("dom-align", function () {
     return true;
   }
 
-  it("unified getOffsetParent method", function () {
-    var getOffsetParent = domAlign.__getOffsetParent;
-    var test = [];
-    test[0] = "<div><div></div></div>";
+  describe('basic', function () {
+    it("unified getOffsetParent method", function () {
+      var getOffsetParent = domAlign.__getOffsetParent;
+      var test = [];
+      test[0] = "<div><div></div></div>";
 
-    test[1] = "<div><div style='position: relative;'></div></div>";
+      test[1] = "<div><div style='position: relative;'></div></div>";
 
-    test[2] = "<div>" +
-      "<div>" +
-      "<div style='position: absolute;'></div>" +
-      "</div>" +
-      "</div>";
+      test[2] = "<div>" +
+        "<div>" +
+        "<div style='position: absolute;'></div>" +
+        "</div>" +
+        "</div>";
 
-    test[3] = "<div style='position: relative;'>" +
-      "<div>" +
-      "<div style='position: absolute;'></div>" +
-      "</div>" +
-      "</div>";
+      test[3] = "<div style='position: relative;'>" +
+        "<div>" +
+        "<div style='position: absolute;'></div>" +
+        "</div>" +
+        "</div>";
 
-    var dom = [];
+      var dom = [];
 
-    for (var i = 0; i < 4; i++) {
-      dom[i] = $(test[i])[0];
-      document.body.appendChild(dom[i]);
-    }
+      for (var i = 0; i < 4; i++) {
+        dom[i] = $(test[i])[0];
+        document.body.appendChild(dom[i]);
+      }
 
-    expect(getOffsetParent(dom[0].firstChild)).to.be(dom[0]);
-    expect(getOffsetParent(dom[1].firstChild)).to.be(dom[1]);
-    expect(getOffsetParent(dom[2].firstChild.firstChild)).to.be(null);
-    expect(getOffsetParent(dom[3].firstChild.firstChild)).to.be(dom[3]);
+      expect(getOffsetParent(dom[0].firstChild)).to.be(dom[0]);
+      expect(getOffsetParent(dom[1].firstChild)).to.be(dom[1]);
+      expect(getOffsetParent(dom[2].firstChild.firstChild)).to.be(null);
+      expect(getOffsetParent(dom[3].firstChild.firstChild)).to.be(dom[3]);
 
-    for (i = 0; i < 4; i++) {
-      $(dom[i]).remove();
-    }
+      for (i = 0; i < 4; i++) {
+        $(dom[i]).remove();
+      }
+    });
+
+    it("getVisibleRectForElement works", function (done) {
+      var gap = $("<div style='height: 1500px;width: 100000px;'></div>")[0];
+      document.body.appendChild(gap);
+
+      var getVisibleRectForElement = domAlign.__getVisibleRectForElement,
+        test = [];
+
+      test[0] = "<div><div></div></div>";
+
+      test[1] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
+        "<div style='position: relative;'></div></div>";
+
+      test[2] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
+        "<div>" +
+        "<div style='position: absolute;'></div>" +
+        "</div>" +
+        "</div>";
+
+      test[3] = "<div style='position: relative;width: 100px;" +
+        "height: 100px;overflow: hidden;'>" +
+        "<div>" +
+        "<div style='position: absolute;'></div>" +
+        "</div>" +
+        "</div>";
+
+      var dom = [];
+
+      for (var i = 3; i >= 0; i--) {
+        dom[i] = $(test[i])[0];
+        document.body.appendChild(dom[i]);
+      }
+
+      // 1
+      window.scrollTo(10, 10);
+
+      var right = 10 + $(window).width(),
+        rect,
+        bottom = 10 + $(window).height();
+
+      rect = getVisibleRectForElement(dom[0].firstChild);
+
+      expect(rect.left - 10).within(-10, 10);
+      expect(rect.top - 10).within(-10, 10);
+      expect(rect.right - right).within(-10, 10);
+      expect(rect.bottom - bottom).within(-10, 10);
+
+      window.scrollTo(200, 200);
+      rect = getVisibleRectForElement(dom[0].firstChild);
+
+      expect(rect.left).to.eql(200);
+      expect(rect.bottom).to.eql(200 + $(window).height());
+      expect(rect.top).to.eql(200);
+      expect(rect.right).to.eql(200 + $(window).width());
+
+      $(dom[0]).remove();
+
+      // 2
+      window.scrollTo(10, 10);
+      rect = getVisibleRectForElement(dom[1].firstChild);
+      expect(toBeEqualRect(rect, {
+        left: 10,
+        top: 10,
+        right: 100,
+        bottom: 100
+      })).to.be.ok();
+
+      window.scrollTo(200, 200);
+      rect = getVisibleRectForElement(dom[1].firstChild);
+      expect(rect).to.be(null);
+      $(dom[1]).remove();
+
+      // 3
+      window.scrollTo(10, 10);
+      rect = getVisibleRectForElement(dom[2].firstChild);
+      expect(toBeEqualRect(rect, {
+        left: 10,
+        top: 10,
+        right: 100,
+        bottom: 100
+      })).to.be.ok();
+
+      window.scrollTo(200, 200);
+      rect = getVisibleRectForElement(dom[2].firstChild);
+      expect(rect).to.be(null);
+      $(dom[2]).remove();
+
+      // 4
+      window.scrollTo(10, 10);
+      rect = getVisibleRectForElement(dom[3].firstChild);
+      expect(toBeEqualRect(rect, {
+        left: 10,
+        top: 10,
+        right: 100,
+        bottom: 100
+      })).to.be.ok();
+
+      window.scrollTo(200, 200);
+      rect = getVisibleRectForElement(dom[3].firstChild);
+      expect(rect).to.be(null);
+      $(dom[3]).remove();
+      $(gap).remove();
+
+      setTimeout(function () {
+        window.scrollTo(0, 0);
+        done();
+      }, 200);
+    });
+
+    it('offset and percentage offset support percentage', function () {
+      var node = $('<div>' +
+        '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
+        '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
+        '</div>').appendTo(document.body);
+      var target = node[0].firstChild;
+      var source = target.nextSibling;
+
+      domAlign(source, target, {
+        points: ['tl', 'tl'],
+        overflow: {
+          adjustX: 0,
+          adjustY: 0
+        },
+        offset: ['-50%', '-50%'],
+        targetOffset: ['-50%', '-50%'],
+      });
+
+      expect($(source).offset()).to.eql({
+        top: 20,
+        left: 25,
+      });
+    });
   });
 
-  it("getVisibleRectForElement works", function (done) {
-    var gap = $("<div style='height: 1500px;width: 100000px;'></div>")[0];
-    document.body.appendChild(gap);
+  describe('useCssRight and useCssBottom', function () {
+    it('works', function () {
+      var node = $('<div>' +
+        '<div style="width:100px;height:100px;position: absolute;left:0;top:0;"></div>' +
+        '<div style="width:50px;height:60px;position: absolute;"></div>' +
+        '</div>').appendTo(document.body);
+      var target = node[0].firstChild;
+      var source = target.nextSibling;
 
-    var getVisibleRectForElement = domAlign.__getVisibleRectForElement,
-      test = [];
+      domAlign(source, target, {
+        points: ['tl', 'tl'],
+        overflow: {
+          adjustX: 0,
+          adjustY: 0
+        },
+        useCssRight: 1,
+        useCssBottom: 1,
+        offset: ['-50%', '-50%'],
+        targetOffset: ['-50%', '-50%'],
+      });
 
-    test[0] = "<div><div></div></div>";
+      expect($(source).css('left')).to.be('auto');
+      expect($(source).css('top')).to.be('auto');
+      expect($(source).css('right')).not.to.be('auto');
+      expect($(source).css('bottom')).not.to.be('auto');
 
-    test[1] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
-      "<div style='position: relative;'></div></div>";
-
-    test[2] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
-      "<div>" +
-      "<div style='position: absolute;'></div>" +
-      "</div>" +
-      "</div>";
-
-    test[3] = "<div style='position: relative;width: 100px;" +
-      "height: 100px;overflow: hidden;'>" +
-      "<div>" +
-      "<div style='position: absolute;'></div>" +
-      "</div>" +
-      "</div>";
-
-    var dom = [];
-
-    for (var i = 3; i >= 0; i--) {
-      dom[i] = $(test[i])[0];
-      document.body.appendChild(dom[i]);
-    }
-
-    // 1
-    window.scrollTo(10, 10);
-
-    var right = 10 + $(window).width(),
-      rect,
-      bottom = 10 + $(window).height();
-
-    rect = getVisibleRectForElement(dom[0].firstChild);
-
-    expect(rect.left - 10).within(-10, 10);
-    expect(rect.top - 10).within(-10, 10);
-    expect(rect.right - right).within(-10, 10);
-    expect(rect.bottom - bottom).within(-10, 10);
-
-    window.scrollTo(200, 200);
-    rect = getVisibleRectForElement(dom[0].firstChild);
-
-    expect(rect.left).to.eql(200);
-    expect(rect.bottom).to.eql(200 + $(window).height());
-    expect(rect.top).to.eql(200);
-    expect(rect.right).to.eql(200 + $(window).width());
-
-    $(dom[0]).remove();
-
-    // 2
-    window.scrollTo(10, 10);
-    rect = getVisibleRectForElement(dom[1].firstChild);
-    expect(toBeEqualRect(rect, {
-      left: 10,
-      top: 10,
-      right: 100,
-      bottom: 100
-    })).to.be.ok();
-
-    window.scrollTo(200, 200);
-    rect = getVisibleRectForElement(dom[1].firstChild);
-    expect(rect).to.be(null);
-    $(dom[1]).remove();
-
-    // 3
-    window.scrollTo(10, 10);
-    rect = getVisibleRectForElement(dom[2].firstChild);
-    expect(toBeEqualRect(rect, {
-      left: 10,
-      top: 10,
-      right: 100,
-      bottom: 100
-    })).to.be.ok();
-
-    window.scrollTo(200, 200);
-    rect = getVisibleRectForElement(dom[2].firstChild);
-    expect(rect).to.be(null);
-    $(dom[2]).remove();
-
-    // 4
-    window.scrollTo(10, 10);
-    rect = getVisibleRectForElement(dom[3].firstChild);
-    expect(toBeEqualRect(rect, {
-      left: 10,
-      top: 10,
-      right: 100,
-      bottom: 100
-    })).to.be.ok();
-
-    window.scrollTo(200, 200);
-    rect = getVisibleRectForElement(dom[3].firstChild);
-    expect(rect).to.be(null);
-    $(dom[3]).remove();
-    $(gap).remove();
-
-    setTimeout(function () {
-      window.scrollTo(0, 0);
-      done();
-    }, 200);
+      expect($(source).offset()).to.eql({
+        top: 20,
+        left: 25,
+      });
+    });
   });
 
   describe("auto align", function () {
@@ -275,30 +334,6 @@ describe("dom-align", function () {
       expect(target.offset().left - containerOffset.left).within(-5, 5);
 
       expect(target.offset().top - containerOffset.top).within(-5, 5);
-    });
-  });
-
-  it('offset and percentage offset support percentage', function () {
-    var node = $('<div>' +
-      '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
-      '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
-      '</div>').appendTo(document.body);
-    var target = node[0].firstChild;
-    var source = target.nextSibling;
-
-    domAlign(source, target, {
-      points: ['tl', 'tl'],
-      overflow: {
-        adjustX: 0,
-        adjustY: 0
-      },
-      offset: ['-50%', '-50%'],
-      targetOffset: ['-50%', '-50%'],
-    });
-
-    expect($(source).offset()).to.eql({
-      top:20,
-      left: 25,
     });
   });
 });

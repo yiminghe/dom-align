@@ -142,15 +142,6 @@ function domAlign(el, refNode, align) {
     }
   }
 
-  // https://github.com/kissyteam/kissy/issues/190
-  // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
-  // 相对于屏幕位置没变，而 left/top 变了
-  // 例如 <div 'relative'><el absolute></div>
-  utils.offset(el, {
-    left: newElRegion.left,
-    top: newElRegion.top,
-  });
-
   // need judge to in case set fixed with in css on height auto element
   if (newElRegion.width !== elRegion.width) {
     utils.css(el, 'width', el.width() + newElRegion.width - elRegion.width);
@@ -159,6 +150,18 @@ function domAlign(el, refNode, align) {
   if (newElRegion.height !== elRegion.height) {
     utils.css(el, 'height', el.height() + newElRegion.height - elRegion.height);
   }
+
+  // https://github.com/kissyteam/kissy/issues/190
+  // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
+  // 相对于屏幕位置没变，而 left/top 变了
+  // 例如 <div 'relative'><el absolute></div>
+  utils.offset(el, {
+    left: newElRegion.left,
+    top: newElRegion.top,
+  }, {
+    useCssRight: align.useCssRight,
+    useCssBottom: align.useCssBottom,
+  });
 
   return {
     points: points,

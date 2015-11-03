@@ -25,7 +25,9 @@ function align() {
     overflow: {
       adjustX: $id('adjustX').checked,
       adjustY: $id('adjustY').checked
-    }
+    },
+    useCssRight:$id('useCssRight').checked,
+    useCssBottom:$id('useCssBottom').checked,
   });
 }
 
@@ -93,6 +95,18 @@ var div = (<div>
 
     &nbsp;
 
+    <label>useCssBottom:
+      <input type='checkbox' id='useCssBottom'/>
+    </label>
+
+    &nbsp;
+
+    <label>useCssRight:
+      <input type='checkbox' id='useCssRight'/>
+    </label>
+
+    &nbsp;
+
     <button id='align' onClick={align}>align</button>
     <br/>
 
@@ -101,7 +115,7 @@ var div = (<div>
         target node
       </div>
 
-      <div style={{background:'red',width:50,height:50,position:'absolute',position:'relative'}} id='source'>
+      <div style={{background:'red',width:50,height:50,position:'absolute'}} id='source'>
         source node
       </div>
     </div>

@@ -99,6 +99,16 @@ domAlign(sourceNode, targetNode, {
           if adjustY field is true, then will adjust source node in y direction if source node is invisible.
           </td>
       </tr>
+      <tr>
+          <td>useCssRight</td>
+          <td>Boolean</td>
+          <td>whether use css right instead of left to position</td>
+      </tr>
+      <tr>
+          <td>useCssBottom</td>
+          <td>Boolean</td>
+          <td>whether use css bottom instead of top to position</td>
+      </tr>
     </tbody>
 </table>
 

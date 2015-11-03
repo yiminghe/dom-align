@@ -182,19 +182,19 @@ function setOffset(elem, offset, option) {
   if (css(elem, 'position') === 'static') {
     elem.style.position = 'relative';
   }
-  let presetH = -9999;
-  let presetV = -9999;
+  let presetH = -999;
+  let presetV = -999;
   const horizontalProperty = getOffsetDirection('left', option);
   const verticalProperty = getOffsetDirection('top', option);
   const oppositeHorizontalProperty = oppositeOffsetDirection(horizontalProperty);
   const oppositeVerticalProperty = oppositeOffsetDirection(verticalProperty);
 
   if (horizontalProperty !== 'left') {
-    presetH = 9999;
+    presetH = 999;
   }
 
   if (verticalProperty !== 'top') {
-    presetV = 9999;
+    presetV = 999;
   }
 
   if ('left' in offset) {

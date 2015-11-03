@@ -121,15 +121,15 @@ npm start
 
 ## Example
 
-http://localhost:8000/examples/
+http://localhost:8020/examples/
 
 ## Test Case
 
-http://localhost:8000/tests/runner.html?coverage
+http://localhost:8020/tests/runner.html?coverage
 
 ## Coverage
 
-http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/tests/runner.html?coverage
+http://localhost:8020/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8020/tests/runner.html?coverage
 
 ## License
 

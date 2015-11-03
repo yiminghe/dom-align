@@ -1,6 +1,6 @@
 {
   "name": "dom-align",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
@@ -21,7 +21,7 @@
   },
   "licenses": "MIT",
   "config": {
-    "port": 8000
+    "port": 8020
   },
   "scripts": {
     "build": "rc-tools run build",

@@ -20979,19 +20979,19 @@ webpackJsonp([0,1],[
 	  if (css(elem, 'position') === 'static') {
 	    elem.style.position = 'relative';
 	  }
-	  var presetH = -9999;
-	  var presetV = -9999;
+	  var presetH = -999;
+	  var presetV = -999;
 	  var horizontalProperty = getOffsetDirection('left', option);
 	  var verticalProperty = getOffsetDirection('top', option);
 	  var oppositeHorizontalProperty = oppositeOffsetDirection(horizontalProperty);
 	  var oppositeVerticalProperty = oppositeOffsetDirection(verticalProperty);
 	
 	  if (horizontalProperty !== 'left') {
-	    presetH = 9999;
+	    presetH = 999;
 	  }
 	
 	  if (verticalProperty !== 'top') {
-	    presetV = 9999;
+	    presetV = 999;
 	  }
 	
 	  if ('left' in offset) {

@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>dom-align@1.1.0 - Align DOM Node Flexibly </title>
+  <title>dom-align@1.2.0 - Align DOM Node Flexibly </title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>dom-align@1.1.0</h1>
+  <h1>dom-align@1.2.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -772,13 +772,13 @@
 <h2>Online Demo<a id="user-content-online-demo" name="online-demo" class="anchor" aria-hidden="true" href="#online-demo"><span class="octicon octicon-link"></span></a></h2><ul>
 <li><a href="http://yiminghe.github.io/dom-align/examples/" title="null">http://yiminghe.github.io/dom-align/examples/</a></li>
 </ul>
-<h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre class="hljs"><code class="js"><span class="hljs-keyword">var</span> domAlign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dom-align'</span>);
+<h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> domAlign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dom-align'</span>);
 <span class="hljs-comment">// use domAlign</span>
 <span class="hljs-comment">// sourceNode's initial style should be position:absolute;left:-9999px;top:-9999px;</span>
 domAlign(sourceNode, targetNode, {
   points: [<span class="hljs-string">'tl'</span>, <span class="hljs-string">'tr'</span>], <span class="hljs-comment">// align top left point of sourceNode with top right point of targetNode</span>
   offset: [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>], <span class="hljs-comment">// the offset sourceNode by 10px in x and 20px in y,</span>
-  targetOffset: [<span class="hljs-number">30</span>%,<span class="hljs-number">40</span>%], <span class="hljs-comment">// the offset targetNode by 30% of targetNode width in x and 40% of targetNode height in y,</span>
+  targetOffset: [<span class="hljs-string">'30%'</span>,<span class="hljs-string">'40%'</span>], <span class="hljs-comment">// the offset targetNode by 30% of targetNode width in x and 40% of targetNode height in y,</span>
 });</code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>void domAlign(source: HTMLElement, target: HTMLElement, alignConfig: Object):Function<a id="user-content-void-domalign(source:-htmlelement,-target:-htmlelement,-alignconfig:-object):function" name="void-domalign(source:-htmlelement,-target:-htmlelement,-alignconfig:-object):function" class="anchor" aria-hidden="true" href="#void-domalign(source:-htmlelement,-target:-htmlelement,-alignconfig:-object):function"><span class="octicon octicon-link"></span></a></h3><h4>alignConfig object details<a id="user-content-alignconfig-object-details" name="alignconfig-object-details" class="anchor" aria-hidden="true" href="#alignconfig-object-details"><span class="octicon octicon-link"></span></a></h4><table class="table table-bordered table-striped">
     <thead>
     <tr>
@@ -815,11 +815,21 @@ domAlign(sourceNode, targetNode, {
           if adjustY field is true, then will adjust source node in y direction if source node is invisible.
           </td>
       </tr>
+      <tr>
+          <td>useCssRight</td>
+          <td>Boolean</td>
+          <td>whether use css right instead of left to position</td>
+      </tr>
+      <tr>
+          <td>useCssBottom</td>
+          <td>Boolean</td>
+          <td>whether use css bottom instead of top to position</td>
+      </tr>
     </tbody>
 </table>
 
-<h2>Development<a id="user-content-development" name="development" class="anchor" aria-hidden="true" href="#development"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre class="hljs"><code class="undefined"><span class="hljs-built_in">npm</span> install
-<span class="hljs-built_in">npm</span> start</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8000/examples/" title="null">http://localhost:8000/examples/</a></p>
+<h2>Development<a id="user-content-development" name="development" class="anchor" aria-hidden="true" href="#development"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm install
+npm start</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8000/examples/" title="null">http://localhost:8000/examples/</a></p>
 <h2>Test Case<a id="user-content-test-case" name="test-case" class="anchor" aria-hidden="true" href="#test-case"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8000/tests/runner.html?coverage" title="null">http://localhost:8000/tests/runner.html?coverage</a></p>
 <h2>Coverage<a id="user-content-coverage" name="coverage" class="anchor" aria-hidden="true" href="#coverage"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/tests/runner.html?coverage" title="null">http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/tests/runner.html?coverage</a></p>
 <h2>License<a id="user-content-license" name="license" class="anchor" aria-hidden="true" href="#license"><span class="octicon octicon-link"></span></a></h2><p>dom-align is released under the MIT license.</p>

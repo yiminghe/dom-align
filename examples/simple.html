@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <title>simple.js - example - dom-align@1.2.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -42,153 +43,170 @@
       hyphens: none;
       color: #E5E5C2;
     }
+  </style>
+  <style>
+/*
 
-    /*
 Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
+
 */
 
-    .hljs {
-      display: block;
-      overflow-x: auto;
-      padding: 0.5em;
-      background: #23241f;
-      -webkit-text-size-adjust: none;
-    }
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #23241f;
+  -webkit-text-size-adjust: none;
+}
 
-    .hljs,
-    .hljs-tag,
-    .css .hljs-rules,
-    .css .hljs-value,
-    .css .hljs-function
-    .hljs-preprocessor,
-    .hljs-pragma {
-      color: #f8f8f2;
-    }
+.hljs,
+.hljs-tag,
+.css .hljs-rule,
+.css .hljs-value,
+.aspectj .hljs-function,
+.css .hljs-function
+.hljs-preprocessor,
+.hljs-pragma {
+  color: #f8f8f2;
+}
 
-    .hljs-strongemphasis,
-    .hljs-strong,
-    .hljs-emphasis {
-      color: #a8a8a2;
-    }
+.hljs-strongemphasis,
+.hljs-strong,
+.hljs-emphasis {
+  color: #a8a8a2;
+}
 
-    .hljs-bullet,
-    .hljs-blockquote,
-    .hljs-horizontal_rule,
-    .hljs-number,
-    .hljs-regexp,
-    .alias .hljs-keyword,
-    .hljs-literal,
-    .hljs-hexcolor {
-      color: #ae81ff;
-    }
+.hljs-bullet,
+.hljs-blockquote,
+.hljs-horizontal_rule,
+.hljs-number,
+.hljs-regexp,
+.alias .hljs-keyword,
+.hljs-literal,
+.hljs-hexcolor {
+  color: #ae81ff;
+}
 
-    .hljs-tag .hljs-value,
-    .hljs-code,
-    .hljs-title,
-    .css .hljs-class,
-    .hljs-class .hljs-title:last-child {
-      color: #a6e22e;
-    }
+.hljs-code,
+.hljs-title,
+.css .hljs-class,
+.hljs-class .hljs-title:last-child {
+  color: #a6e22e;
+  /*color: #e6db74;*/
+}
 
-    .hljs-link_url {
-      font-size: 80%;
-    }
+.hljs-link_url {
+  font-size: 80%;
+}
 
-    .hljs-strong,
-    .hljs-strongemphasis {
-      font-weight: bold;
-    }
+.hljs-strong,
+.hljs-strongemphasis {
+  font-weight: bold;
+}
 
-    .hljs-emphasis,
-    .hljs-strongemphasis,
-    .hljs-class .hljs-title:last-child {
-      font-style: italic;
-    }
+.hljs-emphasis,
+.hljs-strongemphasis,
+.hljs-class .hljs-title:last-child,
+.hljs-typename {
+  font-style: italic;
+}
 
-    .hljs-keyword,
-    .hljs-function,
-    .hljs-change,
-    .hljs-winutils,
-    .hljs-flow,
-    .nginx .hljs-title,
-    .tex .hljs-special,
-    .hljs-header,
-    .hljs-attribute,
-    .hljs-symbol,
-    .hljs-symbol .hljs-string,
-    .hljs-tag .hljs-title,
-    .hljs-value,
-    .alias .hljs-keyword:first-child,
-    .css .hljs-tag,
-    .css .unit,
-    .css .hljs-important {
-      color: #f92672;
-    }
+.hljs-keyword,
+.ruby .hljs-class .hljs-keyword:first-child,
+.ruby .hljs-function .hljs-keyword,
+.hljs-function,
+.hljs-change,
+.hljs-winutils,
+.hljs-flow,
+.nginx .hljs-title,
+.tex .hljs-special,
+.hljs-header,
+.hljs-symbol,
+.hljs-symbol .hljs-string,
+.hljs-tag .hljs-title,
+.hljs-value,
+.alias .hljs-keyword:first-child,
+.css .hljs-tag,
+.css .unit,
+.css .hljs-important {
+  color: #f92672;
+}
 
-    .hljs-function .hljs-keyword,
-    .hljs-class .hljs-keyword:first-child,
-    .hljs-constant,
-    .css .hljs-attribute {
-      color: #66d9ef;
-    }
+.hljs-function .hljs-keyword,
+.hljs-class .hljs-keyword:first-child,
+.hljs-aspect .hljs-keyword:first-child,
+.hljs-constant,
+.hljs-typename,
+.hljs-name,
+.css .hljs-attribute {
+  color: #66d9ef;
+}
 
-    .hljs-variable,
-    .hljs-params,
-    .hljs-class .hljs-title {
-      color: #f8f8f2;
-    }
+.hljs-variable,
+.hljs-params,
+.hljs-class .hljs-title,
+.hljs-aspect .hljs-title {
+  color: #f8f8f2;
+}
 
-    .hljs-string,
-    .css .hljs-id,
-    .hljs-subst,
-    .hljs-type,
-    .ruby .hljs-class .hljs-parent,
-    .hljs-built_in,
-    .django .hljs-template_tag,
-    .django .hljs-variable,
-    .smalltalk .hljs-class,
-    .django .hljs-filter .hljs-argument,
-    .smalltalk .hljs-localvars,
-    .smalltalk .hljs-array,
-    .hljs-attr_selector,
-    .hljs-pseudo,
-    .hljs-addition,
-    .hljs-stream,
-    .hljs-envvar,
-    .apache .hljs-tag,
-    .apache .hljs-cbracket,
-    .tex .hljs-command,
-    .hljs-prompt,
-    .hljs-link_label,
-    .hljs-link_url {
-      color: #e6db74;
-    }
+.hljs-tag .hljs-value,
+.hljs-string,
+.css .hljs-id,
+.hljs-subst,
+.hljs-type,
+.ruby .hljs-class .hljs-parent,
+.django .hljs-template_tag,
+.django .hljs-variable,
+.smalltalk .hljs-class,
+.django .hljs-filter .hljs-argument,
+.smalltalk .hljs-localvars,
+.smalltalk .hljs-array,
+.hljs-attr_selector,
+.hljs-pseudo,
+.hljs-addition,
+.hljs-stream,
+.hljs-envvar,
+.apache .hljs-tag,
+.apache .hljs-cbracket,
+.tex .hljs-command,
+.hljs-prompt,
+.hljs-link_label,
+.hljs-link_url {
+  color: #e6db74;
+}
 
-    .hljs-comment,
-    .hljs-javadoc,
-    .hljs-annotation,
-    .hljs-decorator,
-    .hljs-template_comment,
-    .hljs-pi,
-    .hljs-doctype,
-    .hljs-deletion,
-    .hljs-shebang,
-    .apache .hljs-sqbracket,
-    .tex .hljs-formula {
-      color: #75715e;
-    }
+.hljs-comment,
+.hljs-annotation,
+.hljs-decorator,
+.hljs-pi,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-shebang,
+.apache .hljs-sqbracket,
+.tex .hljs-formula {
+  color: #75715e;
+}
 
-    .coffeescript .javascript,
-    .javascript .xml,
-    .tex .hljs-formula,
-    .xml .javascript,
-    .xml .vbscript,
-    .xml .css,
-    .xml .hljs-cdata,
-    .xml .php,
-    .php .xml {
-      opacity: 0.5;
-    }
+.coffeescript .javascript,
+.javascript .xml,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata,
+.xml .php,
+.php .xml {
+  opacity: 0.5;
+}
+/***********/
+.hljs-attribute{
+  color: #a6e22e;
+}
+/***** node keyword ******/
+.hljs-built_in{
+  color: #3396dc;
+  font-weight: bold;
+}
   </style>
   <style>
     .container {
@@ -239,46 +257,47 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>dom-align@1.1.0</h1>
+    <h1>dom-align@1.2.0</h1>
 
     <p>Align DOM Node Flexibly </p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="simple.js?nowrap"></script>
-  <div class="highlight">
-    <pre><code><span class="xml">var React = require('react');
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 
-function $id(id) {
-  return document.getElementById(id);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">$id</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.getElementById(id);
 }
 
-function $val(sel) {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">$val</span>(<span class="hljs-params">sel</span>) </span>{
   sel = $id(sel);
-  return sel.value;
+  <span class="hljs-keyword">return</span> sel.value;
 }
 
-var domAlign = require('dom-align');
+<span class="hljs-keyword">var</span> domAlign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dom-align'</span>);
 
-function align() {
-  domAlign($id('source'), $id('target'), {
-    points: [$val('source_align_tb') + $val('source_align_lr'), $val('target_align_tb') + $val('target_align_lr')],
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">align</span>(<span class="hljs-params"></span>) </span>{
+  domAlign($id(<span class="hljs-string">'source'</span>), $id(<span class="hljs-string">'target'</span>), {
+    points: [$val(<span class="hljs-string">'source_align_tb'</span>) + $val(<span class="hljs-string">'source_align_lr'</span>), $val(<span class="hljs-string">'target_align_tb'</span>) + $val(<span class="hljs-string">'target_align_lr'</span>)],
     offset: [
-      $val('offset1'),
-      $val('offset2'),
+      $val(<span class="hljs-string">'offset1'</span>),
+      $val(<span class="hljs-string">'offset2'</span>),
     ],
     targetOffset: [
-      $val('targetOffset1'),
-      $val('targetOffset2'),
+      $val(<span class="hljs-string">'targetOffset1'</span>),
+      $val(<span class="hljs-string">'targetOffset2'</span>),
     ],
     overflow: {
-      adjustX: $id('adjustX').checked,
-      adjustY: $id('adjustY').checked
-    }
+      adjustX: $id(<span class="hljs-string">'adjustX'</span>).checked,
+      adjustY: $id(<span class="hljs-string">'adjustY'</span>).checked
+    },
+    useCssRight:$id(<span class="hljs-string">'useCssRight'</span>).checked,
+    useCssBottom:$id(<span class="hljs-string">'useCssBottom'</span>).checked,
   });
 }
 
-var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-keyword">var</span> div = (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>dom-align<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
 
   <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
@@ -314,15 +333,15 @@ var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</s
     <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'offset1'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
     ,
     <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'offset2'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
-    ]
+    ]</span>
 
     &amp;nbsp;
 
     targetOffset: [
-    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'targetOffset1'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'targetOffset1'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
     ,
     <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'offset'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'targetOffset2'</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">'0'</span> <span class="hljs-attribute">size</span>=<span class="hljs-value">'3'</span>/&gt;</span>
-    ]
+    ]</span>
 
     &amp;nbsp;
 
@@ -330,7 +349,7 @@ var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</s
 
     &amp;nbsp;
 
-    <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>adjustX:
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>adjustX:
       <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'checkbox'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'adjustX'</span>/&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
 
@@ -342,29 +361,42 @@ var div = (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</s
 
     &amp;nbsp;
 
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>useCssBottom:
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'checkbox'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'useCssBottom'</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+
+    &amp;nbsp;
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>useCssRight:
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'checkbox'</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'useCssRight'</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+
+    &amp;nbsp;
+
     <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'align'</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{align}</span>&gt;</span>align<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">width</span>:180,<span class="hljs-variable">height</span>:180,<span class="hljs-variable">overflow</span>:'<span class="hljs-variable">auto</span>',<span class="hljs-variable">border</span>:'1<span class="hljs-variable">px</span> <span class="hljs-variable">solid</span> <span class="hljs-variable">green</span>'}}</span><span class="xml"><span class="hljs-tag">&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">background</span>:'<span class="hljs-variable">yellow</span>',<span class="hljs-variable">width</span>:240,<span class="hljs-variable">height</span>:240,<span class="hljs-variable">margin</span>:50}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">id</span>=<span class="hljs-value">'target'</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{width:180,height:180,overflow:'auto',border:'1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">green</span>'}}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{background:'yellow',width:240,height:240,margin:50}}</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'target'</span>&gt;</span>
         target node
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">background</span>:'<span class="hljs-variable">red</span>',<span class="hljs-variable">width</span>:50,<span class="hljs-variable">height</span>:50,<span class="hljs-variable">position</span>:'<span class="hljs-variable">absolute</span>',<span class="hljs-variable">position</span>:'<span class="hljs-variable">relative</span>'}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">id</span>=<span class="hljs-value">'source'</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{background:'red',width:50,height:50,position:'absolute'}}</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">'source'</span>&gt;</span>
         source node
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
 
-React.render(div, $id('__react-content'));
-</span></code></pre>
-  </div>
+React.render(div, $id(<span class="hljs-string">'__react-content'</span>));
+</code></pre></div>
 </div>
-<a href="http://github.com/yiminghe/dom-align"><img style="position: absolute; top: 0; right: 0; border: 0;"
-                            src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-                            alt="Fork me on GitHub"
-                            data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+<a href="http://github.com/yiminghe/dom-align">
+  <img style="position: absolute; top: 0; right: 0; border: 0;"
+       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+       alt="Fork me on GitHub"
+       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+</a>
 </body>
 
 </html>

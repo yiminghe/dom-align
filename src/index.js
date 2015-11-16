@@ -52,23 +52,13 @@ function normalizeOffset(offset, el) {
   offset[1] = convertOffset(offset[1], el.height);
 }
 
-/*
- * align node
- * @param {Element} node current dom node
- * @param {Object} align align config
- *
- *    @example
- *    {
- *      node: null,         // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
- *      points: ['cc','cc'], // ['tr', 'tl'] 表示 overlay 的 tr 与参考节点的 tl 对齐
- *      offset: [0, 0]      // 有效值为 [n, m]
- *    }
- */
 function domAlign(el, refNode, align) {
   let points = align.points;
   let offset = align.offset || [0, 0];
   let targetOffset = align.targetOffset || [0, 0];
   let overflow = align.overflow;
+  const target = align.target || refNode;
+  const source = align.source || el;
   offset = [].concat(offset);
   targetOffset = [].concat(targetOffset);
   overflow = overflow || {};
@@ -76,11 +66,11 @@ function domAlign(el, refNode, align) {
 
   let fail = 0;
   // 当前节点可以被放置的显示区域
-  const visibleRect = getVisibleRectForElement(el);
+  const visibleRect = getVisibleRectForElement(source);
   // 当前节点所占的区域, left/top/width/height
-  const elRegion = getRegion(el);
+  const elRegion = getRegion(source);
   // 参照节点所占的区域, left/top/width/height
-  const refNodeRegion = getRegion(refNode);
+  const refNodeRegion = getRegion(target);
   // 将 offset 转换成数值，支持百分比
   normalizeOffset(offset, elRegion);
   normalizeOffset(targetOffset, refNodeRegion);
@@ -144,18 +134,18 @@ function domAlign(el, refNode, align) {
 
   // need judge to in case set fixed with in css on height auto element
   if (newElRegion.width !== elRegion.width) {
-    utils.css(el, 'width', el.width() + newElRegion.width - elRegion.width);
+    utils.css(source, 'width', source.width() + newElRegion.width - elRegion.width);
   }
 
   if (newElRegion.height !== elRegion.height) {
-    utils.css(el, 'height', el.height() + newElRegion.height - elRegion.height);
+    utils.css(source, 'height', source.height() + newElRegion.height - elRegion.height);
   }
 
   // https://github.com/kissyteam/kissy/issues/190
   // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
   // 相对于屏幕位置没变，而 left/top 变了
   // 例如 <div 'relative'><el absolute></div>
-  utils.offset(el, {
+  utils.offset(source, {
     left: newElRegion.left,
     top: newElRegion.top,
   }, {

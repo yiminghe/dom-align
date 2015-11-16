@@ -20654,23 +20654,13 @@ webpackJsonp([0,1],[
 	  offset[1] = convertOffset(offset[1], el.height);
 	}
 	
-	/*
-	 * align node
-	 * @param {Element} node current dom node
-	 * @param {Object} align align config
-	 *
-	 *    @example
-	 *    {
-	 *      node: null,         // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
-	 *      points: ['cc','cc'], // ['tr', 'tl'] 表示 overlay 的 tr 与参考节点的 tl 对齐
-	 *      offset: [0, 0]      // 有效值为 [n, m]
-	 *    }
-	 */
 	function domAlign(el, refNode, align) {
 	  var points = align.points;
 	  var offset = align.offset || [0, 0];
 	  var targetOffset = align.targetOffset || [0, 0];
 	  var overflow = align.overflow;
+	  var target = align.target || refNode;
+	  var source = align.source || el;
 	  offset = [].concat(offset);
 	  targetOffset = [].concat(targetOffset);
 	  overflow = overflow || {};
@@ -20678,11 +20668,11 @@ webpackJsonp([0,1],[
 	
 	  var fail = 0;
 	  // 当前节点可以被放置的显示区域
-	  var visibleRect = (0, _getVisibleRectForElement2['default'])(el);
+	  var visibleRect = (0, _getVisibleRectForElement2['default'])(source);
 	  // 当前节点所占的区域, left/top/width/height
-	  var elRegion = (0, _getRegion2['default'])(el);
+	  var elRegion = (0, _getRegion2['default'])(source);
 	  // 参照节点所占的区域, left/top/width/height
-	  var refNodeRegion = (0, _getRegion2['default'])(refNode);
+	  var refNodeRegion = (0, _getRegion2['default'])(target);
 	  // 将 offset 转换成数值，支持百分比
 	  normalizeOffset(offset, elRegion);
 	  normalizeOffset(targetOffset, refNodeRegion);
@@ -20743,18 +20733,18 @@ webpackJsonp([0,1],[
 	
 	  // need judge to in case set fixed with in css on height auto element
 	  if (newElRegion.width !== elRegion.width) {
-	    _utils2['default'].css(el, 'width', el.width() + newElRegion.width - elRegion.width);
+	    _utils2['default'].css(source, 'width', source.width() + newElRegion.width - elRegion.width);
 	  }
 	
 	  if (newElRegion.height !== elRegion.height) {
-	    _utils2['default'].css(el, 'height', el.height() + newElRegion.height - elRegion.height);
+	    _utils2['default'].css(source, 'height', source.height() + newElRegion.height - elRegion.height);
 	  }
 	
 	  // https://github.com/kissyteam/kissy/issues/190
 	  // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
 	  // 相对于屏幕位置没变，而 left/top 变了
 	  // 例如 <div 'relative'><el absolute></div>
-	  _utils2['default'].offset(el, {
+	  _utils2['default'].offset(source, {
 	    left: newElRegion.left,
 	    top: newElRegion.top
 	  }, {

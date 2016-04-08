@@ -7,11 +7,7 @@ align source html element with target html element flexibly.
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
-[![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
-[![Sauce Test Status](https://saucelabs.com/buildstatus/dom-align)](https://saucelabs.com/u/dom-align)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/dom-align.svg)](https://saucelabs.com/u/dom-align)
 
 [npm-image]: http://img.shields.io/npm/v/dom-align.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/dom-align
@@ -42,7 +38,7 @@ align source html element with target html element flexibly.
 
 ## Online Demo
 
-* http://yiminghe.github.io/dom-align/examples/
+* http://yiminghe.github.io/dom-align/
 
 ## Usage
 
@@ -125,11 +121,19 @@ http://localhost:8020/examples/
 
 ## Test Case
 
-http://localhost:8020/tests/runner.html?coverage
+```
+npm test
+npm run chrome-test
+```
 
 ## Coverage
 
-http://localhost:8020/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8020/tests/runner.html?coverage
+```
+npm run coverage
+```
+
+open coverage/ dir
+
 
 ## License
 

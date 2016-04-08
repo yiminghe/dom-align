@@ -14,7 +14,7 @@ function css(el, name, v) {
   }
   if (typeof value !== 'undefined') {
     if (typeof value === 'number') {
-      value = value + 'px';
+      value = `${value}px`;
     }
     el.style[name] = value;
     return undefined;
@@ -62,12 +62,15 @@ function getClientPosition(elem) {
   x -= docElem.clientLeft || body.clientLeft || 0;
   y -= docElem.clientTop || body.clientTop || 0;
 
-  return {left: x, top: y};
+  return {
+    left: x,
+    top: y,
+  };
 }
 
 function getScroll(w, top) {
-  let ret = w['page' + (top ? 'Y' : 'X') + 'Offset'];
-  const method = 'scroll' + (top ? 'Top' : 'Left');
+  let ret = w[`page${top ? 'Y' : 'X'}Offset`];
+  const method = `scroll${top ? 'Top' : 'Left'}`;
   if (typeof ret !== 'number') {
     const d = w.document;
     // ie6,7,8 standard mode
@@ -110,7 +113,7 @@ function _getComputedStyle(elem, name, cs) {
   return val;
 }
 
-const _RE_NUM_NO_PX = new RegExp('^(' + RE_NUM + ')(?!px)[a-z%]+$', 'i');
+const _RE_NUM_NO_PX = new RegExp(`^(${RE_NUM})(?!px)[a-z%]+$`, 'i');
 const RE_POS = /^(top|right|bottom|left)$/;
 const CURRENT_STYLE = 'currentStyle';
 const RUNTIME_STYLE = 'runtimeStyle';
@@ -272,7 +275,7 @@ function getPBMWidth(elem, props, which) {
       for (i = 0; i < which.length; i++) {
         let cssProp;
         if (prop === 'border') {
-          cssProp = prop + which[i] + 'Width';
+          cssProp = `${prop}${which[i]}Width`;
         } else {
           cssProp = prop + which[i];
         }
@@ -296,20 +299,20 @@ function isWindow(obj) {
 const domUtils = {};
 
 each(['Width', 'Height'], (name) => {
-  domUtils['doc' + name] = (refWin) => {
+  domUtils[`doc${name}`] = (refWin) => {
     const d = refWin.document;
     return Math.max(
       // firefox chrome documentElement.scrollHeight< body.scrollHeight
       // ie standard mode : documentElement.scrollHeight> body.scrollHeight
-      d.documentElement['scroll' + name],
+      d.documentElement[`scroll${name}`],
       // quirks : documentElement.scrollHeight 最大等于可视窗口多一点？
-      d.body['scroll' + name],
-      domUtils['viewport' + name](d));
+      d.body[`scroll${name}`],
+      domUtils[`viewport${name}`](d));
   };
 
-  domUtils['viewport' + name] = (win) => {
+  domUtils[`viewport${name}`] = (win) => {
     // pc browser includes scrollbar in window.innerWidth
-    const prop = 'client' + name;
+    const prop = `client${name}`;
     const doc = win.document;
     const body = doc.body;
     const documentElement = doc.documentElement;
@@ -374,7 +377,11 @@ function getWH(elem, name, ex) {
       which, computedStyle);
 }
 
-const cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'};
+const cssShow = {
+  position: 'absolute',
+  visibility: 'hidden',
+  display: 'block',
+};
 
 // fix #119 : https://github.com/kissyteam/kissy/issues/119
 function getWHIgnoreDisplay(...args) {
@@ -394,7 +401,7 @@ function getWHIgnoreDisplay(...args) {
 
 each(['width', 'height'], (name) => {
   const first = name.charAt(0).toUpperCase() + name.slice(1);
-  domUtils['outer' + first] = (el, includeMargin) => {
+  domUtils[`outer${first}`] = (el, includeMargin) => {
     return el && getWHIgnoreDisplay(el, name, includeMargin ? MARGIN_INDEX : BORDER_INDEX);
   };
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
@@ -440,9 +447,9 @@ const utils = {
       return getOffset(el);
     }
   },
-  isWindow: isWindow,
-  each: each,
-  css: css,
+  isWindow,
+  each,
+  css,
   clone(obj) {
     let i;
     const ret = {};
@@ -461,7 +468,7 @@ const utils = {
     }
     return ret;
   },
-  mix: mix,
+  mix,
   getWindowScrollLeft(w) {
     return getScrollLeft(w);
   },

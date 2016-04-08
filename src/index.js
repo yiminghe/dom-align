@@ -102,7 +102,8 @@ function domAlign(el, refNode, align) {
         // 偏移量也反下
         const newOffset = flipOffset(offset, 0);
         const newTargetOffset = flipOffset(targetOffset, 0);
-        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion, newPoints, newOffset, newTargetOffset);
+        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion,
+          newPoints, newOffset, newTargetOffset);
         if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
           points = newPoints;
@@ -123,7 +124,8 @@ function domAlign(el, refNode, align) {
         // 偏移量也反下
         const newOffset = flipOffset(offset, 1);
         const newTargetOffset = flipOffset(targetOffset, 1);
-        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion, newPoints, newOffset, newTargetOffset);
+        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion,
+          newPoints, newOffset, newTargetOffset);
         if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
           points = newPoints;
@@ -176,9 +178,9 @@ function domAlign(el, refNode, align) {
   });
 
   return {
-    points: points,
-    offset: offset,
-    targetOffset: targetOffset,
+    points,
+    offset,
+    targetOffset,
     overflow: newOverflowCfg,
   };
 }

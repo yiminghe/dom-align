@@ -1,44 +1,43 @@
-var domAlign = require('../');
-var $ = require('jquery');
-var expect = require('expect.js');
+const domAlign = require('../');
+const $ = require('jquery');
+const expect = require('expect.js');
 
-$('<style>html,body {padding:0;margin:0;border:none;}</style>').appendTo(document.getElementsByTagName('head'));
+$('<style>html,body {padding:0;margin:0;border:none;}</style>')
+  .appendTo(document.getElementsByTagName('head'));
 
-describe("dom-align", function () {
-  function toBeEqualRect(actual, expect) {
-    for (var i in actual) {
-      if (actual[i] - expect[i] < 5) {
-
-      } else {
+describe('dom-align', () => {
+  function toBeEqualRect(actual, expects) {
+    for (const i in actual) {
+      if (actual[i] - expects[i] >= 5) {
         return false;
       }
     }
     return true;
   }
 
-  describe('basic', function () {
-    it("unified getOffsetParent method", function () {
-      var getOffsetParent = domAlign.__getOffsetParent;
-      var test = [];
-      test[0] = "<div><div></div></div>";
+  describe('basic', () => {
+    it('unified getOffsetParent method', () => {
+      const getOffsetParent = domAlign.__getOffsetParent;
+      const test = [];
+      test[0] = `<div><div></div></div>`;
 
-      test[1] = "<div><div style='position: relative;'></div></div>";
+      test[1] = `<div><div style='position: relative;'></div></div>`;
 
-      test[2] = "<div>" +
-        "<div>" +
-        "<div style='position: absolute;'></div>" +
-        "</div>" +
-        "</div>";
+      test[2] = `<div>` +
+        `<div>` +
+        `<div style='position: absolute;'></div>` +
+        `</div>` +
+        `</div>`;
 
-      test[3] = "<div style='position: relative;'>" +
-        "<div>" +
-        "<div style='position: absolute;'></div>" +
-        "</div>" +
-        "</div>";
+      test[3] = `<div style='position: relative;'>` +
+        `<div>` +
+        `<div style='position: absolute;'></div>` +
+        `</div>` +
+        `</div>`;
 
-      var dom = [];
+      const dom = [];
 
-      for (var i = 0; i < 4; i++) {
+      for (let i = 0; i < 4; i++) {
         dom[i] = $(test[i])[0];
         document.body.appendChild(dom[i]);
       }
@@ -48,39 +47,39 @@ describe("dom-align", function () {
       expect(getOffsetParent(dom[2].firstChild.firstChild)).to.be(null);
       expect(getOffsetParent(dom[3].firstChild.firstChild)).to.be(dom[3]);
 
-      for (i = 0; i < 4; i++) {
+      for (let i = 0; i < 4; i++) {
         $(dom[i]).remove();
       }
     });
 
-    it("getVisibleRectForElement works", function (done) {
-      var gap = $("<div style='height: 1500px;width: 100000px;'></div>")[0];
+    it('getVisibleRectForElement works', (done) => {
+      const gap = $(`<div style='height: 1500px;width: 100000px;'></div>`)[0];
       document.body.appendChild(gap);
 
-      var getVisibleRectForElement = domAlign.__getVisibleRectForElement,
-        test = [];
+      const getVisibleRectForElement = domAlign.__getVisibleRectForElement;
+      const test = [];
 
-      test[0] = "<div><div></div></div>";
+      test[0] = `<div><div></div></div>`;
 
-      test[1] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
-        "<div style='position: relative;'></div></div>";
+      test[1] = `<div style='width: 100px;height: 100px;overflow: hidden;'>` +
+        `<div style='position: relative;'></div></div>`;
 
-      test[2] = "<div style='width: 100px;height: 100px;overflow: hidden;'>" +
-        "<div>" +
-        "<div style='position: absolute;'></div>" +
-        "</div>" +
-        "</div>";
+      test[2] = `<div style='width: 100px;height: 100px;overflow: hidden;'>` +
+        `<div>` +
+        `<div style='position: absolute;'></div>` +
+        `</div>` +
+        `</div>`;
 
-      test[3] = "<div style='position: relative;width: 100px;" +
-        "height: 100px;overflow: hidden;'>" +
-        "<div>" +
-        "<div style='position: absolute;'></div>" +
-        "</div>" +
-        "</div>";
+      test[3] = `<div style='position: relative;width: 100px;` +
+        `height: 100px;overflow: hidden;'>` +
+        `<div>` +
+        `<div style='position: absolute;'></div>` +
+        `</div>` +
+        `</div>`;
 
-      var dom = [];
+      const dom = [];
 
-      for (var i = 3; i >= 0; i--) {
+      for (let i = 3; i >= 0; i--) {
         dom[i] = $(test[i])[0];
         document.body.appendChild(dom[i]);
       }
@@ -88,16 +87,19 @@ describe("dom-align", function () {
       // 1
       window.scrollTo(10, 10);
 
-      var right = 10 + $(window).width(),
-        rect,
-        bottom = 10 + $(window).height();
+      const right = 10 + $(window).width();
+      const bottom = 10 + $(window).height();
 
-      rect = getVisibleRectForElement(dom[0].firstChild);
+      let rect = getVisibleRectForElement(dom[0].firstChild);
 
       expect(rect.left - 10).within(-10, 10);
       expect(rect.top - 10).within(-10, 10);
       expect(rect.right - right).within(-10, 10);
       expect(rect.bottom - bottom).within(-10, 10);
+
+      if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+        return done();
+      }
 
       window.scrollTo(200, 200);
       rect = getVisibleRectForElement(dom[0].firstChild);
@@ -116,7 +118,7 @@ describe("dom-align", function () {
         left: 10,
         top: 10,
         right: 100,
-        bottom: 100
+        bottom: 100,
       })).to.be.ok();
 
       window.scrollTo(200, 200);
@@ -131,7 +133,7 @@ describe("dom-align", function () {
         left: 10,
         top: 10,
         right: 100,
-        bottom: 100
+        bottom: 100,
       })).to.be.ok();
 
       window.scrollTo(200, 200);
@@ -146,7 +148,7 @@ describe("dom-align", function () {
         left: 10,
         top: 10,
         right: 100,
-        bottom: 100
+        bottom: 100,
       })).to.be.ok();
 
       window.scrollTo(200, 200);
@@ -155,25 +157,25 @@ describe("dom-align", function () {
       $(dom[3]).remove();
       $(gap).remove();
 
-      setTimeout(function () {
+      setTimeout(() => {
         window.scrollTo(0, 0);
         done();
       }, 200);
     });
 
-    it('offset and percentage offset support percentage', function () {
-      var node = $('<div>' +
+    it('offset and percentage offset support percentage', () => {
+      const node = $('<div>' +
         '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
         '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
         '</div>').appendTo(document.body);
-      var target = node[0].firstChild;
-      var source = target.nextSibling;
+      const target = node[0].firstChild;
+      const source = target.nextSibling;
 
       domAlign(source, target, {
         points: ['tl', 'tl'],
         overflow: {
           adjustX: 0,
-          adjustY: 0
+          adjustY: 0,
         },
         offset: ['-50%', '-50%'],
         targetOffset: ['-50%', '-50%'],
@@ -186,20 +188,20 @@ describe("dom-align", function () {
     });
   });
 
-  describe('useCssRight and useCssBottom', function () {
-    it('works', function () {
-      var node = $('<div>' +
+  describe('useCssRight and useCssBottom', () => {
+    it('works', () => {
+      const node = $('<div>' +
         '<div style="width:100px;height:100px;position: absolute;left:0;top:0;"></div>' +
         '<div style="width:50px;height:60px;position: absolute;"></div>' +
         '</div>').appendTo(document.body);
-      var target = node[0].firstChild;
-      var source = target.nextSibling;
+      const target = node[0].firstChild;
+      const source = target.nextSibling;
 
       domAlign(source, target, {
         points: ['tl', 'tl'],
         overflow: {
           adjustX: 0,
-          adjustY: 0
+          adjustY: 0,
         },
         useCssRight: 1,
         useCssBottom: 1,
@@ -219,31 +221,31 @@ describe("dom-align", function () {
     });
   });
 
-  describe("auto align", function () {
-    it("should not auto adjust if current position is right", function () {
-      var node;
+  describe('auto align', () => {
+    it('should not auto adjust if current position is right', () => {
+      const node = $(`<div style='position: absolute;left:0;top:0;
+        width: 100px;height: 100px;
+        overflow: hidden'>
+        <div style='position: absolute;
+        width: 50px;
+        height: 50px;'>
+        </div>
+        <div style='position: absolute;left:0;top:20px;'></div>
+        <div style='position: absolute;left:0;top:80px;'></div>
+        </div>`).appendTo('body');
 
-      node = $("<div style='position: absolute;left:0;top:0;" +
-        "width: 100px;height: 100px;" +
-        "overflow: hidden'>" +
-        "<div style='position: absolute;" +
-        "width: 50px;" +
-        "height: 50px;'>" +
-        "</div>" +
-        "<div style='position: absolute;left:0;top:20px;'></div>" +
-        "<div style='position: absolute;left:0;top:80px;'></div>" +
-        "</div>").appendTo('body');
+      const target = node.children().eq(0);
+      // upper = node.children().eq(1),
+      const lower = node.children().eq(2);
 
-      var target = node.children().eq(0);
-      //upper = node.children().eq(1),
-      var lower = node.children().eq(2);
+      let containerOffset = node.offset();
+      // const targetOffset = target.offset();
 
-      var containerOffset = node.offset();
-      var targetOffset = target.offset();
+      domAlign(target[0], lower[0], {
+        points: ['bl', 'tl'],
+      });
 
-      domAlign(target[0], lower[0], {points: ['bl', 'tl']});
-
-      var afterTargetOffset = target.offset();
+      // const afterTargetOffset = target.offset();
 
       //    _____________
       //   |             |
@@ -260,8 +262,8 @@ describe("dom-align", function () {
         points: ['tl', 'bl'],
         overflow: {
           adjustX: 1,
-          adjustY: 1
-        }
+          adjustY: 1,
+        },
       });
 
       //    _____________
@@ -273,36 +275,36 @@ describe("dom-align", function () {
       // flip 然后 ok
       containerOffset = node.offset();
       expect(target.offset().left - containerOffset.left).within(-10, 10);
-      var actual = target.offset().top;
-      var expected = containerOffset.top + 30;
+      const actual = target.offset().top;
+      const expected = containerOffset.top + 30;
       expect(actual - expected).within(-5, 5);
 
       domAlign(target[0], lower[0], {
         points: ['bl', 'tl'],
-        offset: ['50%', '50%']
+        offset: ['50%', '50%'],
       });
       expect(target.offset().left - containerOffset.left).to.be(25);
       expect(target.offset().top - containerOffset.top).to.be(55);
     });
 
-    it('should auto adjust if current position is not right', function () {
-      var node = $("<div style='position: absolute;left:100px;top:100px;" +
-        "width: 100px;height: 100px;" +
-        "overflow: hidden'>" +
-        "<div style='position: absolute;" +
-        "width: 50px;" +
-        "height: 90px;'>" +
-        "</div>" +
-        "<div style='position: absolute;left:0;top:20px;'></div>" +
-        "<div style='position: absolute;left:0;top:80px;'></div>" +
-        "</div>").appendTo('body');
+    it('should auto adjust if current position is not right', () => {
+      const node = $(`<div style='position: absolute;left:100px;top:100px;
+        width: 100px;height: 100px;
+        overflow: hidden'>
+        <div style='position: absolute;
+        width: 50px;
+        height: 90px;'>
+        </div>
+        <div style='position: absolute;left:0;top:20px;'></div>
+        <div style='position: absolute;left:0;top:80px;'></div>
+        </div>`).appendTo('body');
 
-      var target = node.children().eq(0),
-      //upper = node.children().eq(1),
-        lower = node.children().eq(2);
+      const target = node.children().eq(0);
+      // upper = node.children().eq(1),
+      const lower = node.children().eq(2);
 
-      var containerOffset = node.offset();
-      domAlign(target[0], lower[0], {points: ['bl', 'tl']});
+      const containerOffset = node.offset();
+      domAlign(target[0], lower[0], { points: ['bl', 'tl'] });
       //   |------|
       //   | _____|________
       //   |      |      |
@@ -319,8 +321,8 @@ describe("dom-align", function () {
         points: ['tl', 'bl'],
         overflow: {
           adjustX: 1,
-          adjustY: 1
-        }
+          adjustY: 1,
+        },
       });
 
       //    _____________

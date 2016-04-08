@@ -22,6 +22,16 @@ function isFailY(elFuturePos, elRegion, visibleRect) {
     elFuturePos.top + elRegion.height > visibleRect.bottom;
 }
 
+function isCompleteFailX(elFuturePos, elRegion, visibleRect) {
+  return elFuturePos.left > visibleRect.right ||
+    elFuturePos.left + elRegion.width < visibleRect.left;
+}
+
+function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
+  return elFuturePos.top > visibleRect.bottom ||
+    elFuturePos.top + elRegion.height < visibleRect.top;
+}
+
 function flip(points, reg, map) {
   const ret = [];
   utils.each(points, (p) => {
@@ -84,30 +94,42 @@ function domAlign(el, refNode, align) {
     if (overflow.adjustX) {
       // 如果横向不能放下
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
-        fail = 1;
         // 对齐位置反下
-        points = flip(points, /[lr]/ig, {
+        const newPoints = flip(points, /[lr]/ig, {
           l: 'r',
           r: 'l',
         });
         // 偏移量也反下
-        offset = flipOffset(offset, 0);
-        targetOffset = flipOffset(targetOffset, 0);
+        const newOffset = flipOffset(offset, 0);
+        const newTargetOffset = flipOffset(targetOffset, 0);
+        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion, newPoints, newOffset, newTargetOffset);
+        if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
+          fail = 1;
+          points = newPoints;
+          offset = newOffset;
+          targetOffset = newTargetOffset;
+        }
       }
     }
 
     if (overflow.adjustY) {
       // 如果纵向不能放下
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
-        fail = 1;
         // 对齐位置反下
-        points = flip(points, /[tb]/ig, {
+        const newPoints = flip(points, /[tb]/ig, {
           t: 'b',
           b: 't',
         });
         // 偏移量也反下
-        offset = flipOffset(offset, 1);
-        targetOffset = flipOffset(targetOffset, 1);
+        const newOffset = flipOffset(offset, 1);
+        const newTargetOffset = flipOffset(targetOffset, 1);
+        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion, newPoints, newOffset, newTargetOffset);
+        if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
+          fail = 1;
+          points = newPoints;
+          offset = newOffset;
+          targetOffset = newTargetOffset;
+        }
       }
     }
 

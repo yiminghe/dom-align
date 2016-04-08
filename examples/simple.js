@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 function $id(id) {
   return document.getElementById(id);
@@ -122,4 +123,4 @@ var div = (<div>
   </div>
 </div>);
 
-React.render(div, $id('__react-content'));
+ReactDOM.render(div, $id('__react-content'));

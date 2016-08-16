@@ -105,6 +105,12 @@ domAlign(sourceNode, targetNode, {
           <td>Boolean</td>
           <td>whether use css bottom instead of top to position</td>
       </tr>
+      <tr>
+          <td>useCssTransform</td>
+          <td>Boolean</td>
+          <td>whether use css transform instead of left/top/right/bottom to position if browser supports.
+          Defaults to false.</td>
+      </tr>
     </tbody>
 </table>
 

@@ -1,4 +1,8 @@
-import { setTransitionProperty, getTransitionProperty } from './setTransitionProperty';
+import {
+  setTransitionProperty, getTransitionProperty,
+  getTransformXY, setTransformXY,
+} from './propertyUtils';
+import cssVendor from 'css-vendor';
 
 const RE_NUM = (/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/).source;
 
@@ -186,7 +190,7 @@ function oppositeOffsetDirection(dir) {
 }
 
 // 设置 elem 相对 elem.ownerDocument 的坐标
-function setOffset(elem, offset, option) {
+function setLeftTop(elem, offset, option) {
   // set position first, in-case top/left are set even on static elem
   if (css(elem, 'position') === 'static') {
     elem.style.position = 'relative';
@@ -252,6 +256,30 @@ function setOffset(elem, offset, option) {
     }
   }
   css(elem, ret);
+}
+
+function setTransform(elem, offset) {
+  const originalOffset = getOffset(elem);
+  const originalXY = getTransformXY(elem);
+  const resultXY = { x: originalXY.x, y: originalXY.y };
+  if ('left' in offset) {
+    resultXY.x = originalXY.x + offset.left - originalOffset.left;
+  }
+  if ('top' in offset) {
+    resultXY.y = originalXY.y + offset.top - originalOffset.top;
+  }
+  setTransformXY(elem, resultXY);
+}
+
+
+function setOffset(elem, offset, option) {
+  if (option.useCssRight || option.useCssBottom) {
+    setLeftTop(elem, offset, option);
+  } else if (option.useCssTransform && cssVendor.supportedProperty('transform')) {
+    setTransform(elem, offset, option);
+  } else {
+    setLeftTop(elem, offset, option);
+  }
 }
 
 function each(arr, fn) {

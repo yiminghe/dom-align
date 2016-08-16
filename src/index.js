@@ -158,15 +158,14 @@ function domAlign(el, refNode, align) {
 
   // need judge to in case set fixed with in css on height auto element
   if (newElRegion.width !== elRegion.width) {
-    utils.css(source, 'width', source.width() + newElRegion.width - elRegion.width);
+    utils.css(source, 'width', utils.width(source) + newElRegion.width - elRegion.width);
   }
 
   if (newElRegion.height !== elRegion.height) {
-    utils.css(source, 'height', source.height() + newElRegion.height - elRegion.height);
+    utils.css(source, 'height', utils.height(source) + newElRegion.height - elRegion.height);
   }
 
   // https://github.com/kissyteam/kissy/issues/190
-  // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
   // 相对于屏幕位置没变，而 left/top 变了
   // 例如 <div 'relative'><el absolute></div>
   utils.offset(source, {
@@ -175,6 +174,7 @@ function domAlign(el, refNode, align) {
   }, {
     useCssRight: align.useCssRight,
     useCssBottom: align.useCssBottom,
+    useCssTransform: align.useCssTransform,
   });
 
   return {

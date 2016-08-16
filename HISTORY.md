@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.5.0
+
+- support useCssTransform
+
 ## 1.4.0
 
 - only flip if it's visible

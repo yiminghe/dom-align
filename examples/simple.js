@@ -30,6 +30,7 @@ function align() {
     },
     useCssRight: $id('useCssRight').checked,
     useCssBottom: $id('useCssBottom').checked,
+    useCssTransform: $id('useCssTransform').checked,
   });
 }
 
@@ -109,10 +110,24 @@ const div = (<div>
 
     &nbsp;
 
+    <label>useCssTransform:
+      <input type="checkbox" id="useCssTransform" defaultChecked={!!window.TransitionEvent}/>
+    </label>
+
+    &nbsp;
+
     <button id="align" onClick={align}>align</button>
     <br/>
 
-    <div style={{ width: 180, height: 180, overflow: 'auto', border: '1px solid green' }}>
+    <div
+      style={{
+        width: 400,
+        height: 400,
+        overflow: 'auto',
+        border: '1px solid green',
+        position: 'relative',
+      }}
+    >
       <div
         style={{
           background: 'yellow',
@@ -124,12 +139,14 @@ const div = (<div>
       >
         target node
       </div>
-
+      <div style={{ width: 1000, height: 1000 }}/>
       <div
         style={{
           background: 'red',
           width: 50,
           height: 50,
+          left: 0,
+          top: 0,
           position: 'absolute',
           transition: 'all 0.5s',
         }}

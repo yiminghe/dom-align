@@ -3,18 +3,18 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(177);
+	module.exports = __webpack_require__(191);
 
 
 /***/ },
 
-/***/ 177:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(43);
+	var ReactDOM = __webpack_require__(51);
 	
 	function $id(id) {
 	  return document.getElementById(id);
@@ -25,7 +25,7 @@ webpackJsonp([1],{
 	  return sel.value;
 	}
 	
-	var domAlign = __webpack_require__(33);
+	var domAlign = __webpack_require__(36);
 	
 	function align() {
 	  domAlign($id('source'), $id('target'), {
@@ -37,7 +37,8 @@ webpackJsonp([1],{
 	      adjustY: $id('adjustY').checked
 	    },
 	    useCssRight: $id('useCssRight').checked,
-	    useCssBottom: $id('useCssBottom').checked
+	    useCssBottom: $id('useCssBottom').checked,
+	    useCssTransform: $id('useCssTransform').checked
 	  });
 	}
 	
@@ -168,6 +169,13 @@ webpackJsonp([1],{
 	    ),
 	    ' ',
 	    React.createElement(
+	      'label',
+	      null,
+	      'useCssTransform:',
+	      React.createElement('input', { type: 'checkbox', id: 'useCssTransform', defaultChecked: !!window.TransitionEvent })
+	    ),
+	    ' ',
+	    React.createElement(
 	      'button',
 	      { id: 'align', onClick: align },
 	      'align'
@@ -175,7 +183,15 @@ webpackJsonp([1],{
 	    React.createElement('br', null),
 	    React.createElement(
 	      'div',
-	      { style: { width: 180, height: 180, overflow: 'auto', border: '1px solid green' } },
+	      {
+	        style: {
+	          width: 400,
+	          height: 400,
+	          overflow: 'auto',
+	          border: '1px solid green',
+	          position: 'relative'
+	        }
+	      },
 	      React.createElement(
 	        'div',
 	        {
@@ -189,6 +205,7 @@ webpackJsonp([1],{
 	        },
 	        'target node'
 	      ),
+	      React.createElement('div', { style: { width: 1000, height: 1000 } }),
 	      React.createElement(
 	        'div',
 	        {
@@ -196,6 +213,8 @@ webpackJsonp([1],{
 	            background: 'red',
 	            width: 50,
 	            height: 50,
+	            left: 0,
+	            top: 0,
 	            position: 'absolute',
 	            transition: 'all 0.5s'
 	          },

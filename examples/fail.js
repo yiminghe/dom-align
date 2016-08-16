@@ -12,8 +12,8 @@ webpackJsonp([0],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var domAlign = __webpack_require__(33);
-	var ReactDOM = __webpack_require__(43);
+	var domAlign = __webpack_require__(36);
+	var ReactDOM = __webpack_require__(51);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',

@@ -1,8 +1,8 @@
 import {
   setTransitionProperty, getTransitionProperty,
   getTransformXY, setTransformXY,
+  getTransformName,
 } from './propertyUtils';
-import cssVendor from 'css-vendor';
 
 const RE_NUM = (/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/).source;
 
@@ -275,7 +275,7 @@ function setTransform(elem, offset) {
 function setOffset(elem, offset, option) {
   if (option.useCssRight || option.useCssBottom) {
     setLeftTop(elem, offset, option);
-  } else if (option.useCssTransform && cssVendor.supportedProperty('transform')) {
+  } else if (option.useCssTransform && getTransformName() in document.body.style) {
     setTransform(elem, offset, option);
   } else {
     setLeftTop(elem, offset, option);

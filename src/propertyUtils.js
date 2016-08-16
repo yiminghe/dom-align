@@ -1,11 +1,34 @@
-import cssVendor from 'css-vendor';
+let vendorPrefix;
 
-function getTransitionName() {
-  return cssVendor.prefix.js ? `${cssVendor.prefix.js}TransitionProperty` : 'transitionProperty';
+const jsCssMap = {
+  Webkit: '-webkit-',
+  Moz: '-moz-',
+  // IE did it wrong again ...
+  ms: '-ms-',
+  O: '-o-',
+};
+
+function getVendorPrefix() {
+  if (vendorPrefix !== undefined) {
+    return vendorPrefix;
+  }
+  const style = document.createElement('p').style;
+  const testProp = 'Transform';
+  for (const key in jsCssMap) {
+    if (key + testProp in style) {
+      vendorPrefix = key;
+    }
+  }
+  vendorPrefix = '';
+  return vendorPrefix;
 }
 
-function getTransformName() {
-  return cssVendor.prefix.js ? `${cssVendor.prefix.js}Transform` : 'transform';
+function getTransitionName() {
+  return getVendorPrefix() ? `${getVendorPrefix()}TransitionProperty` : 'transitionProperty';
+}
+
+export function getTransformName() {
+  return getVendorPrefix() ? `${getVendorPrefix()}Transform` : 'transform';
 }
 
 export function setTransitionProperty(node, value) {

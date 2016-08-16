@@ -3,18 +3,18 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(176);
+	module.exports = __webpack_require__(177);
 
 
 /***/ },
 
-/***/ 176:
+/***/ 177:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(42);
+	var ReactDOM = __webpack_require__(43);
 	
 	function $id(id) {
 	  return document.getElementById(id);
@@ -178,12 +178,29 @@ webpackJsonp([1],{
 	      { style: { width: 180, height: 180, overflow: 'auto', border: '1px solid green' } },
 	      React.createElement(
 	        'div',
-	        { style: { background: 'yellow', width: 240, height: 240, margin: 50 }, id: 'target' },
+	        {
+	          style: {
+	            background: 'yellow',
+	            width: 240,
+	            height: 240,
+	            margin: 50
+	          },
+	          id: 'target'
+	        },
 	        'target node'
 	      ),
 	      React.createElement(
 	        'div',
-	        { style: { background: 'red', width: 50, height: 50, position: 'absolute' }, id: 'source' },
+	        {
+	          style: {
+	            background: 'red',
+	            width: 50,
+	            height: 50,
+	            position: 'absolute',
+	            transition: 'all 0.5s'
+	          },
+	          id: 'source'
+	        },
 	        'source node'
 	      )
 	    )

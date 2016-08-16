@@ -13,11 +13,10 @@ webpackJsonp([0],[
 	
 	var React = __webpack_require__(2);
 	var domAlign = __webpack_require__(33);
-	var ReactDOM = __webpack_require__(42);
+	var ReactDOM = __webpack_require__(43);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',
-	
 	  align: function align() {
 	    var ret = domAlign(this.refs.source, this.refs.target, {
 	      points: ['tl', 'tl'],
@@ -44,7 +43,10 @@ webpackJsonp([0],[
 	      ),
 	      React.createElement(
 	        'div',
-	        { ref: 'source', style: { position: 'absolute', width: 100, height: 100, border: '1px solid red' } },
+	        {
+	          ref: 'source',
+	          style: { position: 'absolute', width: 100, height: 100, border: '1px solid red' }
+	        },
 	        'oo'
 	      )
 	    );

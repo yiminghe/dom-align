@@ -113,11 +113,28 @@ const div = (<div>
     <br/>
 
     <div style={{ width: 180, height: 180, overflow: 'auto', border: '1px solid green' }}>
-      <div style={{ background: 'yellow', width: 240, height: 240, margin: 50 }} id="target">
+      <div
+        style={{
+          background: 'yellow',
+          width: 240,
+          height: 240,
+          margin: 50,
+        }}
+        id="target"
+      >
         target node
       </div>
 
-      <div style={{ background: 'red', width: 50, height: 50, position: 'absolute' }} id="source">
+      <div
+        style={{
+          background: 'red',
+          width: 50,
+          height: 50,
+          position: 'absolute',
+          transition: 'all 0.5s',
+        }}
+        id="source"
+      >
         source node
       </div>
     </div>

@@ -1,6 +1,12 @@
+import { setTransitionProperty, getTransitionProperty } from './setTransitionProperty';
+
 const RE_NUM = (/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/).source;
 
 let getComputedStyleX;
+
+function force(x, y) {
+  return x + y;
+}
 
 function css(el, name, v) {
   let value = v;
@@ -199,7 +205,12 @@ function setOffset(elem, offset, option) {
   if (verticalProperty !== 'top') {
     presetV = 999;
   }
-
+  let originalTransition = '';
+  const originalOffset = getOffset(elem);
+  if ('left' in offset || 'top' in offset) {
+    originalTransition = getTransitionProperty(elem) || '';
+    setTransitionProperty(elem, 'none');
+  }
   if ('left' in offset) {
     elem.style[oppositeHorizontalProperty] = '';
     elem.style[horizontalProperty] = `${presetH}px`;
@@ -209,16 +220,34 @@ function setOffset(elem, offset, option) {
     elem.style[verticalProperty] = `${presetV}px`;
   }
   const old = getOffset(elem);
-  const ret = {};
-  let key;
-  for (key in offset) {
+  const originalStyle = {};
+  for (const key in offset) {
     if (offset.hasOwnProperty(key)) {
       const dir = getOffsetDirection(key, option);
       const preset = key === 'left' ? presetH : presetV;
+      const off = originalOffset[key] - old[key];
       if (dir === key) {
-        ret[dir] = preset + offset[key] - old[key];
+        originalStyle[dir] = preset + off;
       } else {
-        ret[dir] = preset + old[key] - offset[key];
+        originalStyle[dir] = preset - off;
+      }
+    }
+  }
+  css(elem, originalStyle);
+  // force relayout
+  force(elem.offsetTop, elem.offsetLeft);
+  if ('left' in offset || 'top' in offset) {
+    setTransitionProperty(elem, originalTransition);
+  }
+  const ret = {};
+  for (const key in offset) {
+    if (offset.hasOwnProperty(key)) {
+      const dir = getOffsetDirection(key, option);
+      const off = offset[key] - originalOffset[key];
+      if (key === dir) {
+        ret[dir] = originalStyle[dir] + off;
+      } else {
+        ret[dir] = originalStyle[dir] - off;
       }
     }
   }

@@ -208,11 +208,10 @@ describe('dom-align', () => {
         offset: ['-50%', '-50%'],
         targetOffset: ['-50%', '-50%'],
       });
-
-      expect($(source).css('left')).to.be('auto');
-      expect($(source).css('top')).to.be('auto');
-      expect($(source).css('right')).not.to.be('auto');
-      expect($(source).css('bottom')).not.to.be('auto');
+      expect($(source)[0].style.left).to.be('');
+      expect($(source)[0].style.top).to.be('');
+      expect($(source)[0].style.right).not.to.be('');
+      expect($(source)[0].style.bottom).not.to.be('');
 
       expect($(source).offset()).to.eql({
         top: 20,

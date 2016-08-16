@@ -12,6 +12,7 @@ function getVendorPrefix() {
   if (vendorPrefix !== undefined) {
     return vendorPrefix;
   }
+  vendorPrefix = '';
   const style = document.createElement('p').style;
   const testProp = 'Transform';
   for (const key in jsCssMap) {
@@ -19,7 +20,6 @@ function getVendorPrefix() {
       vendorPrefix = key;
     }
   }
-  vendorPrefix = '';
   return vendorPrefix;
 }
 

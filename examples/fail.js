@@ -13,7 +13,7 @@ webpackJsonp([0],[
 	
 	var React = __webpack_require__(2);
 	var domAlign = __webpack_require__(36);
-	var ReactDOM = __webpack_require__(51);
+	var ReactDOM = __webpack_require__(46);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',

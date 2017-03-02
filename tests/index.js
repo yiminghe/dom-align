@@ -235,7 +235,7 @@ describe('dom-align', () => {
         height: 50px;'>
         </div>
         <div style='position: absolute;left:0;top:20px;'></div>
-        <div style='position: absolute;left:0;top:80px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:5px;height:5px;'></div>
         </div>`).appendTo('body');
 
           const target = node.children().eq(0);
@@ -291,7 +291,7 @@ describe('dom-align', () => {
           expect(target.offset().top - containerOffset.top).to.be(55);
         });
 
-        it.only('should not auto adjust if target is out of visible rect', () => {
+        it('should not auto adjust if target is out of visible rect', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return;
           }
@@ -340,7 +340,7 @@ describe('dom-align', () => {
         height: 90px;'>
         </div>
         <div style='position: absolute;left:0;top:20px;'></div>
-        <div style='position: absolute;left:0;top:80px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:5px;height:5px;'></div>
         </div>`).appendTo('body');
 
           const target = node.children().eq(0);

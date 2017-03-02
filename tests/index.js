@@ -291,6 +291,43 @@ describe('dom-align', () => {
           expect(target.offset().top - containerOffset.top).to.be(55);
         });
 
+        it.only('should not auto adjust if target is out of visible rect', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+          const node = $(`
+           <div style='position:absolute;left:0;top:0;width:100px;height:100px;overflow:hidden'>
+            <div style='position:absolute;top:0;left:0;width:50px;height:50px;'></div>
+            <div style='position:absolute;left:80px;top:80px;'></div>
+           </div>
+          `).appendTo('body');
+
+          const target = node.children().eq(0);
+          const source = node.children().eq(1);
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+
+          expect(source.offset().top - target.offset().top).to.be(0);
+          expect(source.offset().left - target.offset().left).to.be(0);
+
+          target.css({ top: -50, left: -50 });
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+
+          expect(source.offset().top - target.offset().top).to.be(0);
+          expect(source.offset().left - target.offset().left).to.be(0);
+        });
+
         it('should auto adjust if current position is not right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return;

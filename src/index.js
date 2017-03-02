@@ -32,6 +32,17 @@ function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
     elFuturePos.top + elRegion.height < visibleRect.top;
 }
 
+function isOutOfVisibleRect(target) {
+  const visibleRect = getVisibleRectForElement(target);
+  const targetRegion = getRegion(target);
+
+  return !visibleRect ||
+    (targetRegion.left + targetRegion.width) <= visibleRect.left ||
+    (targetRegion.top + targetRegion.height) <= visibleRect.top ||
+    targetRegion.left >= visibleRect.right ||
+    targetRegion.top >= visibleRect.bottom;
+}
+
 function flip(points, reg, map) {
   const ret = [];
   utils.each(points, (p) => {
@@ -89,9 +100,10 @@ function domAlign(el, refNode, align) {
   // 当前节点将要所处的区域
   let newElRegion = utils.merge(elRegion, elFuturePos);
 
+  const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
   // 如果可视区域不能完全放置当前节点时允许调整
   if (visibleRect && (overflow.adjustX || overflow.adjustY)) {
-    if (overflow.adjustX) {
+    if (overflow.adjustX && isTargetNotOutOfVisible) {
       // 如果横向不能放下
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
         // 对齐位置反下
@@ -113,7 +125,7 @@ function domAlign(el, refNode, align) {
       }
     }
 
-    if (overflow.adjustY) {
+    if (overflow.adjustY && isTargetNotOutOfVisible) {
       // 如果纵向不能放下
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
         // 对齐位置反下
@@ -150,7 +162,10 @@ function domAlign(el, refNode, align) {
       isFailY(elFuturePos, elRegion, visibleRect);
 
     // 确实要调整，甚至可能会调整高度宽度
-    if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
+    if (
+      (newOverflowCfg.adjustX || newOverflowCfg.adjustY) &&
+        isTargetNotOutOfVisible
+    ) {
       newElRegion = adjustForViewport(elFuturePos, elRegion,
         visibleRect, newOverflowCfg);
     }

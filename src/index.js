@@ -111,8 +111,12 @@ function domAlign(el, refNode, align) {
   const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
   const refNodeOffset = utils.merge(refNodeRegion, getAlignOffset(refNodeRegion, points[1]));
 
-  const Xregion = utils.merge(visibleRect, { left: refNodeOffset.left });
-  const YRegion = utils.merge(visibleRect, { top: refNodeOffset.top });
+  const Xregion = utils.merge(visibleRect, {
+    [points[0].charAt(1) === 'l' ? 'left' : 'right']: refNodeOffset.left,
+  });
+  const YRegion = utils.merge(visibleRect, {
+    [points[0].charAt(0) === 't' ? 'top' : 'bottom']: refNodeOffset.top,
+  });
 
   let realXRegion = Xregion;
   let realYRegion = YRegion;
@@ -133,10 +137,11 @@ function domAlign(el, refNode, align) {
           newPoints, newOffset, newTargetOffset);
 
         const XregionReversal = utils.merge(visibleRect, {
-          right: getAlignOffset(refNodeRegion, newPoints[1]).left,
+          [newPoints[0].charAt(1) === 'l' ?
+            'left' : 'right']: getAlignOffset(refNodeRegion, newPoints[1]).left,
         });
         const canXFlip = xSize(XregionReversal) > xSize(Xregion);
-        if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect) && canXFlip) {
+        if (canXFlip && !isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
           points = newPoints;
           offset = newOffset;
@@ -161,11 +166,12 @@ function domAlign(el, refNode, align) {
           newPoints, newOffset, newTargetOffset);
 
         const YRegionReversal = utils.merge(visibleRect, {
-          bottom: getAlignOffset(refNodeRegion, newPoints[1]).top,
+          [newPoints[0].charAt(0) === 't' ?
+            'top' : 'bottom']: getAlignOffset(refNodeRegion, newPoints[1]).top,
         });
         const canYFlip = ySize(YRegionReversal) > ySize(YRegion);
 
-        if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect) && canYFlip) {
+        if (canYFlip && !isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
           points = newPoints;
           offset = newOffset;

@@ -5,7 +5,7 @@ const ReactDOM = require('react-dom');
 const Test = React.createClass({
   align() {
     const ret = domAlign(this.refs.source, this.refs.target, {
-      points: ['tl', 'tl'],
+      points: ['bl', 'bl'],
       overflow: {
         adjustY: 1,
       },
@@ -13,6 +13,7 @@ const Test = React.createClass({
     console.log(ret);
   },
   render() {
+    window.align = this.align;
     return (<div style={{ height: 1000 }}>
       <button ref="target">target</button>
 
@@ -22,7 +23,7 @@ const Test = React.createClass({
 
       <div
         ref="source"
-        style={{ position: 'absolute', width: 100, height: 100, border: '1px solid red' }}
+        style={{ position: 'absolute', width: 100, height: 200, border: '1px solid red' }}
       >
         oo
       </div>

@@ -111,6 +111,7 @@ function domAlign(el, refNode, align) {
   const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
   const refNodeOffset = utils.merge(refNodeRegion, getAlignOffset(refNodeRegion, points[1]));
 
+  // TODO if visibleRect.xx < refNodeOffset.left ??
   const Xregion = utils.merge(visibleRect, {
     [points[0].charAt(1) === 'l' ? 'left' : 'right']: refNodeOffset.left,
   });

@@ -12,14 +12,14 @@ webpackJsonp([0],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var domAlign = __webpack_require__(36);
-	var ReactDOM = __webpack_require__(46);
+	var domAlign = __webpack_require__(33);
+	var ReactDOM = __webpack_require__(43);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',
 	  align: function align() {
 	    var ret = domAlign(this.refs.source, this.refs.target, {
-	      points: ['tl', 'tl'],
+	      points: ['bl', 'bl'],
 	      overflow: {
 	        adjustY: 1
 	      }
@@ -27,6 +27,7 @@ webpackJsonp([0],[
 	    console.log(ret);
 	  },
 	  render: function render() {
+	    window.align = this.align;
 	    return React.createElement(
 	      'div',
 	      { style: { height: 1000 } },
@@ -45,7 +46,7 @@ webpackJsonp([0],[
 	        'div',
 	        {
 	          ref: 'source',
-	          style: { position: 'absolute', width: 100, height: 100, border: '1px solid red' }
+	          style: { position: 'absolute', width: 100, height: 200, border: '1px solid red' }
 	        },
 	        'oo'
 	      )

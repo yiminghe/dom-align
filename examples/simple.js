@@ -3,18 +3,18 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(186);
+	module.exports = __webpack_require__(189);
 
 
 /***/ },
 
-/***/ 186:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ReactDOM = __webpack_require__(46);
+	var ReactDOM = __webpack_require__(43);
 	
 	function $id(id) {
 	  return document.getElementById(id);
@@ -25,7 +25,7 @@ webpackJsonp([1],{
 	  return sel.value;
 	}
 	
-	var domAlign = __webpack_require__(36);
+	var domAlign = __webpack_require__(33);
 	
 	function align() {
 	  domAlign($id('source'), $id('target'), {
@@ -92,7 +92,7 @@ webpackJsonp([1],{
 	        'r'
 	      )
 	    ),
-	    '  target:',
+	    '\xA0 target:',
 	    React.createElement(
 	      'select',
 	      { id: 'target_align_tb' },
@@ -131,50 +131,50 @@ webpackJsonp([1],{
 	        'r'
 	      )
 	    ),
-	    '  offset: [',
+	    '\xA0 offset: [',
 	    React.createElement('input', { type: 'offset', id: 'offset1', defaultValue: '0', size: '3' }),
 	    ',',
 	    React.createElement('input', { type: 'offset', id: 'offset2', defaultValue: '0', size: '3' }),
-	    ']   targetOffset: [',
+	    '] \xA0 targetOffset: [',
 	    React.createElement('input', { type: 'offset', id: 'targetOffset1', defaultValue: '0', size: '3' }),
 	    ',',
 	    React.createElement('input', { type: 'offset', id: 'targetOffset2', defaultValue: '0', size: '3' }),
-	    ']   overflow:  ',
+	    '] \xA0 overflow: \xA0',
 	    React.createElement(
 	      'label',
 	      null,
 	      'adjustX:',
 	      React.createElement('input', { type: 'checkbox', id: 'adjustX' })
 	    ),
-	    ' ',
+	    '\xA0',
 	    React.createElement(
 	      'label',
 	      null,
 	      'adjustY:',
 	      React.createElement('input', { type: 'checkbox', id: 'adjustY' })
 	    ),
-	    ' ',
+	    '\xA0',
 	    React.createElement(
 	      'label',
 	      null,
 	      'useCssBottom:',
 	      React.createElement('input', { type: 'checkbox', id: 'useCssBottom' })
 	    ),
-	    ' ',
+	    '\xA0',
 	    React.createElement(
 	      'label',
 	      null,
 	      'useCssRight:',
 	      React.createElement('input', { type: 'checkbox', id: 'useCssRight' })
 	    ),
-	    ' ',
+	    '\xA0',
 	    React.createElement(
 	      'label',
 	      null,
 	      'useCssTransform:',
 	      React.createElement('input', { type: 'checkbox', id: 'useCssTransform', defaultChecked: !!window.TransitionEvent })
 	    ),
-	    ' ',
+	    '\xA0',
 	    React.createElement(
 	      'button',
 	      { id: 'align', onClick: align },

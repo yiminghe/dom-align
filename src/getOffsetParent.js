@@ -5,6 +5,9 @@ import utils from './utils';
  */
 
 function getOffsetParent(element) {
+  if (utils.isWindow(element)) {
+    return null;
+  }
   // ie 这个也不是完全可行
   /*
    <div style="width: 50px;height: 100px;overflow: hidden">

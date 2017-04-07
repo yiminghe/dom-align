@@ -222,6 +222,42 @@ describe('dom-align', () => {
         });
       });
 
+      it('center align must ok', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`<div style='position: absolute;left:0;top:0;
+        width: 100px;height: 100px;
+        overflow: hidden'>
+        <div style='position: absolute;
+        width: 50px;
+        height: 50px;'>
+        </div>
+        <div style='position: absolute;left:0;top:20px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:100px;height:5px;'></div>
+        </div>`).appendTo('body');
+
+        const target = node.children().eq(0);
+        // upper = node.children().eq(1),
+        const lower = node.children().eq(2);
+
+        const containerOffset = node.offset();
+        // const targetOffset = target.offset();
+
+        domAlign(target[0], lower[0], {
+          points: ['bc', 'tc'],
+        });
+
+        //    _____________
+        //   |             |
+        //   |  ________   |
+        //   |  |      |   |
+        //   |__|______|___|
+        //   |_____________|
+        expect(target.offset().left - 25).within(-10, 10);
+
+        expect(target.offset().top - containerOffset.top - 30).within(-10, 10);
+      });
       describe('auto align', () => {
         it('should not auto adjust if current position is right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {

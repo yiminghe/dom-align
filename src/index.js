@@ -111,13 +111,30 @@ function domAlign(el, refNode, align) {
   const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
   const refNodeOffset = utils.merge(refNodeRegion, getAlignOffset(refNodeRegion, points[1]));
 
+  let Xregion;
+  let YRegion;
+  const xRefPoint = points[0].charAt(1);
   // TODO if visibleRect.xx < refNodeOffset.left ??
-  const Xregion = utils.merge(visibleRect, {
-    [points[0].charAt(1) === 'l' ? 'left' : 'right']: refNodeOffset.left,
-  });
-  const YRegion = utils.merge(visibleRect, {
-    [points[0].charAt(0) === 't' ? 'top' : 'bottom']: refNodeOffset.top,
-  });
+  if (xRefPoint === 'c') {
+    Xregion = utils.merge(visibleRect, {
+      left: refNodeOffset.left + refNodeRegion.width / 2,
+    });
+  } else {
+    Xregion = utils.merge(visibleRect, {
+      [xRefPoint === 'l' ? 'left' : 'right']: refNodeOffset.left,
+    });
+  }
+
+  const yRefPoint = points[0].charAt(0);
+  if (yRefPoint === 'c') {
+    YRegion = utils.merge(visibleRect, {
+      top: refNodeOffset.top + refNodeRegion.height / 2,
+    });
+  } else {
+    YRegion = utils.merge(visibleRect, {
+      [yRefPoint === 't' ? 'top' : 'bottom']: refNodeOffset.top,
+    });
+  }
 
   let realXRegion = Xregion;
   let realYRegion = YRegion;

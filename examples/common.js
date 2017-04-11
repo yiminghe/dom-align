@@ -4118,18 +4118,14 @@
 	
 	var _getElFuturePos2 = _interopRequireDefault(_getElFuturePos);
 	
-	var _getAlignOffset = __webpack_require__(42);
-	
-	var _getAlignOffset2 = _interopRequireDefault(_getAlignOffset);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * align dom node flexibly
-	                                                                                                                                                                                                                   * @author yiminghe@gmail.com
-	                                                                                                                                                                                                                   */
-	
 	// http://yiminghe.iteye.com/blog/1124720
+	
+	/**
+	 * align dom node flexibly
+	 * @author yiminghe@gmail.com
+	 */
 	
 	function isFailX(elFuturePos, elRegion, visibleRect) {
 	  return elFuturePos.left < visibleRect.left || elFuturePos.left + elRegion.width > visibleRect.right;
@@ -4179,14 +4175,6 @@
 	  return n || 0;
 	}
 	
-	function ySize(region) {
-	  return region.bottom - region.top;
-	}
-	
-	function xSize(region) {
-	  return region.right - region.left;
-	}
-	
 	function normalizeOffset(offset, el) {
 	  offset[0] = convertOffset(offset[0], el.width);
 	  offset[1] = convertOffset(offset[1], el.height);
@@ -4203,6 +4191,7 @@
 	  targetOffset = [].concat(targetOffset);
 	  overflow = overflow || {};
 	  var newOverflowCfg = {};
+	
 	  var fail = 0;
 	  // 当前节点可以被放置的显示区域
 	  var visibleRect = (0, _getVisibleRectForElement2.default)(source);
@@ -4219,14 +4208,6 @@
 	  var newElRegion = _utils2.default.merge(elRegion, elFuturePos);
 	
 	  var isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
-	  var refNodeOffset = _utils2.default.merge(refNodeRegion, (0, _getAlignOffset2.default)(refNodeRegion, points[1]));
-	
-	  // TODO if visibleRect.xx < refNodeOffset.left ??
-	  var Xregion = _utils2.default.merge(visibleRect, _defineProperty({}, points[0].charAt(1) === 'l' ? 'left' : 'right', refNodeOffset.left));
-	  var YRegion = _utils2.default.merge(visibleRect, _defineProperty({}, points[0].charAt(0) === 't' ? 'top' : 'bottom', refNodeOffset.top));
-	
-	  var realXRegion = Xregion;
-	  var realYRegion = YRegion;
 	  // 如果可视区域不能完全放置当前节点时允许调整
 	  if (visibleRect && (overflow.adjustX || overflow.adjustY) && isTargetNotOutOfVisible) {
 	    if (overflow.adjustX) {
@@ -4241,15 +4222,11 @@
 	        var newOffset = flipOffset(offset, 0);
 	        var newTargetOffset = flipOffset(targetOffset, 0);
 	        var newElFuturePos = (0, _getElFuturePos2.default)(elRegion, refNodeRegion, newPoints, newOffset, newTargetOffset);
-	
-	        var XregionReversal = _utils2.default.merge(visibleRect, _defineProperty({}, newPoints[0].charAt(1) === 'l' ? 'left' : 'right', (0, _getAlignOffset2.default)(refNodeRegion, newPoints[1]).left));
-	        var canXFlip = xSize(XregionReversal) > xSize(Xregion);
-	        if (canXFlip && !isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
+	        if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
 	          fail = 1;
 	          points = newPoints;
 	          offset = newOffset;
 	          targetOffset = newTargetOffset;
-	          realXRegion = XregionReversal;
 	        }
 	      }
 	    }
@@ -4266,16 +4243,11 @@
 	        var _newOffset = flipOffset(offset, 1);
 	        var _newTargetOffset = flipOffset(targetOffset, 1);
 	        var _newElFuturePos = (0, _getElFuturePos2.default)(elRegion, refNodeRegion, _newPoints, _newOffset, _newTargetOffset);
-	
-	        var YRegionReversal = _utils2.default.merge(visibleRect, _defineProperty({}, _newPoints[0].charAt(0) === 't' ? 'top' : 'bottom', (0, _getAlignOffset2.default)(refNodeRegion, _newPoints[1]).top));
-	        var canYFlip = ySize(YRegionReversal) > ySize(YRegion);
-	
-	        if (canYFlip && !isCompleteFailY(_newElFuturePos, elRegion, visibleRect)) {
+	        if (!isCompleteFailY(_newElFuturePos, elRegion, visibleRect)) {
 	          fail = 1;
 	          points = _newPoints;
 	          offset = _newOffset;
 	          targetOffset = _newTargetOffset;
-	          realYRegion = YRegionReversal;
 	        }
 	      }
 	    }
@@ -4286,17 +4258,15 @@
 	      _utils2.default.mix(newElRegion, elFuturePos);
 	    }
 	
-	    newOverflowCfg.resizeHeight = overflow.resizeHeight;
-	    newOverflowCfg.resizeWidth = overflow.resizeWidth;
 	    // 检查反下后的位置是否可以放下了
 	    // 如果仍然放不下只有指定了可以调整当前方向才调整
-	    newOverflowCfg.adjustX = overflow.adjustX && isFailX(elFuturePos, elRegion, realXRegion);
+	    newOverflowCfg.adjustX = overflow.adjustX && isFailX(elFuturePos, elRegion, visibleRect);
 	
-	    newOverflowCfg.adjustY = overflow.adjustY && isFailY(elFuturePos, elRegion, realYRegion);
+	    newOverflowCfg.adjustY = overflow.adjustY && isFailY(elFuturePos, elRegion, visibleRect);
 	
 	    // 确实要调整，甚至可能会调整高度宽度
 	    if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
-	      newElRegion = (0, _adjustForViewport2.default)(elFuturePos, elRegion, realXRegion, realYRegion, newOverflowCfg);
+	      newElRegion = (0, _adjustForViewport2.default)(elFuturePos, elRegion, visibleRect, newOverflowCfg);
 	    }
 	  }
 	
@@ -5178,42 +5148,42 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function adjustForViewport(elFuturePos, elRegion, xRect, yRect, overflow) {
+	function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
 	  var pos = _utils2.default.clone(elFuturePos);
 	  var size = {
 	    width: elRegion.width,
 	    height: elRegion.height
 	  };
 	
-	  if (overflow.adjustX && pos.left < xRect.left) {
-	    pos.left = xRect.left;
+	  if (overflow.adjustX && pos.left < visibleRect.left) {
+	    pos.left = visibleRect.left;
 	  }
 	
 	  // Left edge inside and right edge outside viewport, try to resize it.
-	  if (overflow.resizeWidth && pos.left >= xRect.left && pos.left + size.width > xRect.right) {
-	    size.width -= pos.left + size.width - xRect.right;
+	  if (overflow.resizeWidth && pos.left >= visibleRect.left && pos.left + size.width > visibleRect.right) {
+	    size.width -= pos.left + size.width - visibleRect.right;
 	  }
 	
 	  // Right edge outside viewport, try to move it.
-	  if (overflow.adjustX && pos.left + size.width > xRect.right) {
+	  if (overflow.adjustX && pos.left + size.width > visibleRect.right) {
 	    // 保证左边界和可视区域左边界对齐
-	    pos.left = Math.max(xRect.right - size.width, xRect.left);
+	    pos.left = Math.max(visibleRect.right - size.width, visibleRect.left);
 	  }
 	
 	  // Top edge outside viewport, try to move it.
-	  if (overflow.adjustY && pos.top < yRect.top) {
-	    pos.top = yRect.top;
+	  if (overflow.adjustY && pos.top < visibleRect.top) {
+	    pos.top = visibleRect.top;
 	  }
 	
 	  // Top edge inside and bottom edge outside viewport, try to resize it.
-	  if (overflow.resizeHeight && pos.top >= yRect.top && pos.top + size.height > yRect.bottom) {
-	    size.height -= pos.top + size.height - yRect.bottom;
+	  if (overflow.resizeHeight && pos.top >= visibleRect.top && pos.top + size.height > visibleRect.bottom) {
+	    size.height -= pos.top + size.height - visibleRect.bottom;
 	  }
 	
 	  // Bottom edge outside viewport, try to move it.
-	  if (overflow.adjustY && pos.top + size.height > yRect.bottom) {
+	  if (overflow.adjustY && pos.top + size.height > visibleRect.bottom) {
 	    // 保证上边界和可视区域上边界对齐
-	    pos.top = Math.max(yRect.bottom - size.height, yRect.top);
+	    pos.top = Math.max(visibleRect.bottom - size.height, visibleRect.top);
 	  }
 	
 	  return _utils2.default.mix(pos, size);

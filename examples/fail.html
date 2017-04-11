@@ -276,7 +276,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">const</span> Test = React.createClass({
   align() {
     <span class="hljs-keyword">const</span> ret = domAlign(<span class="hljs-keyword">this</span>.refs.source, <span class="hljs-keyword">this</span>.refs.target, {
-      points: [<span class="hljs-string">'bl'</span>, <span class="hljs-string">'bl'</span>],
+      points: [<span class="hljs-string">'tl'</span>, <span class="hljs-string">'tl'</span>],
       overflow: {
         adjustY: <span class="hljs-number">1</span>,
       },
@@ -284,7 +284,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-built_in">console</span>.log(ret);
   },
   render() {
-    <span class="hljs-built_in">window</span>.align = <span class="hljs-keyword">this</span>.align;
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">1000</span> }}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"target"</span>&gt;</span>target<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
 
@@ -294,7 +293,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>
         <span class="hljs-attribute">ref</span>=<span class="hljs-value">"source"</span>
-        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">absolute</span>', <span class="hljs-attribute">width:</span> <span class="hljs-attribute">100</span>, <span class="hljs-attribute">height:</span> <span class="hljs-attribute">200</span>, <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">red</span>' }}
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">absolute</span>', <span class="hljs-attribute">width:</span> <span class="hljs-attribute">100</span>, <span class="hljs-attribute">height:</span> <span class="hljs-attribute">100</span>, <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">red</span>' }}
       &gt;</span>
         oo
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>

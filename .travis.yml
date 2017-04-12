@@ -7,7 +7,7 @@ notifications:
   - yiminghe@gmail.com
 
 node_js:
-- 4.0.0
+- 6.10.0
 
 before_install:
 - |
@@ -30,8 +30,3 @@ env:
   - TEST_TYPE=lint
   - TEST_TYPE=test
   - TEST_TYPE=coverage
-
-
-matrix:
-  allow_failures:
-  - env: "TEST_TYPE=saucelabs"

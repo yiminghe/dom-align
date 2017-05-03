@@ -117,7 +117,7 @@ function domAlign(el, refNode, align) {
   // TODO if visibleRect.xx < refNodeOffset.left ??
   if (xRefPoint === 'c') {
     Xregion = utils.merge(visibleRect, {
-      left: refNodeOffset.left + refNodeRegion.width / 2,
+      left: refNodeOffset.left - elRegion.width / 2,
     });
   } else {
     Xregion = utils.merge(visibleRect, {
@@ -128,7 +128,7 @@ function domAlign(el, refNode, align) {
   const yRefPoint = points[0].charAt(0);
   if (yRefPoint === 'c') {
     YRegion = utils.merge(visibleRect, {
-      top: refNodeOffset.top + refNodeRegion.height / 2,
+      top: refNodeOffset.top - elRegion.height / 2,
     });
   } else {
     YRegion = utils.merge(visibleRect, {

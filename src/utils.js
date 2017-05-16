@@ -109,10 +109,31 @@ function getOffset(el) {
   pos.top += getScrollTop(w);
   return pos;
 }
+
+/**
+ * A crude way of determining if an object is a window
+ * @member util
+ */
+function isWindow(obj) {
+  // must use == for ie8
+  /* eslint eqeqeq:0 */
+  return obj !== null && obj !== undefined && obj == obj.window;
+}
+
+function getDocument(node) {
+  if (isWindow(node)) {
+    return node.document;
+  }
+  if (node.nodeType === 9) {
+    return node;
+  }
+  return node.ownerDocument;
+}
+
 function _getComputedStyle(elem, name, cs) {
   let computedStyle = cs;
   let val = '';
-  const d = elem.ownerDocument;
+  const d = getDocument(elem);
   computedStyle = (computedStyle || d.defaultView.getComputedStyle(elem, null));
 
   // https://github.com/kissyteam/kissy/issues/61
@@ -343,16 +364,6 @@ function getPBMWidth(elem, props, which) {
   return value;
 }
 
-/**
- * A crude way of determining if an object is a window
- * @member util
- */
-function isWindow(obj) {
-  // must use == for ie8
-  /* eslint eqeqeq:0 */
-  return obj !== null && obj !== undefined && obj == obj.window;
-}
-
 const domUtils = {};
 
 each(['Width', 'Height'], (name) => {
@@ -497,6 +508,7 @@ const utils = {
     const doc = node.ownerDocument || node;
     return doc.defaultView || doc.parentWindow;
   },
+  getDocument,
   offset(el, value, option) {
     if (typeof value !== 'undefined') {
       setOffset(el, value, option || {});

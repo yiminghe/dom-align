@@ -258,6 +258,35 @@ describe('dom-align', () => {
 
         expect(target.offset().top - containerOffset.top - 30).within(-10, 10);
       });
+
+      it('works when target is window', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
+        `).appendTo('body');
+        domAlign(node.get(0), window, {
+          points: ['tl', 'tl'],
+        });
+        expect(node.offset().top).to.be(0);
+        expect(node.offset().left).to.be(0);
+      });
+
+      it('works when target is document', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
+        `).appendTo('body');
+        domAlign(node.get(0), document, {
+          points: ['tl', 'tl'],
+        });
+        expect(node.offset().top).to.be(0);
+        expect(node.offset().left).to.be(0);
+      });
+
       describe('auto align', () => {
         it('should not auto adjust if current position is right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {

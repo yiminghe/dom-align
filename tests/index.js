@@ -222,6 +222,71 @@ describe('dom-align', () => {
         });
       });
 
+      it('center align must ok', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`<div style='position: absolute;left:0;top:0;
+        width: 100px;height: 100px;
+        overflow: hidden'>
+        <div style='position: absolute;
+        width: 50px;
+        height: 50px;'>
+        </div>
+        <div style='position: absolute;left:0;top:20px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:100px;height:5px;'></div>
+        </div>`).appendTo('body');
+
+        const target = node.children().eq(0);
+        // upper = node.children().eq(1),
+        const lower = node.children().eq(2);
+
+        const containerOffset = node.offset();
+        // const targetOffset = target.offset();
+
+        domAlign(target[0], lower[0], {
+          points: ['bc', 'tc'],
+        });
+
+        //    _____________
+        //   |             |
+        //   |  ________   |
+        //   |  |      |   |
+        //   |__|______|___|
+        //   |_____________|
+        expect(target.offset().left - 25).within(-10, 10);
+
+        expect(target.offset().top - containerOffset.top - 30).within(-10, 10);
+      });
+
+      it('works when target is window', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
+        `).appendTo('body');
+        domAlign(node.get(0), window, {
+          points: ['tl', 'tl'],
+        });
+        expect(node.offset().top).to.be(0);
+        expect(node.offset().left).to.be(0);
+      });
+
+      it('works when target is document', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
+        `).appendTo('body');
+        domAlign(node.get(0), document, {
+          points: ['tl', 'tl'],
+        });
+        expect(node.offset().top).to.be(0);
+        expect(node.offset().left).to.be(0);
+      });
+
       describe('auto align', () => {
         it('should not auto adjust if current position is right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
@@ -235,7 +300,7 @@ describe('dom-align', () => {
         height: 50px;'>
         </div>
         <div style='position: absolute;left:0;top:20px;'></div>
-        <div style='position: absolute;left:0;top:80px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:5px;height:5px;'></div>
         </div>`).appendTo('body');
 
           const target = node.children().eq(0);
@@ -291,6 +356,82 @@ describe('dom-align', () => {
           expect(target.offset().top - containerOffset.top).to.be(55);
         });
 
+
+        it('should not auto adjust if target is out of visible rect', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+          const node = $(`
+           <div style='position:absolute;left:0;top:0;width:100px;height:100px;overflow:hidden'>
+            <div style='position:absolute;top:0;left:0;width:50px;height:50px;'></div>
+            <div style='position:absolute;left:80px;top:80px;'></div>
+           </div>
+          `).appendTo('body');
+
+          const target = node.children().eq(0);
+          const source = node.children().eq(1);
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+
+          expect(source.offset().top - target.offset().top).to.be(0);
+          expect(source.offset().left - target.offset().left).to.be(0);
+
+          target.css({ top: -50, left: -50 });
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+
+          expect(source.offset().top - target.offset().top).to.be(0);
+          expect(source.offset().left - target.offset().left).to.be(0);
+        });
+
+        it('should not flip if target area is smaller than origin', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+          const node = $(`<div style='position: absolute;left:100px;top:100px;
+          width: 100px;height: 100px;
+          overflow: hidden'>
+          <div style='position: absolute;
+          width: 50px;
+          height: 100px;'>
+          </div>
+          <div style='position: absolute;left:0;top:20px;'></div>
+          <div style='position: absolute;left:0;top:30px;'></div>
+          </div>`).appendTo('body');
+
+          const target = node.children().eq(0);
+          // upper = node.children().eq(1),
+          const lower = node.children().eq(2);
+
+          const containerOffset = node.offset();
+          domAlign(target[0], lower[0], {
+            points: ['tl', 'bl'],
+            overflow: {
+              adjustY: 1,
+              resizeHeight: 1,
+            },
+          });
+          //   | ___________ |
+          //   |      |      |
+          //   | ____ | ____ |
+          //   |      |      |
+          //   |      |      |
+          //   |------|______|
+
+          expect(target.offset().left - containerOffset.left).within(-5, 5);
+          expect(target.offset().top - containerOffset.top - 30).within(-5, 5);
+        });
+
         it('should auto adjust if current position is not right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return;
@@ -303,7 +444,7 @@ describe('dom-align', () => {
         height: 90px;'>
         </div>
         <div style='position: absolute;left:0;top:20px;'></div>
-        <div style='position: absolute;left:0;top:80px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:5px;height:5px;'></div>
         </div>`).appendTo('body');
 
           const target = node.children().eq(0);

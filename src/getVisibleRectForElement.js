@@ -15,7 +15,7 @@ function getVisibleRectForElement(element) {
   let scrollX;
   let scrollY;
   let winSize;
-  const doc = element.ownerDocument;
+  const doc = utils.getDocument(element);
   const win = doc.defaultView || doc.parentWindow;
   const body = doc.body;
   const documentElement = doc.documentElement;

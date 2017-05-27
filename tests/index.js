@@ -1,6 +1,6 @@
-const domAlign = require('../');
-const $ = require('jquery');
-const expect = require('expect.js');
+import domAlign from '../src';
+import $ from 'jquery';
+import expect from 'expect.js';
 
 $('<style>html,body {padding:0;margin:0;border:none;}</style>')
   .appendTo(document.getElementsByTagName('head'));

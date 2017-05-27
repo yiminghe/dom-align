@@ -269,8 +269,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
-<span class="hljs-keyword">const</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> domAlign <span class="hljs-keyword">from</span> <span class="hljs-string">'dom-align'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">$id</span>(<span class="hljs-params">id</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">document</span>.getElementById(id);
@@ -280,8 +281,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   sel = $id(sel);
   <span class="hljs-keyword">return</span> sel.value;
 }
-
-<span class="hljs-keyword">const</span> domAlign = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dom-align'</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">align</span>(<span class="hljs-params"></span>) </span>{
   domAlign($id(<span class="hljs-string">'source'</span>), $id(<span class="hljs-string">'target'</span>), {

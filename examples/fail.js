@@ -9,16 +9,23 @@ module.exports = __webpack_require__(86);
 /***/ }),
 
 /***/ 86:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var React = __webpack_require__(85);
-var domAlign = __webpack_require__(51);
-var ReactDOM = __webpack_require__(59);
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_align__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
 
-var Test = React.createClass({
+
+
+
+var Test = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
   displayName: 'Test',
   align: function align() {
-    var ret = domAlign(this.refs.source, this.refs.target, {
+    var ret = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_dom_align__["a" /* default */])(this.refs.source, this.refs.target, {
       points: ['bl', 'bl'],
       overflow: {
         adjustY: 1
@@ -28,21 +35,21 @@ var Test = React.createClass({
   },
   render: function render() {
     window.align = this.align;
-    return React.createElement(
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { style: { height: 1000 } },
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'button',
         { ref: 'target' },
         'target'
       ),
-      React.createElement('div', { style: { height: 100 } }),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: { height: 100 } }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'button',
         { onClick: this.align },
         'align'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         {
           ref: 'source',
@@ -54,7 +61,7 @@ var Test = React.createClass({
   }
 });
 
-ReactDOM.render(React.createElement(Test, null), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Test, null), document.getElementById('__react-content'));
 
 /***/ })
 

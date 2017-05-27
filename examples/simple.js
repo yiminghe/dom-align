@@ -9,10 +9,18 @@ module.exports = __webpack_require__(87);
 /***/ }),
 
 /***/ 87:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var React = __webpack_require__(85);
-var ReactDOM = __webpack_require__(59);
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_align__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+
+
+
 
 function $id(id) {
   return document.getElementById(id);
@@ -23,10 +31,8 @@ function $val(sel) {
   return sel.value;
 }
 
-var domAlign = __webpack_require__(51);
-
 function align() {
-  domAlign($id('source'), $id('target'), {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_dom_align__["a" /* default */])($id('source'), $id('target'), {
     points: [$val('source_align_tb') + $val('source_align_lr'), $val('target_align_tb') + $val('target_align_lr')],
     offset: [$val('offset1'), $val('offset2')],
     targetOffset: [$val('targetOffset1'), $val('targetOffset2')],
@@ -40,146 +46,146 @@ function align() {
   });
 }
 
-var div = React.createElement(
+var div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
   'div',
   null,
-  React.createElement(
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'h1',
     null,
     'dom-align'
   ),
-  React.createElement(
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     null,
     'source:',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'select',
       { id: 'source_align_tb' },
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 't' },
         't'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'c' },
         'c'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'b' },
         'b'
       )
     ),
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'select',
       { id: 'source_align_lr' },
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'l' },
         'l'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'c' },
         'c'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'r' },
         'r'
       )
     ),
     '\xA0 target:',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'select',
       { id: 'target_align_tb' },
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 't' },
         't'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'c' },
         'c'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'b' },
         'b'
       )
     ),
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'select',
       { id: 'target_align_lr' },
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'l' },
         'l'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'c' },
         'c'
       ),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'option',
         { value: 'r' },
         'r'
       )
     ),
     '\xA0 offset: [',
-    React.createElement('input', { type: 'offset', id: 'offset1', defaultValue: '0', size: '3' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'offset', id: 'offset1', defaultValue: '0', size: '3' }),
     ',',
-    React.createElement('input', { type: 'offset', id: 'offset2', defaultValue: '0', size: '3' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'offset', id: 'offset2', defaultValue: '0', size: '3' }),
     '] \xA0 targetOffset: [',
-    React.createElement('input', { type: 'offset', id: 'targetOffset1', defaultValue: '0', size: '3' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'offset', id: 'targetOffset1', defaultValue: '0', size: '3' }),
     ',',
-    React.createElement('input', { type: 'offset', id: 'targetOffset2', defaultValue: '0', size: '3' }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'offset', id: 'targetOffset2', defaultValue: '0', size: '3' }),
     '] \xA0 overflow: \xA0',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'label',
       null,
       'adjustX:',
-      React.createElement('input', { type: 'checkbox', id: 'adjustX' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', id: 'adjustX' })
     ),
     '\xA0',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'label',
       null,
       'adjustY:',
-      React.createElement('input', { type: 'checkbox', id: 'adjustY' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', id: 'adjustY' })
     ),
     '\xA0',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'label',
       null,
       'useCssBottom:',
-      React.createElement('input', { type: 'checkbox', id: 'useCssBottom' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', id: 'useCssBottom' })
     ),
     '\xA0',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'label',
       null,
       'useCssRight:',
-      React.createElement('input', { type: 'checkbox', id: 'useCssRight' })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', id: 'useCssRight' })
     ),
     '\xA0',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'label',
       null,
       'useCssTransform:',
-      React.createElement('input', { type: 'checkbox', id: 'useCssTransform', defaultChecked: !!window.TransitionEvent })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', id: 'useCssTransform', defaultChecked: !!window.TransitionEvent })
     ),
     '\xA0',
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'button',
       { id: 'align', onClick: align },
       'align'
     ),
-    React.createElement('br', null),
-    React.createElement(
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       {
         style: {
@@ -190,7 +196,7 @@ var div = React.createElement(
           position: 'relative'
         }
       },
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         {
           style: {
@@ -203,8 +209,8 @@ var div = React.createElement(
         },
         'target node'
       ),
-      React.createElement('div', { style: { width: 1000, height: 1000 } }),
-      React.createElement(
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: { width: 1000, height: 1000 } }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         {
           style: {
@@ -224,7 +230,7 @@ var div = React.createElement(
   )
 );
 
-ReactDOM.render(div, $id('__react-content'));
+__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(div, $id('__react-content'));
 
 /***/ })
 

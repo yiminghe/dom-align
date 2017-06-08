@@ -1,6 +1,6 @@
-const domAlign = require('../');
-const $ = require('jquery');
-const expect = require('expect.js');
+import domAlign from '../src';
+import $ from 'jquery';
+import expect from 'expect.js';
 
 $('<style>html,body {padding:0;margin:0;border:none;}</style>')
   .appendTo(document.getElementsByTagName('head'));
@@ -220,6 +220,71 @@ describe('dom-align', () => {
             left: 25,
           });
         });
+      });
+
+      it('center align must ok', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`<div style='position: absolute;left:0;top:0;
+        width: 100px;height: 100px;
+        overflow: hidden'>
+        <div style='position: absolute;
+        width: 50px;
+        height: 50px;'>
+        </div>
+        <div style='position: absolute;left:0;top:20px;'></div>
+        <div style='position: absolute;left:0;top:80px;width:100px;height:5px;'></div>
+        </div>`).appendTo('body');
+
+        const target = node.children().eq(0);
+        // upper = node.children().eq(1),
+        const lower = node.children().eq(2);
+
+        const containerOffset = node.offset();
+        // const targetOffset = target.offset();
+
+        domAlign(target[0], lower[0], {
+          points: ['bc', 'tc'],
+        });
+
+        //    _____________
+        //   |             |
+        //   |  ________   |
+        //   |  |      |   |
+        //   |__|______|___|
+        //   |_____________|
+        expect(target.offset().left - 25).within(-10, 10);
+
+        expect(target.offset().top - containerOffset.top - 30).within(-10, 10);
+      });
+
+      it('works when target is window', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
+        `).appendTo('body');
+        domAlign(node.get(0), window, {
+          points: ['tl', 'tl'],
+        });
+        expect(node.offset().top).to.be(0);
+        expect(node.offset().left).to.be(0);
+      });
+
+      it('works when target is document', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
+        `).appendTo('body');
+        domAlign(node.get(0), document, {
+          points: ['tl', 'tl'],
+        });
+        expect(node.offset().top).to.be(0);
+        expect(node.offset().left).to.be(0);
       });
 
       describe('auto align', () => {

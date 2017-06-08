@@ -111,13 +111,34 @@ function domAlign(el, refNode, align) {
   const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
   const refNodeOffset = utils.merge(refNodeRegion, getAlignOffset(refNodeRegion, points[1]));
 
+  let Xregion;
+  let YRegion;
+  const xRefPoint = points[0].charAt(1);
+  const xTargetPoint = points[1].charAt(1);
+  
   // TODO if visibleRect.xx < refNodeOffset.left ??
-  const Xregion = utils.merge(visibleRect, {
-    [points[0].charAt(1) === 'l' ? 'left' : 'right']: refNodeOffset.left,
-  });
-  const YRegion = utils.merge(visibleRect, {
-    [points[0].charAt(0) === 't' ? 'top' : 'bottom']: refNodeOffset.top,
-  });
+  if (xRefPoint === 'c') {
+    Xregion = utils.merge(visibleRect, {
+      left: refNodeOffset.left - elRegion.width / 2,
+    });
+  } else {
+    Xregion = utils.merge(visibleRect, {
+      [xRefPoint === 'l' ? 'left' : 'right']: (xTargetPoint === 'l' ? refNodeOffset.left : refNodeOffset.right) + offset[0],
+    });
+  }
+
+  const yRefPoint = points[0].charAt(0);
+  const yTargetPoint = points[1].charAt(0);
+
+  if (yRefPoint === 'c') {
+    YRegion = utils.merge(visibleRect, {
+      top: refNodeOffset.top - elRegion.height / 2,
+    });
+  } else {
+    YRegion = utils.merge(visibleRect, {
+      [yRefPoint === 't' ? 'top' : 'bottom']: (yTargetPoint === 't' ? refNodeOffset.top : refNodeOffset.bottom) + offset[1],
+    });
+  }
 
   let realXRegion = Xregion;
   let realYRegion = YRegion;
@@ -197,7 +218,7 @@ function domAlign(el, refNode, align) {
 
     newOverflowCfg.adjustY = overflow.adjustY &&
       isFailY(elFuturePos, elRegion, realYRegion);
-
+      
     // 确实要调整，甚至可能会调整高度宽度
     if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
       newElRegion = adjustForViewport(elFuturePos, elRegion,
@@ -225,7 +246,7 @@ function domAlign(el, refNode, align) {
     useCssBottom: align.useCssBottom,
     useCssTransform: align.useCssTransform,
   });
-
+  
   return {
     points,
     offset,

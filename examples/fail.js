@@ -1,6 +1,6 @@
-const React = require('react');
-const domAlign = require('dom-align');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import domAlign from 'dom-align';
+import ReactDOM from 'react-dom';
 
 const Test = React.createClass({
   align() {

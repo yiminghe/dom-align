@@ -1,5 +1,6 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import domAlign from 'dom-align';
+import ReactDOM from 'react-dom';
 
 function $id(id) {
   return document.getElementById(id);
@@ -9,8 +10,6 @@ function $val(sel) {
   sel = $id(sel);
   return sel.value;
 }
-
-const domAlign = require('dom-align');
 
 function align() {
   domAlign($id('source'), $id('target'), {

@@ -1,6 +1,6 @@
 {
   "name": "dom-align",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
@@ -8,9 +8,11 @@
   ],
   "homepage": "http://github.com/yiminghe/dom-align",
   "files": [
-    "lib"
+    "lib",
+    "es"
   ],
   "main": "lib/index",
+  "module": "es/index",
   "author": "yiminghe@gmail.com",
   "repository": {
     "type": "git",
@@ -27,19 +29,21 @@
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
+    "compile": "rc-tools run compile",
     "pub": "rc-tools run pub",
     "lint": "rc-tools run lint",
-    "karma": "rc-tools run karma",
-    "saucelabs": "rc-tools run saucelabs",
-    "test": "rc-tools run test",
-    "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage"
+    "karma": "rc-test run karma",
+    "saucelabs": "rc-test run saucelabs",
+    "test": "rc-test run test",
+    "chrome-test": "rc-test run chrome-test",
+    "coverage": "rc-test run coverage"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
     "jquery": "^1.11.2",
     "pre-commit": "1.x",
-    "rc-tools": "5.x",
+    "rc-test": "6.x",
+    "rc-tools": "6.x",
     "react": "15.x",
     "react-dom": "15.x"
   },

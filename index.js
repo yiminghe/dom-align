@@ -1,1 +1,2 @@
-module.exports = require('./src/index.js');
+import domAlign from './src/';
+export default domAlign;

@@ -485,6 +485,34 @@ describe('dom-align', () => {
 
           expect(target.offset().top - containerOffset.top).within(-5, 5);
         });
+
+        it('should expand Region with offset', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+          const node = $(`<div style='position: absolute;left:100px;top:100px;
+        width: 100px;height: 100px;
+        overflow: hidden'>
+        <div style='position: absolute;
+        width: 50px;
+        height: 30px;'>
+        </div>
+        <div style='position: absolute;left:0;top:20px;'></div>
+        <div style='position: absolute;left:0;top:30px;width:5px;height:5px;'></div>
+        </div>`).appendTo('body');
+
+          const target = node.children().eq(0);
+          // upper = node.children().eq(1),
+          const lower = node.children().eq(2);
+
+          const containerOffset = node.offset();
+          domAlign(target[0], lower[0], { points: ['bl', 'tl'], offset: [0, 15] });
+
+          // 图比较难画，自行想象吧。。。
+          expect(target.offset().left - containerOffset.left).within(-5, 5);
+
+          expect(target.offset().top - (containerOffset.top + 15)).within(-5, 5);
+        });
       });
     });
   }

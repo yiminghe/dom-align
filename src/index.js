@@ -115,7 +115,7 @@ function domAlign(el, refNode, align) {
   let YRegion;
   const xRefPoint = points[0].charAt(1);
   const xTargetPoint = points[1].charAt(1);
-  
+
   // TODO if visibleRect.xx < refNodeOffset.left ??
   if (xRefPoint === 'c') {
     Xregion = utils.merge(visibleRect, {
@@ -123,7 +123,9 @@ function domAlign(el, refNode, align) {
     });
   } else {
     Xregion = utils.merge(visibleRect, {
-      [xRefPoint === 'l' ? 'left' : 'right']: (xTargetPoint === 'l' ? refNodeOffset.left : refNodeOffset.right) + offset[0],
+      [xRefPoint === 'l' ? 'left' : 'right']:
+        (xTargetPoint === 'l' ? refNodeOffset.left :
+          refNodeOffset.left + refNodeOffset.width) + (offset[0]),
     });
   }
 
@@ -136,7 +138,9 @@ function domAlign(el, refNode, align) {
     });
   } else {
     YRegion = utils.merge(visibleRect, {
-      [yRefPoint === 't' ? 'top' : 'bottom']: (yTargetPoint === 't' ? refNodeOffset.top : refNodeOffset.bottom) + offset[1],
+      [yRefPoint === 't' ? 'top' : 'bottom']:
+        (yTargetPoint === 't' ? refNodeOffset.top :
+          refNodeOffset.top + refNodeOffset.height) + (offset[1] || 0),
     });
   }
 
@@ -218,7 +222,6 @@ function domAlign(el, refNode, align) {
 
     newOverflowCfg.adjustY = overflow.adjustY &&
       isFailY(elFuturePos, elRegion, realYRegion);
-      
     // 确实要调整，甚至可能会调整高度宽度
     if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
       newElRegion = adjustForViewport(elFuturePos, elRegion,
@@ -246,7 +249,7 @@ function domAlign(el, refNode, align) {
     useCssBottom: align.useCssBottom,
     useCssTransform: align.useCssTransform,
   });
-  
+
   return {
     points,
     offset,

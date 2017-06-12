@@ -123,11 +123,11 @@ function domAlign(el, refNode, align) {
     });
   } else {
     Xregion = utils.merge(visibleRect, {
-      [xRefPoint === 'l' ? 'left' : 'right']:
-        (xTargetPoint === 'l' ? refNodeOffset.left :
-          refNodeOffset.left + refNodeOffset.width) + (offset[0]),
+      [xRefPoint === 'l' ? 'left' : 'right']:refNodeOffset.left,
     });
   }
+  Xregion.left += offset[0];
+  Xregion.right += offset[0];
 
   const yRefPoint = points[0].charAt(0);
   const yTargetPoint = points[1].charAt(0);
@@ -138,12 +138,12 @@ function domAlign(el, refNode, align) {
     });
   } else {
     YRegion = utils.merge(visibleRect, {
-      [yRefPoint === 't' ? 'top' : 'bottom']:
-        (yTargetPoint === 't' ? refNodeOffset.top :
-          refNodeOffset.top + refNodeOffset.height) + (offset[1] || 0),
+      [yRefPoint === 't' ? 'top' : 'bottom']: refNodeOffset.left,
     });
   }
 
+  YRegion.top += offset[1];
+  YRegion.bottom += offset[1];
   let realXRegion = Xregion;
   let realYRegion = YRegion;
   // 如果可视区域不能完全放置当前节点时允许调整

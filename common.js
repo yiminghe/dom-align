@@ -10594,7 +10594,7 @@ function domAlign(el, refNode, align) {
       left: refNodeOffset.left - elRegion.width / 2
     });
   } else {
-    Xregion = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(visibleRect, _defineProperty({}, xRefPoint === 'l' ? 'left' : 'right', refNodeOffset.left));
+    Xregion = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(visibleRect, _defineProperty({}, xRefPoint === 'l' ? 'left' : 'right', refNodeOffset.left + offset[0]));
   }
 
   var yRefPoint = points[0].charAt(0);
@@ -10603,7 +10603,7 @@ function domAlign(el, refNode, align) {
       top: refNodeOffset.top - elRegion.height / 2
     });
   } else {
-    YRegion = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(visibleRect, _defineProperty({}, yRefPoint === 't' ? 'top' : 'bottom', refNodeOffset.top));
+    YRegion = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(visibleRect, _defineProperty({}, yRefPoint === 't' ? 'top' : 'bottom', refNodeOffset.top + offset[1]));
   }
 
   var realXRegion = Xregion;

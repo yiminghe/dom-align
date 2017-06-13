@@ -121,7 +121,7 @@ function domAlign(el, refNode, align) {
     });
   } else {
     Xregion = utils.merge(visibleRect, {
-      [xRefPoint === 'l' ? 'left' : 'right']: refNodeOffset.left,
+      [xRefPoint === 'l' ? 'left' : 'right']: refNodeOffset.left + offset[0],
     });
   }
 
@@ -132,7 +132,7 @@ function domAlign(el, refNode, align) {
     });
   } else {
     YRegion = utils.merge(visibleRect, {
-      [yRefPoint === 't' ? 'top' : 'bottom']: refNodeOffset.top,
+      [yRefPoint === 't' ? 'top' : 'bottom']: refNodeOffset.top + offset[1],
     });
   }
 

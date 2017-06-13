@@ -1,6 +1,6 @@
-import domAlign from '../src';
 import $ from 'jquery';
 import expect from 'expect.js';
+import domAlign from '../src';
 
 $('<style>html,body {padding:0;margin:0;border:none;}</style>')
   .appendTo(document.getElementsByTagName('head'));
@@ -484,6 +484,32 @@ describe('dom-align', () => {
           expect(target.offset().left - containerOffset.left).within(-5, 5);
 
           expect(target.offset().top - containerOffset.top).within(-5, 5);
+        });
+
+        it('should consider offset when caculate realXRegion and realYRegion', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+          const node = $(`
+            <div style="position: absolute;width: 100px;height: 100px;">
+              <div style="position: absolute;top: 25px;left:25px;width: 50px;height: 50px;">
+              </div>
+              <div style="position: absolute;width: 5px;height: 5px"></div>
+            </div>
+          `).appendTo('body');
+          const source = node.children().eq(1);
+          const target = node.children().eq(0);
+          // See: https://github.com/ant-design/ant-design/issues/6347
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            offset: [-9, -9],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+          expect(source.offset().top + 9 - target.offset().top).within(-5, 5);
+          expect(source.offset().left + 9 - target.offset().left).within(-5, 5);
         });
       });
     });

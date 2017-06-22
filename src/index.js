@@ -154,10 +154,18 @@ function domAlign(el, refNode, align) {
         const newElFuturePos = getElFuturePos(elRegion, refNodeRegion,
           newPoints, newOffset, newTargetOffset);
 
-        const XregionReversal = utils.merge(visibleRect, {
-          [newPoints[0].charAt(1) === 'l' ?
-            'left' : 'right']: getAlignOffset(refNodeRegion, newPoints[1]).left,
-        });
+        let XregionReversal;
+        if (newPoints[0].charAt(1) === 'c') {
+          XregionReversal = utils.merge(visibleRect, {
+            left: refNodeOffset.left - elRegion.width / 2,
+          });
+        } else {
+          XregionReversal = utils.merge(visibleRect, {
+            [newPoints[0].charAt(1) === 'l' ?
+              'left' : 'right']: getAlignOffset(refNodeRegion, newPoints[1]).left,
+          });
+        }
+
         const canXFlip = xSize(XregionReversal) > xSize(Xregion);
         if (canXFlip && !isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
@@ -183,10 +191,18 @@ function domAlign(el, refNode, align) {
         const newElFuturePos = getElFuturePos(elRegion, refNodeRegion,
           newPoints, newOffset, newTargetOffset);
 
-        const YRegionReversal = utils.merge(visibleRect, {
-          [newPoints[0].charAt(0) === 't' ?
-            'top' : 'bottom']: getAlignOffset(refNodeRegion, newPoints[1]).top,
-        });
+        let YRegionReversal;
+        if (newPoints[0].charAt(0) === 'c') {
+          YRegionReversal = utils.merge(visibleRect, {
+            top: refNodeOffset.top - elRegion.height / 2,
+          });
+        } else {
+          YRegionReversal = utils.merge(visibleRect, {
+            [newPoints[0].charAt(0) === 't' ?
+              'top' : 'bottom']: getAlignOffset(refNodeRegion, newPoints[1]).top,
+          });
+        }
+
         const canYFlip = ySize(YRegionReversal) > ySize(YRegion);
 
         if (canYFlip && !isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {

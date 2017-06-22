@@ -82,6 +82,37 @@ function normalizeOffset(offset, el) {
   offset[1] = convertOffset(offset[1], el.height);
 }
 
+// If page is not scrollable, then use VisibleRect of browser edge
+function fixVisibleRect(region, visibleRect) {
+  if (typeof document === 'undefined') {
+    return region;
+  }
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollLeft = document.documentElement.scrollLeft;
+  const scrollWidth = document.documentElement.scrollWidth;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  const newRegion = { ...region };
+  // 不可向上滚动
+  if (scrollTop === 0) {
+    newRegion.top = visibleRect.top;
+  }
+  // 不可向下滚动
+  if (scrollTop + windowHeight === scrollHeight) {
+    newRegion.bottom = visibleRect.bottom;
+  }
+  // 不可向左滚动
+  if (scrollLeft === 0) {
+    newRegion.left = visibleRect.left;
+  }
+  // 不可向右滚动
+  if (scrollLeft + windowWidth === scrollWidth) {
+    newRegion.right = visibleRect.right;
+  }
+  return newRegion;
+}
+
 function domAlign(el, refNode, align) {
   let points = align.points;
   let offset = align.offset || [0, 0];
@@ -214,6 +245,10 @@ function domAlign(el, refNode, align) {
         }
       }
     }
+
+    // 根据是否能滚动修正可视区域
+    realXRegion = fixVisibleRect(realXRegion, visibleRect);
+    realYRegion = fixVisibleRect(realYRegion, visibleRect);
 
     // 如果失败，重新计算当前节点将要被放置的位置
     if (fail) {

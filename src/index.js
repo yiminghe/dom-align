@@ -83,17 +83,22 @@ function normalizeOffset(offset, el) {
 }
 
 // If page is not scrollable, then use VisibleRect of browser edge
-function fixVisibleRect(region, visibleRect) {
+function fixVisibleRect(region, visibleRect, sourceNode) {
   if (typeof document === 'undefined') {
     return region;
   }
-  const scrollTop = document.documentElement.scrollTop;
-  const scrollLeft = document.documentElement.scrollLeft;
-  const scrollWidth = document.documentElement.scrollWidth;
-  const scrollHeight = document.documentElement.scrollHeight;
-  const windowWidth = window.innerWidth;
-  const windowHeight = window.innerHeight;
+  let offsetParent = getOffsetParent(sourceNode);
+  if (offsetParent === document.body) {
+    offsetParent = document.documentElement;
+  }
+  const scrollTop = offsetParent.scrollTop;
+  const scrollLeft = offsetParent.scrollLeft;
+  const scrollWidth = offsetParent.scrollWidth;
+  const scrollHeight = offsetParent.scrollHeight;
+  const windowWidth = offsetParent.clientWidth;
+  const windowHeight = offsetParent.clientHeight;
   const newRegion = { ...region };
+
   // 不可向上滚动
   if (scrollTop === 0) {
     newRegion.top = visibleRect.top;
@@ -247,8 +252,8 @@ function domAlign(el, refNode, align) {
     }
 
     // 根据是否能滚动修正可视区域
-    realXRegion = fixVisibleRect(realXRegion, visibleRect);
-    realYRegion = fixVisibleRect(realYRegion, visibleRect);
+    realXRegion = fixVisibleRect(realXRegion, visibleRect, source);
+    realYRegion = fixVisibleRect(realYRegion, visibleRect, source);
 
     // 如果失败，重新计算当前节点将要被放置的位置
     if (fail) {

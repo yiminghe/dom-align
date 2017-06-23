@@ -394,6 +394,43 @@ describe('dom-align', () => {
           expect(source.offset().left - target.offset().left).to.be(0);
         });
 
+        it('auto adjust should depends on whether offset parent is scrollable', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+          const node = $(`
+           <div style='position:absolute;left:0;top:0;width:100px;height:100px;overflow:scroll;'>
+             <div style='position:absolute;width:50px;height:50px;'></div>
+             <div style='position:absolute;top:-10px;left:-10px;width:50px;height:50px;'></div>
+             <div style='width:1000px;height:1000px;'>1111</div>
+           </div>
+          `).appendTo('body');
+
+          const source = node.children().eq(0);
+          const target = node.children().eq(1);
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+          expect(source.offset().top).to.be(0);
+          expect(source.offset().left).to.be(0);
+
+          node[0].scrollTop = 20;
+          node[0].scrollLeft = 20;
+          domAlign(source[0], target[0], {
+            points: ['tl', 'tl'],
+            overflow: {
+              adjustX: 1,
+              adjustY: 1,
+            },
+          });
+          expect(source.offset().top - target.offset().top).to.be(0);
+          expect(source.offset().left - target.offset().left).to.be(0);
+        });
+
         it('should not flip if target area is smaller than origin', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return;

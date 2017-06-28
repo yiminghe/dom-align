@@ -82,21 +82,41 @@ function normalizeOffset(offset, el) {
   offset[1] = convertOffset(offset[1], el.height);
 }
 
+function getScrollParent(element, includeHidden) {
+  let style = getComputedStyle(element);
+  const excludeStaticParent = style.position === 'absolute';
+  const overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
+
+  if (style.position === 'fixed') {
+    return document.body;
+  }
+  for (let parent = element; (parent = parent.parentElement);) { // eslint-disable-line
+    style = getComputedStyle(parent);
+    if (excludeStaticParent && style.position === 'static') {
+      continue;
+    }
+    if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
+      return parent;
+    }
+  }
+  return document.body;
+}
+
 // If page is not scrollable, then use VisibleRect of browser edge
-function fixVisibleRect(region, visibleRect, sourceNode) {
+function fixVisibleRect(region, visibleRect, target) {
   if (typeof document === 'undefined') {
     return region;
   }
-  let offsetParent = getOffsetParent(sourceNode);
-  if (offsetParent === document.body) {
-    offsetParent = document.documentElement;
+  let scrollParent = getScrollParent(target);
+  if (!scrollParent || scrollParent === document.body) {
+    scrollParent = document.documentElement;
   }
-  const scrollTop = offsetParent.scrollTop;
-  const scrollLeft = offsetParent.scrollLeft;
-  const scrollWidth = offsetParent.scrollWidth;
-  const scrollHeight = offsetParent.scrollHeight;
-  const windowWidth = offsetParent.clientWidth;
-  const windowHeight = offsetParent.clientHeight;
+  const scrollTop = scrollParent.scrollTop;
+  const scrollLeft = scrollParent.scrollLeft;
+  const scrollWidth = scrollParent.scrollWidth;
+  const scrollHeight = scrollParent.scrollHeight;
+  const windowWidth = scrollParent.clientWidth;
+  const windowHeight = scrollParent.clientHeight;
   const newRegion = { ...region };
 
   // 不可向上滚动
@@ -194,6 +214,7 @@ function domAlign(el, refNode, align) {
         if (newPoints[0].charAt(1) === 'c') {
           XregionReversal = utils.merge(visibleRect, {
             left: refNodeOffset.left - elRegion.width / 2,
+            right: visibleRect.right + elRegion.width / 2,
           });
         } else {
           XregionReversal = utils.merge(visibleRect, {
@@ -231,6 +252,7 @@ function domAlign(el, refNode, align) {
         if (newPoints[0].charAt(0) === 'c') {
           YRegionReversal = utils.merge(visibleRect, {
             top: refNodeOffset.top - elRegion.height / 2,
+            bottom: visibleRect.bottom + elRegion.height / 2,
           });
         } else {
           YRegionReversal = utils.merge(visibleRect, {
@@ -252,8 +274,8 @@ function domAlign(el, refNode, align) {
     }
 
     // 根据是否能滚动修正可视区域
-    realXRegion = fixVisibleRect(realXRegion, visibleRect, source);
-    realYRegion = fixVisibleRect(realYRegion, visibleRect, source);
+    realXRegion = fixVisibleRect(realXRegion, visibleRect, target);
+    realYRegion = fixVisibleRect(realYRegion, visibleRect, target);
 
     // 如果失败，重新计算当前节点将要被放置的位置
     if (fail) {

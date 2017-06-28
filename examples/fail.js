@@ -10,7 +10,7 @@ const Test = React.createClass({
         adjustY: 1,
       },
     });
-    console.log(ret);
+    console.log(ret); // eslint-disable-line
   },
   render() {
     window.align = this.align;

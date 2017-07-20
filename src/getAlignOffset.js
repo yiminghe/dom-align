@@ -7,11 +7,9 @@ function getAlignOffset(region, align) {
   const H = align.charAt(1);
   const w = region.width;
   const h = region.height;
-  let x;
-  let y;
 
-  x = region.left;
-  y = region.top;
+  let x = region.left;
+  let y = region.top;
 
   if (V === 'c') {
     y += h / 2;

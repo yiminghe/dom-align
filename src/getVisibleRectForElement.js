@@ -24,13 +24,15 @@ function getVisibleRectForElement(element) {
   // all scrollable containers.
   while (el) {
     // clientWidth is zero for inline block elements in ie.
-    if ((navigator.userAgent.indexOf('MSIE') === -1 || el.clientWidth !== 0) &&
+    if (
+      (navigator.userAgent.indexOf('MSIE') === -1 || el.clientWidth !== 0) &&
         // body may have overflow set on it, yet we still get the entire
         // viewport. In some browsers, el.offsetParent may be
         // document.documentElement, so check for that too.
-      (el !== body &&
-      el !== documentElement &&
-      utils.css(el, 'overflow') !== 'visible')) {
+        (el !== body &&
+         el !== documentElement &&
+         utils.css(el, 'overflow') !== 'visible')
+    ) {
       const pos = utils.offset(el);
       // add border
       pos.left += el.clientLeft;

@@ -151,8 +151,13 @@ function domAlign(el, refNode, align) {
         // 偏移量也反下
         const newOffset = flipOffset(offset, 0);
         const newTargetOffset = flipOffset(targetOffset, 0);
-        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion,
-          newPoints, newOffset, newTargetOffset);
+        const newElFuturePos = getElFuturePos(
+          elRegion,
+          refNodeRegion,
+          newPoints,
+          newOffset,
+          newTargetOffset
+        );
 
         const XregionReversal = utils.merge(visibleRect, {
           [newPoints[0].charAt(1) === 'l' ?

@@ -394,44 +394,6 @@ describe('dom-align', () => {
           expect(source.offset().left - target.offset().left).to.be(0);
         });
 
-        it('should not flip if target area is smaller than origin', () => {
-          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
-            return;
-          }
-          const node = $(`<div style='position: absolute;left:100px;top:100px;
-          width: 100px;height: 100px;
-          overflow: hidden'>
-          <div style='position: absolute;
-          width: 50px;
-          height: 100px;'>
-          </div>
-          <div style='position: absolute;left:0;top:20px;'></div>
-          <div style='position: absolute;left:0;top:30px;'></div>
-          </div>`).appendTo('body');
-
-          const target = node.children().eq(0);
-          // upper = node.children().eq(1),
-          const lower = node.children().eq(2);
-
-          const containerOffset = node.offset();
-          domAlign(target[0], lower[0], {
-            points: ['tl', 'bl'],
-            overflow: {
-              adjustY: 1,
-              resizeHeight: 1,
-            },
-          });
-          //   | ___________ |
-          //   |      |      |
-          //   | ____ | ____ |
-          //   |      |      |
-          //   |      |      |
-          //   |------|______|
-
-          expect(target.offset().left - containerOffset.left).within(-5, 5);
-          expect(target.offset().top - containerOffset.top - 30).within(-5, 5);
-        });
-
         it('should auto adjust if current position is not right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return;

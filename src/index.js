@@ -9,7 +9,6 @@ import getVisibleRectForElement from './getVisibleRectForElement';
 import adjustForViewport from './adjustForViewport';
 import getRegion from './getRegion';
 import getElFuturePos from './getElFuturePos';
-import getAlignOffset from './getAlignOffset';
 
 // http://yiminghe.iteye.com/blog/1124720
 
@@ -69,14 +68,6 @@ function convertOffset(str, offsetLen) {
   return n || 0;
 }
 
-function ySize(region) {
-  return region.bottom - region.top;
-}
-
-function xSize(region) {
-  return region.right - region.left;
-}
-
 function normalizeOffset(offset, el) {
   offset[0] = convertOffset(offset[0], el.width);
   offset[1] = convertOffset(offset[1], el.height);
@@ -109,35 +100,7 @@ function domAlign(el, refNode, align) {
   let newElRegion = utils.merge(elRegion, elFuturePos);
 
   const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
-  const refNodeOffset = utils.merge(refNodeRegion, getAlignOffset(refNodeRegion, points[1]));
 
-  let Xregion;
-  let YRegion;
-  const xRefPoint = points[0].charAt(1);
-  // TODO if visibleRect.xx < refNodeOffset.left ??
-  if (xRefPoint === 'c') {
-    Xregion = utils.merge(visibleRect, {
-      left: refNodeOffset.left - elRegion.width / 2,
-    });
-  } else {
-    Xregion = utils.merge(visibleRect, {
-      [xRefPoint === 'l' ? 'left' : 'right']: refNodeOffset.left + offset[0],
-    });
-  }
-
-  const yRefPoint = points[0].charAt(0);
-  if (yRefPoint === 'c') {
-    YRegion = utils.merge(visibleRect, {
-      top: refNodeOffset.top - elRegion.height / 2,
-    });
-  } else {
-    YRegion = utils.merge(visibleRect, {
-      [yRefPoint === 't' ? 'top' : 'bottom']: refNodeOffset.top + offset[1],
-    });
-  }
-
-  let realXRegion = Xregion;
-  let realYRegion = YRegion;
   // 如果可视区域不能完全放置当前节点时允许调整
   if (visibleRect && (overflow.adjustX || overflow.adjustY) && isTargetNotOutOfVisible) {
     if (overflow.adjustX) {
@@ -159,17 +122,11 @@ function domAlign(el, refNode, align) {
           newTargetOffset
         );
 
-        const XregionReversal = utils.merge(visibleRect, {
-          [newPoints[0].charAt(1) === 'l' ?
-            'left' : 'right']: getAlignOffset(refNodeRegion, newPoints[1]).left,
-        });
-        const canXFlip = xSize(XregionReversal) > xSize(Xregion);
-        if (canXFlip && !isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
+        if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
           points = newPoints;
           offset = newOffset;
           targetOffset = newTargetOffset;
-          realXRegion = XregionReversal;
         }
       }
     }
@@ -185,21 +142,19 @@ function domAlign(el, refNode, align) {
         // 偏移量也反下
         const newOffset = flipOffset(offset, 1);
         const newTargetOffset = flipOffset(targetOffset, 1);
-        const newElFuturePos = getElFuturePos(elRegion, refNodeRegion,
-          newPoints, newOffset, newTargetOffset);
+        const newElFuturePos = getElFuturePos(
+          elRegion,
+          refNodeRegion,
+          newPoints,
+          newOffset,
+          newTargetOffset
+        );
 
-        const YRegionReversal = utils.merge(visibleRect, {
-          [newPoints[0].charAt(0) === 't' ?
-            'top' : 'bottom']: getAlignOffset(refNodeRegion, newPoints[1]).top,
-        });
-        const canYFlip = ySize(YRegionReversal) > ySize(YRegion);
-
-        if (canYFlip && !isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
+        if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
           points = newPoints;
           offset = newOffset;
           targetOffset = newTargetOffset;
-          realYRegion = YRegionReversal;
         }
       }
     }
@@ -210,20 +165,17 @@ function domAlign(el, refNode, align) {
       utils.mix(newElRegion, elFuturePos);
     }
 
-    newOverflowCfg.resizeHeight = overflow.resizeHeight;
-    newOverflowCfg.resizeWidth = overflow.resizeWidth;
     // 检查反下后的位置是否可以放下了
     // 如果仍然放不下只有指定了可以调整当前方向才调整
     newOverflowCfg.adjustX = overflow.adjustX &&
-      isFailX(elFuturePos, elRegion, realXRegion);
+      isFailX(elFuturePos, elRegion, visibleRect);
 
     newOverflowCfg.adjustY = overflow.adjustY &&
-      isFailY(elFuturePos, elRegion, realYRegion);
+      isFailY(elFuturePos, elRegion, visibleRect);
 
     // 确实要调整，甚至可能会调整高度宽度
     if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
-      newElRegion = adjustForViewport(elFuturePos, elRegion,
-        realXRegion, realYRegion, newOverflowCfg);
+      newElRegion = adjustForViewport(elFuturePos, elRegion, visibleRect, newOverflowCfg);
     }
   }
 

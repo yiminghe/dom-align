@@ -12,9 +12,6 @@ function getVisibleRectForElement(element) {
     bottom: Infinity,
   };
   let el = getOffsetParent(element);
-  let scrollX;
-  let scrollY;
-  let winSize;
   const doc = utils.getDocument(element);
   const win = doc.defaultView || doc.parentWindow;
   const body = doc.body;
@@ -50,21 +47,23 @@ function getVisibleRectForElement(element) {
     el = getOffsetParent(el);
   }
 
-  // Clip by window's viewport.
-  scrollX = utils.getWindowScrollLeft(win);
-  scrollY = utils.getWindowScrollTop(win);
-  visibleRect.left = Math.max(visibleRect.left, scrollX);
-  visibleRect.top = Math.max(visibleRect.top, scrollY);
-  winSize = {
-    width: utils.viewportWidth(win),
-    height: utils.viewportHeight(win),
-  };
-  visibleRect.right = Math.min(visibleRect.right, scrollX + winSize.width);
-  visibleRect.bottom = Math.min(visibleRect.bottom, scrollY + winSize.height);
-  return visibleRect.top >= 0 && visibleRect.left >= 0 &&
-  visibleRect.bottom > visibleRect.top &&
-  visibleRect.right > visibleRect.left ?
-    visibleRect : null;
+  // Clip by document's size.
+  const scrollX = utils.getWindowScrollLeft(win);
+  const viewportWidth = utils.viewportWidth(win);
+  const maxVisibleWidth = Math.max(documentElement.scrollWidth, scrollX + viewportWidth);
+  visibleRect.right = Math.min(visibleRect.right, maxVisibleWidth);
+
+  const scrollY = utils.getWindowScrollTop(win);
+  const viewportHeight = utils.viewportHeight(win);
+  const maxVisibleHeight = Math.max(documentElement.scrollHeight, scrollY + viewportHeight);
+  visibleRect.bottom = Math.min(visibleRect.bottom, maxVisibleHeight);
+
+  return (
+    visibleRect.top >= 0 &&
+      visibleRect.left >= 0 &&
+      visibleRect.bottom > visibleRect.top &&
+      visibleRect.right > visibleRect.left
+  ) ? visibleRect : null;
 }
 
 export default getVisibleRectForElement;

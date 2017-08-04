@@ -89,27 +89,26 @@ describe('dom-align', () => {
           // 1
           window.scrollTo(10, 10);
 
-          const right = 10 + $(window).width();
-          const bottom = 10 + $(window).height();
+          const documentWidth = document.documentElement.scrollWidth;
+          const documentHeight = document.documentElement.scrollHeight;
 
           let rect = getVisibleRectForElement(dom[0].firstChild);
-
-          expect(rect.left - 10).within(-10, 10);
-          expect(rect.top - 10).within(-10, 10);
-          expect(rect.right - right).within(-10, 10);
-          expect(rect.bottom - bottom).within(-10, 10);
+          expect(rect.left).to.eql(0);
+          expect(rect.top).to.eql(0);
+          expect(rect.right).to.eql(documentWidth);
+          expect(rect.bottom).to.eql(documentHeight);
 
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return done();
           }
 
           window.scrollTo(200, 200);
-          rect = getVisibleRectForElement(dom[0].firstChild);
 
-          expect(rect.left).to.eql(200);
-          expect(rect.bottom).to.eql(200 + $(window).height());
-          expect(rect.top).to.eql(200);
-          expect(rect.right).to.eql(200 + $(window).width());
+          rect = getVisibleRectForElement(dom[0].firstChild);
+          expect(rect.left).to.eql(0);
+          expect(rect.top).to.eql(0);
+          expect(rect.right).to.eql(documentWidth);
+          expect(rect.bottom).to.eql(documentHeight);
 
           $(dom[0]).remove();
 
@@ -117,45 +116,60 @@ describe('dom-align', () => {
           window.scrollTo(10, 10);
           rect = getVisibleRectForElement(dom[1].firstChild);
           expect(toBeEqualRect(rect, {
-            left: 10,
-            top: 10,
+            left: 0,
+            top: $(dom[1]).offset().top,
             right: 100,
-            bottom: 100,
+            bottom: $(dom[1]).offset().top + 100,
           })).to.be.ok();
 
           window.scrollTo(200, 200);
           rect = getVisibleRectForElement(dom[1].firstChild);
-          expect(rect).to.be(null);
+          expect(toBeEqualRect(rect, {
+            left: 0,
+            top: $(dom[1]).offset().top,
+            right: 100,
+            bottom: $(dom[1]).offset().top + 100,
+          })).to.be.ok();
           $(dom[1]).remove();
 
           // 3
           window.scrollTo(10, 10);
           rect = getVisibleRectForElement(dom[2].firstChild);
           expect(toBeEqualRect(rect, {
-            left: 10,
-            top: 10,
+            left: 0,
+            top: $(dom[2]).offset().top,
             right: 100,
-            bottom: 100,
+            bottom: $(dom[2]).offset().top + 100,
           })).to.be.ok();
 
           window.scrollTo(200, 200);
           rect = getVisibleRectForElement(dom[2].firstChild);
-          expect(rect).to.be(null);
+          expect(toBeEqualRect(rect, {
+            left: 0,
+            top: $(dom[2]).offset().top,
+            right: 100,
+            bottom: $(dom[2]).offset().top + 100,
+          })).to.be.ok();
           $(dom[2]).remove();
 
           // 4
           window.scrollTo(10, 10);
           rect = getVisibleRectForElement(dom[3].firstChild);
           expect(toBeEqualRect(rect, {
-            left: 10,
-            top: 10,
+            left: 0,
+            top: $(dom[3]).offset().top,
             right: 100,
-            bottom: 100,
+            bottom: $(dom[3]).offset().top + 100,
           })).to.be.ok();
 
           window.scrollTo(200, 200);
           rect = getVisibleRectForElement(dom[3].firstChild);
-          expect(rect).to.be(null);
+          expect(toBeEqualRect(rect, {
+            left: 0,
+            top: $(dom[3]).offset().top,
+            right: 100,
+            bottom: $(dom[3]).offset().top + 100,
+          })).to.be.ok();
           $(dom[3]).remove();
           $(gap).remove();
 
@@ -392,44 +406,6 @@ describe('dom-align', () => {
 
           expect(source.offset().top - target.offset().top).to.be(0);
           expect(source.offset().left - target.offset().left).to.be(0);
-        });
-
-        it('should not flip if target area is smaller than origin', () => {
-          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
-            return;
-          }
-          const node = $(`<div style='position: absolute;left:100px;top:100px;
-          width: 100px;height: 100px;
-          overflow: hidden'>
-          <div style='position: absolute;
-          width: 50px;
-          height: 100px;'>
-          </div>
-          <div style='position: absolute;left:0;top:20px;'></div>
-          <div style='position: absolute;left:0;top:30px;'></div>
-          </div>`).appendTo('body');
-
-          const target = node.children().eq(0);
-          // upper = node.children().eq(1),
-          const lower = node.children().eq(2);
-
-          const containerOffset = node.offset();
-          domAlign(target[0], lower[0], {
-            points: ['tl', 'bl'],
-            overflow: {
-              adjustY: 1,
-              resizeHeight: 1,
-            },
-          });
-          //   | ___________ |
-          //   |      |      |
-          //   | ____ | ____ |
-          //   |      |      |
-          //   |      |      |
-          //   |------|______|
-
-          expect(target.offset().left - containerOffset.left).within(-5, 5);
-          expect(target.offset().top - containerOffset.top - 30).within(-5, 5);
         });
 
         it('should auto adjust if current position is not right', () => {

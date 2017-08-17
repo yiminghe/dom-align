@@ -408,7 +408,9 @@ function getWH(elem, name, ex) {
     return name === 'width' ? domUtils.docWidth(elem) : domUtils.docHeight(elem);
   }
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
-  let borderBoxValue = name === 'width' ? elem.offsetWidth : elem.offsetHeight;
+  let borderBoxValue = name === 'width' ?
+        elem.getBoundingClientRect().width :
+        elem.getBoundingClientRect().height;
   const computedStyle = getComputedStyleX(elem);
   const isBorderBox = isBorderBoxFn(elem, computedStyle);
   let cssBoxValue = 0;

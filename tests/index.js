@@ -301,6 +301,25 @@ describe('dom-align', () => {
         expect(node.offset().left).to.be(0);
       });
 
+      it('works when target is svg', () => {
+        if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+          return;
+        }
+        const node = $(`
+          <div style="position: absolute;left: 0;top: 0">
+            <div style="position: absolute;width: 50px;height: 50px"></div>
+            <svg><rect width="100" height="100"></rect></svg>
+          </div>
+        `).appendTo('body');
+        const target = node.find('rect');
+        const source = node.children().eq(0);
+        domAlign(source[0], target[0], {
+          points: ['cc', 'cc'],
+        });
+        expect(source.offset().top).to.be(25);
+        expect(source.offset().left).to.be(25);
+      });
+
       describe('auto align', () => {
         it('should not auto adjust if current position is right', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {

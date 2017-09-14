@@ -47,6 +47,14 @@ function getVisibleRectForElement(element) {
     el = getOffsetParent(el);
   }
 
+  // Set element position to fixed
+  // make sure absolute element itself don't affect it's visible area
+  // https://github.com/ant-design/ant-design/issues/7601
+  const originalPosition = element.style.position;
+  const position = getComputedStyle(element).position;
+  if (position === 'absolute') {
+    element.style.position = 'fixed';
+  }
   // Clip by document's size.
   const scrollX = utils.getWindowScrollLeft(win);
   const viewportWidth = utils.viewportWidth(win);
@@ -57,7 +65,8 @@ function getVisibleRectForElement(element) {
   const viewportHeight = utils.viewportHeight(win);
   const maxVisibleHeight = Math.max(documentElement.scrollHeight, scrollY + viewportHeight);
   visibleRect.bottom = Math.min(visibleRect.bottom, maxVisibleHeight);
-
+  // Reset element position after calculate the visible area
+  element.style.position = originalPosition;
   return (
     visibleRect.top >= 0 &&
       visibleRect.left >= 0 &&

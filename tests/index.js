@@ -54,7 +54,31 @@ describe('dom-align', () => {
           }
         });
 
-        it('getVisibleRectForElement works', (done) => {
+        it('getVisiblerectforelement clip by viewport if ancestor is fixed', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+
+          $(`<div style='height: 1500px;width: 100000px;'></div>`).appendTo(document.body);
+
+          const node = $(`
+            <div style="position: fixed;top: 0;left: 0;">
+              <div style="position: absolute;width: 10px;height: 10px;"></div>
+            <div>
+          `).appendTo(document.body);
+
+          const getVisibleRectForElement = domAlign.__getVisibleRectForElement;
+          window.scrollTo(100, 100);
+
+          const element = node.children().get(0);
+          const visibleRect = getVisibleRectForElement(element);
+          expect(visibleRect.top).to.be(100);
+          expect(visibleRect.left).to.be(100);
+          expect(visibleRect.right).to.be(100 + $(window).width());
+          expect(visibleRect.bottom).to.be(100 + $(window).height());
+        });
+
+        it('getVisibleRectForElement clip by document if ancestor is not fixed', (done) => {
           const gap = $(`<div style='height: 1500px;width: 100000px;'></div>`)[0];
           document.body.appendChild(gap);
 

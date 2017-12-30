@@ -164,14 +164,18 @@ function domAlign(el, refNode, align) {
       elFuturePos = getElFuturePos(elRegion, refNodeRegion, points, offset, targetOffset);
       utils.mix(newElRegion, elFuturePos);
     }
-
-    // 检查反下后的位置是否可以放下了
-    // 如果仍然放不下只有指定了可以调整当前方向才调整
-    newOverflowCfg.adjustX = overflow.adjustX &&
-      isFailX(elFuturePos, elRegion, visibleRect);
-
-    newOverflowCfg.adjustY = overflow.adjustY &&
-      isFailY(elFuturePos, elRegion, visibleRect);
+    const isStillFailX = isFailX(elFuturePos, elRegion, visibleRect);
+    const isStillFailY = isFailY(elFuturePos, elRegion, visibleRect);
+    // 检查反下后的位置是否可以放下了，如果仍然放不下：
+    // 1. 复原修改过的定位参数
+    if (isStillFailX || isStillFailY) {
+      points = align.points;
+      offset = align.offset || [0, 0];
+      targetOffset = align.targetOffset || [0, 0];
+    }
+    // 2. 只有指定了可以调整当前方向才调整
+    newOverflowCfg.adjustX = overflow.adjustX && isStillFailX;
+    newOverflowCfg.adjustY = overflow.adjustY && isStillFailY;
 
     // 确实要调整，甚至可能会调整高度宽度
     if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {

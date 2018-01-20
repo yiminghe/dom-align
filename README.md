@@ -32,7 +32,7 @@ align source html element with target html element flexibly.
 
 ## Feature
 
-* support ie6+ chrome firefox
+* support IE9+ chrome firefox
 * support align points and offset
 * support auto adjust according to visible area
 

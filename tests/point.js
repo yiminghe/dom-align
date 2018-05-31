@@ -2,15 +2,14 @@ import $ from 'jquery';
 import expect from 'expect.js';
 import { alignPoint } from '../src';
 
-describe.only('point-align', () => {
-  // const node = $('<div>' +
-  //   '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
-  //   '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
-  //   '</div>').appendTo(document.body);
+describe('point-align', () => {
   let source;
 
   const width = 100;
   const height = 100;
+
+  let winWidth;
+  let winHeight;
 
   beforeEach(() => {
     const $ele = $('<div>')
@@ -19,14 +18,14 @@ describe.only('point-align', () => {
       .css('height', height);
     $ele.appendTo(document.body);
     source = $ele[0];
+
+    winWidth = window.innerWidth;
+    winHeight = window.innerHeight;
   });
 
   afterEach(() => {
     $(source).remove();
   });
-
-  const winWidth = window.innerWidth;
-  const winHeight = window.innerHeight;
 
   it('point in the view', () => {
     alignPoint(source, { pageX: winWidth / 2, pageY: winHeight / 2 }, {
@@ -35,15 +34,6 @@ describe.only('point-align', () => {
     const offset = $(source).offset();
     expect(offset.left).to.be((winWidth - width) / 2);
     expect(offset.top).to.be((winHeight - height) / 2);
-  });
-
-  it('point out of the view', () => {
-    alignPoint(source, { pageX: winWidth + width, pageY: winHeight + height }, {
-      points: ['tl'],
-    });
-    const offset = $(source).offset();
-    expect(offset.left).to.be(winWidth + width);
-    expect(offset.top).to.be(winHeight + height);
   });
 
   it('adjust position when overflow', () => {
@@ -57,5 +47,14 @@ describe.only('point-align', () => {
     const offset = $(source).offset();
     expect(offset.left).to.be(winWidth - 10 - width);
     expect(offset.top).to.be(winHeight - 10 - height);
+  });
+
+  it('point out of the view', () => {
+    alignPoint(source, { pageX: winWidth + width, pageY: winHeight + height }, {
+      points: ['tl'],
+    });
+    const offset = $(source).offset();
+    expect(offset.left).to.be(winWidth + width);
+    expect(offset.top).to.be(winHeight + height);
   });
 });

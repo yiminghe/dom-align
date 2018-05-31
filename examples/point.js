@@ -6,6 +6,7 @@ class Demo extends React.Component {
   state = {
     sy: 't',
     sx: 'l',
+    overflowAdjust: false,
   };
 
   onChangeY = ({ target: { value } }) => {
@@ -16,15 +17,29 @@ class Demo extends React.Component {
     this.setState({ sx: value });
   };
 
+  onOverflowAdjust = () => {
+    this.setState({
+      overflowAdjust: !this.state.overflowAdjust,
+    });
+  };
+
   onClick = (event) => {
-    const { sx, sy } = this.state;
+    const { sx, sy, overflowAdjust } = this.state;
     const { clientX, clientY } = event;
+
+    const overflow = {};
+    if (overflowAdjust) {
+      overflow.adjustX = true;
+      overflow.adjustY = true;
+    }
 
     alignPoint(
       this.$rect,
       { clientX, clientY },
       {
         points: [`${sy}${sx}`],
+        overflow,
+        useCssTransform: true,
       },
     );
   };
@@ -34,7 +49,7 @@ class Demo extends React.Component {
   };
 
   render() {
-    const { sx, sy } = this.state;
+    const { sx, sy, overflowAdjust } = this.state;
 
     return (
       <div>
@@ -50,6 +65,11 @@ class Demo extends React.Component {
             <option value="c">c (Center)</option>
             <option value="b">r (Right)</option>
           </select>
+
+          {' '}
+
+          Overflow Adjust:
+          <input type="checkbox" checked={overflowAdjust} onClick={this.onOverflowAdjust} />
         </div>
 
         <div
@@ -58,7 +78,13 @@ class Demo extends React.Component {
         >
           <div
             ref={this.rectRef}
-            style={{ background: 'red', position: 'fixed', width: 50, height: 50 }}
+            style={{
+              background: 'red',
+              position: 'fixed',
+              width: 50,
+              height: 50,
+              transition: 'all 0.5s',
+            }}
           />
           Click me please!
         </div>

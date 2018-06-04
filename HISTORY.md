@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.7.0
+
+- support alignPoint https://github.com/yiminghe/dom-align/pull/34#issuecomment-394074937
+
 ## 1.5.0
 
 - support useCssTransform

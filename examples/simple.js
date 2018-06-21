@@ -30,6 +30,8 @@ function align() {
     useCssRight: $id('useCssRight').checked,
     useCssBottom: $id('useCssBottom').checked,
     useCssTransform: $id('useCssTransform').checked,
+
+    ignoreShake: $id('ignoreShake').checked,
   });
 }
 
@@ -115,6 +117,12 @@ const div = (<div>
 
     &nbsp;
 
+    <label>ignoreShake:
+      <input type="checkbox" id="ignoreShake" />
+    </label>
+
+    &nbsp;
+
     <button id="align" onClick={align}>align</button>
     <br/>
 
@@ -142,16 +150,24 @@ const div = (<div>
       <div
         style={{
           background: 'red',
-          width: 50,
-          height: 50,
+          width: 80,
+          height: 80,
           left: 0,
           top: 0,
           position: 'absolute',
           transition: 'all 0.5s',
+          overflowY: 'auto',
         }}
         id="source"
       >
         source node
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </div>
   </div>

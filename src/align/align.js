@@ -190,6 +190,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     useCssRight: align.useCssRight,
     useCssBottom: align.useCssBottom,
     useCssTransform: align.useCssTransform,
+    ignoreShake: align.ignoreShake,
   });
 
   return {

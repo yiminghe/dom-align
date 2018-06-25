@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - dom-align@1.6.6</title>
+  <title>simple.js - example - dom-align@1.8.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>dom-align@1.6.6</h1>
+      <h1>dom-align@1.8.0</h1>
 
       <p>Align DOM Node Flexibly </p>
     </div>
@@ -301,6 +301,8 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     useCssRight: $id(<span class="hljs-string">'useCssRight'</span>).checked,
     useCssBottom: $id(<span class="hljs-string">'useCssBottom'</span>).checked,
     useCssTransform: $id(<span class="hljs-string">'useCssTransform'</span>).checked,
+
+    ignoreShake: $id(<span class="hljs-string">'ignoreShake'</span>).checked,
   });
 }
 
@@ -386,6 +388,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     &amp;nbsp;
 
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>ignoreShake:
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"ignoreShake"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+
+    &amp;nbsp;
+
     <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"align"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{align}</span>&gt;</span>align<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
 
@@ -413,16 +421,24 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>
         <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
           <span class="hljs-attribute">background:</span> '<span class="hljs-attribute">red</span>',
-          <span class="hljs-attribute">width:</span> <span class="hljs-attribute">50</span>,
-          <span class="hljs-attribute">height:</span> <span class="hljs-attribute">50</span>,
+          <span class="hljs-attribute">width:</span> <span class="hljs-attribute">80</span>,
+          <span class="hljs-attribute">height:</span> <span class="hljs-attribute">80</span>,
           <span class="hljs-attribute">left:</span> <span class="hljs-attribute">0</span>,
           <span class="hljs-attribute">top:</span> <span class="hljs-attribute">0</span>,
           <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">absolute</span>',
           <span class="hljs-attribute">transition:</span> '<span class="hljs-attribute">all</span> <span class="hljs-attribute">0.5s</span>',
+          <span class="hljs-attribute">overflowY:</span> '<span class="hljs-attribute">auto</span>',
         }}
         <span class="hljs-attribute">id</span>=<span class="hljs-value">"source"</span>
       &gt;</span>
         source node
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>

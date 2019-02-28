@@ -64,8 +64,18 @@ function getVisibleRectForElement(element) {
   const scrollY = utils.getWindowScrollTop(win);
   const viewportWidth = utils.viewportWidth(win);
   const viewportHeight = utils.viewportHeight(win);
-  const documentWidth = documentElement.scrollWidth;
-  const documentHeight = documentElement.scrollHeight;
+  let documentWidth = documentElement.scrollWidth;
+  let documentHeight = documentElement.scrollHeight;
+
+  // scrollXXX on html is sync with body which means overflow: hidden on body gets wrong scrollXXX.
+  // We should cut this ourself.
+  const bodyStyle = getComputedStyle(body);
+  if (bodyStyle.overflowX === 'hidden') {
+    documentWidth = win.innerWidth;
+  }
+  if (bodyStyle.overflowY === 'hidden') {
+    documentHeight = win.innerHeight;
+  }
 
   // Reset element position after calculate the visible area
   if (element.style) {

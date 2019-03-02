@@ -69,7 +69,7 @@ function getVisibleRectForElement(element) {
 
   // scrollXXX on html is sync with body which means overflow: hidden on body gets wrong scrollXXX.
   // We should cut this ourself.
-  const bodyStyle = getComputedStyle(body);
+  const bodyStyle = window.getComputedStyle(body);
   if (bodyStyle.overflowX === 'hidden') {
     documentWidth = win.innerWidth;
   }

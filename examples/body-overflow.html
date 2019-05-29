@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>point.js - example - dom-align@1.8.3</title>
+  <title>body-overflow.js - example - dom-align@1.8.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -270,102 +270,44 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <div class="example" id="__react-content"></div>
 
     <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { alignPoint } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
+<span class="hljs-keyword">import</span> domAlign <span class="hljs-keyword">from</span> <span class="hljs-string">'dom-align'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  state = {
-    sy: <span class="hljs-string">'t'</span>,
-    sx: <span class="hljs-string">'l'</span>,
-    overflowAdjust: <span class="hljs-literal">false</span>,
-  };
-
-  onChangeY = ({ target: { value } }) =&gt; {
-    <span class="hljs-keyword">this</span>.setState({ sy: value });
-  };
-
-  onChangeX = ({ target: { value } }) =&gt; {
-    <span class="hljs-keyword">this</span>.setState({ sx: value });
-  };
-
-  onOverflowAdjust = () =&gt; {
-    <span class="hljs-keyword">this</span>.setState({
-      overflowAdjust: !<span class="hljs-keyword">this</span>.state.overflowAdjust,
-    });
-  };
-
-  onClick = (event) =&gt; {
-    <span class="hljs-keyword">const</span> { sx, sy, overflowAdjust } = <span class="hljs-keyword">this</span>.state;
-    <span class="hljs-keyword">const</span> { clientX, clientY } = event;
-
-    <span class="hljs-keyword">const</span> overflow = {};
-    <span class="hljs-keyword">if</span> (overflowAdjust) {
-      overflow.adjustX = <span class="hljs-literal">true</span>;
-      overflow.adjustY = <span class="hljs-literal">true</span>;
-    }
-
-    alignPoint(
-      <span class="hljs-keyword">this</span>.$rect,
-      { clientX, clientY },
-      {
-        points: [<span class="hljs-string">`<span class="hljs-subst">${sy}</span><span class="hljs-subst">${sx}</span>`</span>],
-        overflow,
-        useCssTransform: <span class="hljs-literal">true</span>,
+<span class="hljs-keyword">const</span> Test = React.createClass({
+  align() {
+    <span class="hljs-keyword">const</span> ret = domAlign(<span class="hljs-keyword">this</span>.refs.source, <span class="hljs-keyword">this</span>.refs.target, {
+      points: [<span class="hljs-string">'tl'</span>, <span class="hljs-string">'bl'</span>],
+      overflow: {
+        adjustY: <span class="hljs-number">1</span>,
+        adjustX: <span class="hljs-number">1</span>,
       },
-    );
-  };
+    });
+    <span class="hljs-built_in">console</span>.log(ret);
 
-  rectRef = (ele) =&gt; {
-    <span class="hljs-keyword">this</span>.$rect = ele;
-  };
-
+    setTimeout(() =&gt; {
+      <span class="hljs-built_in">document</span>.body.style.overflow = <span class="hljs-string">'hidden'</span>;
+    }, <span class="hljs-number">1000</span>);
+  },
   render() {
-    <span class="hljs-keyword">const</span> { sx, sy, overflowAdjust } = <span class="hljs-keyword">this</span>.state;
+    <span class="hljs-built_in">window</span>.align = <span class="hljs-keyword">this</span>.align;
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">1000</span> }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"target"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">absolute</span>', <span class="hljs-attribute">right:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">top:</span> <span class="hljs-attribute">300</span> }}&gt;</span>target<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
 
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-          Source:
-          <span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{sy}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChangeY}</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"t"</span>&gt;</span>t (Top)<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"c"</span>&gt;</span>c (Center)<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"b"</span>&gt;</span>b (Bottom)<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{sx}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChangeX}</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"t"</span>&gt;</span>l (Left)<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"c"</span>&gt;</span>c (Center)<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"b"</span>&gt;</span>r (Right)<span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">100</span> }}/&gt;</span>
 
-          {' '}
+      <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.align}</span>&gt;</span>align<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
 
-          Overflow Adjust:
-          <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">checked</span>=<span class="hljs-value">{overflowAdjust}</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOverflowAdjust}</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>
-          <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onClick}</span>
-          <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">black</span>', <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">20</span>, <span class="hljs-attribute">padding:</span> '<span class="hljs-attribute">150px</span> <span class="hljs-attribute">0</span>' }}
-        &gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span>
-            <span class="hljs-attribute">ref</span>=<span class="hljs-value">{this.rectRef}</span>
-            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
-              <span class="hljs-attribute">background:</span> '<span class="hljs-attribute">red</span>',
-              <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">fixed</span>',
-              <span class="hljs-attribute">width:</span> <span class="hljs-attribute">50</span>,
-              <span class="hljs-attribute">height:</span> <span class="hljs-attribute">50</span>,
-              <span class="hljs-attribute">transition:</span> '<span class="hljs-attribute">all</span> <span class="hljs-attribute">0.5s</span>',
-            }}
-          /&gt;</span>
-          Click me please!
-        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>
+        <span class="hljs-attribute">ref</span>=<span class="hljs-value">"source"</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">absolute</span>', <span class="hljs-attribute">width:</span> <span class="hljs-attribute">100</span>, <span class="hljs-attribute">height:</span> <span class="hljs-attribute">200</span>, <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">red</span>' }}
+      &gt;</span>
+        oo
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>;
-  }
-}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+  },
+});
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Test</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
   </div>
   <a href="http://github.com/yiminghe/dom-align">
@@ -376,7 +318,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="../common.js?nowrap"></script>
-  <script src="point.js?nowrap"></script>
+  <script src="body-overflow.js?nowrap"></script>
 </body>
 
 </html>

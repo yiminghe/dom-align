@@ -1,9 +1,9 @@
-webpackJsonp([1],{
+webpackJsonp([2],{
 
-/***/ 205:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(91);
+module.exports = __webpack_require__(90);
 
 
 /***/ }),
@@ -18,7 +18,7 @@ module.exports = __webpack_require__(91);
 
 /***/ }),
 
-/***/ 91:
+/***/ 90:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,12 +36,17 @@ var Test = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
   displayName: 'Test',
   align: function align() {
     var ret = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_dom_align__["a" /* default */])(this.refs.source, this.refs.target, {
-      points: ['bl', 'bl'],
+      points: ['tl', 'bl'],
       overflow: {
-        adjustY: 1
+        adjustY: 1,
+        adjustX: 1
       }
     });
     console.log(ret);
+
+    setTimeout(function () {
+      document.body.style.overflow = 'hidden';
+    }, 1000);
   },
   render: function render() {
     window.align = this.align;
@@ -50,7 +55,7 @@ var Test = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
       { style: { height: 1000 } },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'button',
-        { ref: 'target' },
+        { ref: 'target', style: { position: 'absolute', right: 0, top: 300 } },
         'target'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: { height: 100 } }),
@@ -75,5 +80,5 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ })
 
-},[205]);
-//# sourceMappingURL=fail.js.map
+},[204]);
+//# sourceMappingURL=body-overflow.js.map

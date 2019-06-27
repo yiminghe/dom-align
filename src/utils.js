@@ -138,13 +138,8 @@ function _getComputedStyle(elem, name, cs) {
   let computedStyle = cs;
   let val = '';
   const d = getDocument(elem);
-  if(elem.nodeType === 11) {
-    // https://github.com/yiminghe/dom-align/issues/33   Usage With Elements Within Shadow Dom
-    computedStyle = computedStyle || d.defaultView.getComputedStyle(elem.lastElementChild, null);
-  }
-  else{
-    computedStyle = computedStyle || d.defaultView.getComputedStyle(elem, null);
-  }
+  // https://github.com/yiminghe/dom-align/issues/33 Usage With Elements Within Shadow Dom
+  computedStyle = computedStyle || d.defaultView.getComputedStyle(elem.nodeType === 11 ? elem.lastElementChild : elem, null);
   // https://github.com/kissyteam/kissy/issues/61
   if (computedStyle) {
     val = computedStyle.getPropertyValue(name) || computedStyle[name];

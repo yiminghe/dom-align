@@ -1,32 +1,24 @@
 webpackJsonp([0],{
 
-/***/ 207:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(93);
-
-
-/***/ }),
-
-/***/ 21:
+/***/ 1:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src___ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src___ = __webpack_require__(4);
 
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__src___["a" /* default */]);
 
 /***/ }),
 
-/***/ 93:
+/***/ 18:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_align__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dom_align__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
 
 
@@ -258,7 +250,15 @@ var div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 
 __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(div, $id('__react-content'));
 
+/***/ }),
+
+/***/ 40:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(18);
+
+
 /***/ })
 
-},[207]);
+},[40]);
 //# sourceMappingURL=simple.js.map

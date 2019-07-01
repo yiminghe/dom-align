@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.9.0
+
+- support shadow dom
+
 ## 1.7.0
 
 - support alignPoint https://github.com/yiminghe/dom-align/pull/34#issuecomment-394074937

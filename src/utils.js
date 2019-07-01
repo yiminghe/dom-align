@@ -383,7 +383,19 @@ function getPBMWidth(elem, props, which) {
   return value;
 }
 
-const domUtils = {};
+const domUtils = {
+  getParent(element) {
+    let parent = element;
+    do {
+      if (parent.nodeType === 11 && parent.host) {
+        parent = parent.host;
+      } else {
+        parent = parent.parentNode;
+      }
+    } while (parent && parent.nodeType !== 1 && parent.nodeType !== 9);
+    return parent;
+  },
+};
 
 each(['Width', 'Height'], (name) => {
   domUtils[`doc${name}`] = (refWin) => {
@@ -428,8 +440,8 @@ function getWH(elem, name, ex) {
   }
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
   let borderBoxValue = name === 'width' ?
-        elem.getBoundingClientRect().width :
-        elem.getBoundingClientRect().height;
+    elem.getBoundingClientRect().width :
+    elem.getBoundingClientRect().height;
   const computedStyle = getComputedStyleX(elem);
   const isBorderBox = isBorderBoxFn(elem, computedStyle);
   let cssBoxValue = 0;
@@ -451,7 +463,7 @@ function getWH(elem, name, ex) {
   if (extra === CONTENT_INDEX) {
     if (borderBoxValueOrIsBorderBox) {
       return val - getPBMWidth(elem, ['border', 'padding'],
-          which, computedStyle);
+        which, computedStyle);
     }
     return cssBoxValue;
   } else if (borderBoxValueOrIsBorderBox) {
@@ -459,11 +471,11 @@ function getWH(elem, name, ex) {
       return val;
     }
     return val + (extra === PADDING_INDEX ?
-        -getPBMWidth(elem, ['border'], which, computedStyle) :
-        getPBMWidth(elem, ['margin'], which, computedStyle));
+      -getPBMWidth(elem, ['border'], which, computedStyle) :
+      getPBMWidth(elem, ['margin'], which, computedStyle));
   }
   return cssBoxValue + getPBMWidth(elem, BOX_MODELS.slice(extra),
-      which, computedStyle);
+    which, computedStyle);
 }
 
 const cssShow = {

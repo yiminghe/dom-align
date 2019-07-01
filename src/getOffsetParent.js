@@ -3,6 +3,7 @@ import utils from './utils';
 /**
  * 得到会导致元素显示不全的祖先元素
  */
+const { getParent } = utils;
 
 function getOffsetParent(element) {
   if (utils.isWindow(element) || element.nodeType === 9) {
@@ -30,10 +31,10 @@ function getOffsetParent(element) {
   const skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
 
   if (!skipStatic) {
-    return element.nodeName.toLowerCase() === 'html' ? null : element.parentNode;
+    return element.nodeName.toLowerCase() === 'html' ? null : getParent(element);
   }
 
-  for (parent = element.parentNode; parent && parent !== body; parent = parent.parentNode) {
+  for (parent = getParent(element); parent && parent !== body; parent = getParent(parent)) {
     positionStyle = utils.css(parent, 'position');
     if (positionStyle !== 'static') {
       return parent;

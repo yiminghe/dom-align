@@ -7,12 +7,6 @@
     "align"
   ],
   "homepage": "http://github.com/yiminghe/dom-align",
-  "files": [
-    "lib",
-    "es"
-  ],
-  "main": "lib/index",
-  "module": "es/index",
   "author": "yiminghe@gmail.com",
   "repository": {
     "type": "git",
@@ -21,17 +15,16 @@
   "bugs": {
     "url": "http://github.com/yiminghe/dom-align/issues"
   },
-  "licenses": "MIT",
+  "license": "MIT",
   "config": {
     "port": 8020
   },
   "scripts": {
-    "build": "rc-tools run build",
-    "gh-pages": "rc-tools run gh-pages",
-    "start": "rc-tools run server",
-    "compile": "rc-tools run compile",
-    "pub": "rc-tools run pub",
-    "lint": "rc-tools run lint",
+    "prettier": "prettier --write \"{src,stories}/**/*.{js,tsx}\"",
+    "start": "start-storybook -p 6006",
+    "build": "build-storybook",
+    "deploy": "storybook-to-ghpages",
+    "lint-staged": "lint-staged",
     "karma": "rc-test run karma",
     "saucelabs": "rc-test run saucelabs",
     "test": "rc-test run test",
@@ -39,15 +32,30 @@
     "coverage": "rc-test run coverage"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-options": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "@storybook/storybook-deployer": "^2.8.1",
+    "babel-loader": "^8.0.6",
+    "lint-staged": "^7.2.0",
+    "pre-commit": "1.x",
+    "prettier": "^1.11.1",
+    "react": "16.6.x",
+    "react-dom": "16.6.x",
     "expect.js": "^0.3.1",
     "jquery": "^1.11.2",
-    "pre-commit": "1.x",
     "rc-test": "6.x",
-    "rc-tools": "6.x",
-    "react": "16.x",
-    "react-dom": "16.x"
+    "rc-tools": "6.x"
+  },
+  "lint-staged": {
+    "*.{tsx,js,jsx,ts}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "pre-commit": [
-    "lint"
+    "lint-staged"
   ]
 }

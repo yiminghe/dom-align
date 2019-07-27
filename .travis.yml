@@ -8,7 +8,7 @@ notifications:
 
 node_js:
 
-- 6.10.0
+- 10.15.0
 
 before_install:
 - |
@@ -28,6 +28,4 @@ script:
     fi
 env:
   matrix:
-  - TEST_TYPE=lint
-  - TEST_TYPE=test
   - TEST_TYPE=coverage

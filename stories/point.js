@@ -1,6 +1,6 @@
 import React from 'react';
 import { alignPoint } from '../src';
-import ReactDOM from 'react-dom';
+import { storiesOf } from '@storybook/react';
 
 class Demo extends React.Component {
   state = {
@@ -69,7 +69,7 @@ class Demo extends React.Component {
           {' '}
 
           Overflow Adjust:
-          <input type="checkbox" checked={overflowAdjust} onClick={this.onOverflowAdjust} />
+          <input type="checkbox" checked={overflowAdjust} onClick={this.onOverflowAdjust}/>
         </div>
 
         <div
@@ -94,4 +94,8 @@ class Demo extends React.Component {
   }
 }
 
-ReactDOM.render(<Demo />, document.getElementById('__react-content'));
+Demo.story = 'point';
+
+storiesOf(Demo.story, module).add('demo', () => <Demo />);
+
+export default Demo;

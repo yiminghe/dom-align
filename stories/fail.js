@@ -1,26 +1,21 @@
 import React from 'react';
-import domAlign from 'dom-align';
-import ReactDOM from 'react-dom';
+import domAlign from '../src';
+import { storiesOf } from '@storybook/react';
 
-const Test = React.createClass({
+const Demo = React.createClass({
   align() {
     const ret = domAlign(this.refs.source, this.refs.target, {
-      points: ['tl', 'bl'],
+      points: ['bl', 'bl'],
       overflow: {
         adjustY: 1,
-        adjustX: 1,
       },
     });
     console.log(ret);
-
-    setTimeout(() => {
-      document.body.style.overflow = 'hidden';
-    }, 1000);
   },
   render() {
     window.align = this.align;
     return (<div style={{ height: 1000 }}>
-      <button ref="target" style={{ position: 'absolute', right: 0, top: 300 }}>target</button>
+      <button ref="target">target</button>
 
       <div style={{ height: 100 }}/>
 
@@ -36,4 +31,8 @@ const Test = React.createClass({
   },
 });
 
-ReactDOM.render(<Test />, document.getElementById('__react-content'));
+Demo.story = 'fail';
+
+storiesOf(Demo.story, module).add('demo', () => <Demo />);
+
+export default Demo;

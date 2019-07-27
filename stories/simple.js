@@ -1,6 +1,6 @@
 import React from 'react';
-import domAlign from 'dom-align';
-import ReactDOM from 'react-dom';
+import domAlign from '../src';
+import { storiesOf } from '@storybook/react';
 
 function $id(id) {
   return document.getElementById(id);
@@ -35,7 +35,7 @@ function align() {
   });
 }
 
-const div = (<div>
+const Demo = () => (<div>
   <h1>dom-align</h1>
 
   <div>
@@ -118,7 +118,7 @@ const div = (<div>
     &nbsp;
 
     <label>ignoreShake:
-      <input type="checkbox" id="ignoreShake" />
+      <input type="checkbox" id="ignoreShake"/>
     </label>
 
     &nbsp;
@@ -162,15 +162,19 @@ const div = (<div>
       >
         source node
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     </div>
   </div>
 </div>);
 
-ReactDOM.render(div, $id('__react-content'));
+Demo.story = 'simple';
+
+storiesOf(Demo.story, module).add('demo', () => <Demo />);
+
+export default Demo;

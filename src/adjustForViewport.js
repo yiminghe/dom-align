@@ -12,10 +12,12 @@ function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
   }
 
   // Left edge inside and right edge outside viewport, try to resize it.
-  if (overflow.resizeWidth &&
+  if (
+    overflow.resizeWidth &&
     pos.left >= visibleRect.left &&
-    pos.left + size.width > visibleRect.right) {
-    size.width -= (pos.left + size.width) - visibleRect.right;
+    pos.left + size.width > visibleRect.right
+  ) {
+    size.width -= pos.left + size.width - visibleRect.right;
   }
 
   // Right edge outside viewport, try to move it.
@@ -30,10 +32,12 @@ function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
   }
 
   // Top edge inside and bottom edge outside viewport, try to resize it.
-  if (overflow.resizeHeight &&
+  if (
+    overflow.resizeHeight &&
     pos.top >= visibleRect.top &&
-    pos.top + size.height > visibleRect.bottom) {
-    size.height -= (pos.top + size.height) - visibleRect.bottom;
+    pos.top + size.height > visibleRect.bottom
+  ) {
+    size.height -= pos.top + size.height - visibleRect.bottom;
   }
 
   // Bottom edge outside viewport, try to move it.

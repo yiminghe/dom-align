@@ -31,10 +31,16 @@ function getOffsetParent(element) {
   const skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
 
   if (!skipStatic) {
-    return element.nodeName.toLowerCase() === 'html' ? null : getParent(element);
+    return element.nodeName.toLowerCase() === 'html'
+      ? null
+      : getParent(element);
   }
 
-  for (parent = getParent(element); parent && parent !== body; parent = getParent(parent)) {
+  for (
+    parent = getParent(element);
+    parent && parent !== body;
+    parent = getParent(parent)
+  ) {
     positionStyle = utils.css(parent, 'position');
     if (positionStyle !== 'static') {
       return parent;

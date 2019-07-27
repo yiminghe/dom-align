@@ -1,18 +1,12 @@
 {
   "name": "dom-align",
-  "version": "1.9.0",
+  "version": "1.10.1",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
     "align"
   ],
   "homepage": "http://github.com/yiminghe/dom-align",
-  "files": [
-    "lib",
-    "es"
-  ],
-  "main": "lib/index",
-  "module": "es/index",
   "author": "yiminghe@gmail.com",
   "repository": {
     "type": "git",
@@ -21,33 +15,69 @@
   "bugs": {
     "url": "http://github.com/yiminghe/dom-align/issues"
   },
-  "licenses": "MIT",
+  "license": "MIT",
   "config": {
     "port": 8020
   },
   "scripts": {
-    "build": "rc-tools run build",
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write \"{src,tests}/**/*.{js,tsx}\"",
+    "pub": "npm run build && npm publish pkg",
+    "build": "pack build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
-    "compile": "rc-tools run compile",
-    "pub": "rc-tools run pub",
-    "lint": "rc-tools run lint",
     "karma": "rc-test run karma",
     "saucelabs": "rc-test run saucelabs",
     "test": "rc-test run test",
     "chrome-test": "rc-test run chrome-test",
     "coverage": "rc-test run coverage"
   },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "tests/**/*"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-types"
+      ]
+    ]
+  },
   "devDependencies": {
+    "@pika/plugin-build-node": "^0.5.1",
+    "@pika/plugin-build-types": "^0.5.1",
+    "@pika/plugin-build-web": "^0.5.1",
+    "@pika/plugin-standard-pkg": "^0.5.1",
+    "@pika/types": "^0.5.1",
+    "babel-preset-env": "^1.7.0",
     "expect.js": "^0.3.1",
     "jquery": "^1.11.2",
     "pre-commit": "1.x",
     "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "16.x",
-    "react-dom": "16.x"
+    "react-dom": "16.x",
+    "create-react-class": "^15.6.3",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2"
+  },
+  "lint-staged": {
+    "*.{tsx,js,jsx,ts}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "pre-commit": [
-    "lint"
+    "lint-staged"
   ]
 }

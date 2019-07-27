@@ -1,10 +1,12 @@
 import {
-  setTransitionProperty, getTransitionProperty,
-  getTransformXY, setTransformXY,
+  setTransitionProperty,
+  getTransitionProperty,
+  getTransformXY,
+  setTransformXY,
   getTransformName,
 } from './propertyUtils';
 
-const RE_NUM = (/[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/).source;
+const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 
 let getComputedStyleX;
 
@@ -138,7 +140,7 @@ function _getComputedStyle(elem, name, cs) {
   let computedStyle = cs;
   let val = '';
   const d = getDocument(elem);
-  computedStyle = (computedStyle || d.defaultView.getComputedStyle(elem, null));
+  computedStyle = computedStyle || d.defaultView.getComputedStyle(elem, null);
 
   // https://github.com/kissyteam/kissy/issues/61
   if (computedStyle) {
@@ -180,7 +182,7 @@ function _getComputedStyleIE(elem, name) {
     elem[RUNTIME_STYLE][LEFT] = elem[CURRENT_STYLE][LEFT];
 
     // Put in the new values to get a computed value out
-    style[LEFT] = name === 'fontSize' ? '1em' : (ret || 0);
+    style[LEFT] = name === 'fontSize' ? '1em' : ret || 0;
     ret = style.pixelLeft + PX;
 
     // Revert the changed values
@@ -192,7 +194,9 @@ function _getComputedStyleIE(elem, name) {
 }
 
 if (typeof window !== 'undefined') {
-  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
+  getComputedStyleX = window.getComputedStyle
+    ? _getComputedStyle
+    : _getComputedStyleIE;
 }
 
 function getOffsetDirection(dir, option) {
@@ -224,7 +228,9 @@ function setLeftTop(elem, offset, option) {
   let presetV = -999;
   const horizontalProperty = getOffsetDirection('left', option);
   const verticalProperty = getOffsetDirection('top', option);
-  const oppositeHorizontalProperty = oppositeOffsetDirection(horizontalProperty);
+  const oppositeHorizontalProperty = oppositeOffsetDirection(
+    horizontalProperty,
+  );
   const oppositeVerticalProperty = oppositeOffsetDirection(verticalProperty);
 
   if (horizontalProperty !== 'left') {
@@ -312,10 +318,12 @@ function setOffset(elem, offset, option) {
     }
   }
 
-
   if (option.useCssRight || option.useCssBottom) {
     setLeftTop(elem, offset, option);
-  } else if (option.useCssTransform && getTransformName() in document.body.style) {
+  } else if (
+    option.useCssTransform &&
+    getTransformName() in document.body.style
+  ) {
     setTransform(elem, offset, option);
   } else {
     setLeftTop(elem, offset, option);
@@ -397,8 +405,8 @@ const domUtils = {
   },
 };
 
-each(['Width', 'Height'], (name) => {
-  domUtils[`doc${name}`] = (refWin) => {
+each(['Width', 'Height'], name => {
+  domUtils[`doc${name}`] = refWin => {
     const d = refWin.document;
     return Math.max(
       // firefox chrome documentElement.scrollHeight< body.scrollHeight
@@ -406,10 +414,11 @@ each(['Width', 'Height'], (name) => {
       d.documentElement[`scroll${name}`],
       // quirks : documentElement.scrollHeight 最大等于可视窗口多一点？
       d.body[`scroll${name}`],
-      domUtils[`viewport${name}`](d));
+      domUtils[`viewport${name}`](d),
+    );
   };
 
-  domUtils[`viewport${name}`] = (win) => {
+  domUtils[`viewport${name}`] = win => {
     // pc browser includes scrollbar in window.innerWidth
     const prop = `client${name}`;
     const doc = win.document;
@@ -418,8 +427,11 @@ each(['Width', 'Height'], (name) => {
     const documentElementProp = documentElement[prop];
     // 标准模式取 documentElement
     // backcompat 取 body
-    return doc.compatMode === 'CSS1Compat' && documentElementProp ||
-      body && body[prop] || documentElementProp;
+    return (
+      (doc.compatMode === 'CSS1Compat' && documentElementProp) ||
+      (body && body[prop]) ||
+      documentElementProp
+    );
   };
 });
 
@@ -434,22 +446,35 @@ each(['Width', 'Height'], (name) => {
 function getWH(elem, name, ex) {
   let extra = ex;
   if (isWindow(elem)) {
-    return name === 'width' ? domUtils.viewportWidth(elem) : domUtils.viewportHeight(elem);
+    return name === 'width'
+      ? domUtils.viewportWidth(elem)
+      : domUtils.viewportHeight(elem);
   } else if (elem.nodeType === 9) {
-    return name === 'width' ? domUtils.docWidth(elem) : domUtils.docHeight(elem);
+    return name === 'width'
+      ? domUtils.docWidth(elem)
+      : domUtils.docHeight(elem);
   }
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
-  let borderBoxValue = name === 'width' ?
-    elem.getBoundingClientRect().width :
-    elem.getBoundingClientRect().height;
+  let borderBoxValue =
+    name === 'width'
+      ? elem.getBoundingClientRect().width
+      : elem.getBoundingClientRect().height;
   const computedStyle = getComputedStyleX(elem);
   const isBorderBox = isBorderBoxFn(elem, computedStyle);
   let cssBoxValue = 0;
-  if (borderBoxValue === null || borderBoxValue === undefined || borderBoxValue <= 0) {
+  if (
+    borderBoxValue === null ||
+    borderBoxValue === undefined ||
+    borderBoxValue <= 0
+  ) {
     borderBoxValue = undefined;
     // Fall back to computed then un computed css if necessary
     cssBoxValue = getComputedStyleX(elem, name);
-    if (cssBoxValue === null || cssBoxValue === undefined || (Number(cssBoxValue)) < 0) {
+    if (
+      cssBoxValue === null ||
+      cssBoxValue === undefined ||
+      Number(cssBoxValue) < 0
+    ) {
       cssBoxValue = elem.style[name] || 0;
     }
     // Normalize '', auto, and prepare for extra
@@ -458,24 +483,31 @@ function getWH(elem, name, ex) {
   if (extra === undefined) {
     extra = isBorderBox ? BORDER_INDEX : CONTENT_INDEX;
   }
-  const borderBoxValueOrIsBorderBox = borderBoxValue !== undefined || isBorderBox;
+  const borderBoxValueOrIsBorderBox =
+    borderBoxValue !== undefined || isBorderBox;
   const val = borderBoxValue || cssBoxValue;
   if (extra === CONTENT_INDEX) {
     if (borderBoxValueOrIsBorderBox) {
-      return val - getPBMWidth(elem, ['border', 'padding'],
-        which, computedStyle);
+      return (
+        val - getPBMWidth(elem, ['border', 'padding'], which, computedStyle)
+      );
     }
     return cssBoxValue;
   } else if (borderBoxValueOrIsBorderBox) {
     if (extra === BORDER_INDEX) {
       return val;
     }
-    return val + (extra === PADDING_INDEX ?
-      -getPBMWidth(elem, ['border'], which, computedStyle) :
-      getPBMWidth(elem, ['margin'], which, computedStyle));
+    return (
+      val +
+      (extra === PADDING_INDEX
+        ? -getPBMWidth(elem, ['border'], which, computedStyle)
+        : getPBMWidth(elem, ['margin'], which, computedStyle))
+    );
   }
-  return cssBoxValue + getPBMWidth(elem, BOX_MODELS.slice(extra),
-    which, computedStyle);
+  return (
+    cssBoxValue +
+    getPBMWidth(elem, BOX_MODELS.slice(extra), which, computedStyle)
+  );
 }
 
 const cssShow = {
@@ -500,10 +532,13 @@ function getWHIgnoreDisplay(...args) {
   return val;
 }
 
-each(['width', 'height'], (name) => {
+each(['width', 'height'], name => {
   const first = name.charAt(0).toUpperCase() + name.slice(1);
   domUtils[`outer${first}`] = (el, includeMargin) => {
-    return el && getWHIgnoreDisplay(el, name, includeMargin ? MARGIN_INDEX : BORDER_INDEX);
+    return (
+      el &&
+      getWHIgnoreDisplay(el, name, includeMargin ? MARGIN_INDEX : BORDER_INDEX)
+    );
   };
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
 

@@ -22,13 +22,15 @@ describe('dom-align', () => {
 
           test[1] = `<div><div style='position: relative;'></div></div>`;
 
-          test[2] = `<div>` +
+          test[2] =
+            `<div>` +
             `<div>` +
             `<div style='position: absolute;'></div>` +
             `</div>` +
             `</div>`;
 
-          test[3] = `<div style='position: relative;'>` +
+          test[3] =
+            `<div style='position: relative;'>` +
             `<div>` +
             `<div style='position: absolute;'></div>` +
             `</div>` +
@@ -56,7 +58,9 @@ describe('dom-align', () => {
             return;
           }
 
-          $(`<div style='height: 1500px;width: 100000px;'></div>`).appendTo(document.body);
+          $(`<div style='height: 1500px;width: 100000px;'></div>`).appendTo(
+            document.body,
+          );
 
           const node = $(`
             <div style="position: fixed;top: 0;left: 0;">
@@ -75,8 +79,10 @@ describe('dom-align', () => {
           expect(visibleRect.bottom).to.be(100 + $(window).height());
         });
 
-        it('getVisibleRectForElement clip by document if ancestor is not fixed', (done) => {
-          const gap = $(`<div style='height: 1500px;width: 100000px;'></div>`)[0];
+        it('getVisibleRectForElement clip by document if ancestor is not fixed', done => {
+          const gap = $(
+            `<div style='height: 1500px;width: 100000px;'></div>`,
+          )[0];
           document.body.appendChild(gap);
 
           const getVisibleRectForElement = domAlign.__getVisibleRectForElement;
@@ -84,16 +90,19 @@ describe('dom-align', () => {
 
           test[0] = `<div><div></div></div>`;
 
-          test[1] = `<div style='width: 100px;height: 100px;overflow: hidden;'>` +
+          test[1] =
+            `<div style='width: 100px;height: 100px;overflow: hidden;'>` +
             `<div style='position: relative;'></div></div>`;
 
-          test[2] = `<div style='width: 100px;height: 100px;overflow: hidden;'>` +
+          test[2] =
+            `<div style='width: 100px;height: 100px;overflow: hidden;'>` +
             `<div>` +
             `<div style='position: absolute;'></div>` +
             `</div>` +
             `</div>`;
 
-          test[3] = `<div style='position: relative;width: 100px;` +
+          test[3] =
+            `<div style='position: relative;width: 100px;` +
             `height: 100px;overflow: hidden;'>` +
             `<div>` +
             `<div style='position: absolute;'></div>` +
@@ -136,61 +145,73 @@ describe('dom-align', () => {
           // 2
           window.scrollTo(10, 10);
           rect = getVisibleRectForElement(dom[1].firstChild);
-          expect(toBeEqualRect(rect, {
-            left: 0,
-            top: $(dom[1]).offset().top,
-            right: 100,
-            bottom: $(dom[1]).offset().top + 100,
-          })).to.be.ok();
+          expect(
+            toBeEqualRect(rect, {
+              left: 0,
+              top: $(dom[1]).offset().top,
+              right: 100,
+              bottom: $(dom[1]).offset().top + 100,
+            }),
+          ).to.be.ok();
 
           window.scrollTo(200, 200);
           rect = getVisibleRectForElement(dom[1].firstChild);
-          expect(toBeEqualRect(rect, {
-            left: 0,
-            top: $(dom[1]).offset().top,
-            right: 100,
-            bottom: $(dom[1]).offset().top + 100,
-          })).to.be.ok();
+          expect(
+            toBeEqualRect(rect, {
+              left: 0,
+              top: $(dom[1]).offset().top,
+              right: 100,
+              bottom: $(dom[1]).offset().top + 100,
+            }),
+          ).to.be.ok();
           $(dom[1]).remove();
 
           // 3
           window.scrollTo(10, 10);
           rect = getVisibleRectForElement(dom[2].firstChild);
-          expect(toBeEqualRect(rect, {
-            left: 0,
-            top: $(dom[2]).offset().top,
-            right: 100,
-            bottom: $(dom[2]).offset().top + 100,
-          })).to.be.ok();
+          expect(
+            toBeEqualRect(rect, {
+              left: 0,
+              top: $(dom[2]).offset().top,
+              right: 100,
+              bottom: $(dom[2]).offset().top + 100,
+            }),
+          ).to.be.ok();
 
           window.scrollTo(200, 200);
           rect = getVisibleRectForElement(dom[2].firstChild);
-          expect(toBeEqualRect(rect, {
-            left: 0,
-            top: $(dom[2]).offset().top,
-            right: 100,
-            bottom: $(dom[2]).offset().top + 100,
-          })).to.be.ok();
+          expect(
+            toBeEqualRect(rect, {
+              left: 0,
+              top: $(dom[2]).offset().top,
+              right: 100,
+              bottom: $(dom[2]).offset().top + 100,
+            }),
+          ).to.be.ok();
           $(dom[2]).remove();
 
           // 4
           window.scrollTo(10, 10);
           rect = getVisibleRectForElement(dom[3].firstChild);
-          expect(toBeEqualRect(rect, {
-            left: 0,
-            top: $(dom[3]).offset().top,
-            right: 100,
-            bottom: $(dom[3]).offset().top + 100,
-          })).to.be.ok();
+          expect(
+            toBeEqualRect(rect, {
+              left: 0,
+              top: $(dom[3]).offset().top,
+              right: 100,
+              bottom: $(dom[3]).offset().top + 100,
+            }),
+          ).to.be.ok();
 
           window.scrollTo(200, 200);
           rect = getVisibleRectForElement(dom[3].firstChild);
-          expect(toBeEqualRect(rect, {
-            left: 0,
-            top: $(dom[3]).offset().top,
-            right: 100,
-            bottom: $(dom[3]).offset().top + 100,
-          })).to.be.ok();
+          expect(
+            toBeEqualRect(rect, {
+              left: 0,
+              top: $(dom[3]).offset().top,
+              right: 100,
+              bottom: $(dom[3]).offset().top + 100,
+            }),
+          ).to.be.ok();
           $(dom[3]).remove();
           $(gap).remove();
 
@@ -201,10 +222,12 @@ describe('dom-align', () => {
         });
 
         it('offset and percentage offset support percentage', () => {
-          const node = $('<div>' +
-            '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
-            '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
-            '</div>').appendTo(document.body);
+          const node = $(
+            '<div>' +
+              '<div style="width:100px;height:100px;position: absolute;left:0;top:0"></div>' +
+              '<div style="width:50px;height:60px;position: absolute;left:0;top:0"></div>' +
+              '</div>',
+          ).appendTo(document.body);
           const target = node[0].firstChild;
           const source = target.nextSibling;
 
@@ -227,10 +250,12 @@ describe('dom-align', () => {
 
       describe('useCssRight and useCssBottom', () => {
         it('works', () => {
-          const node = $('<div>' +
-            '<div style="width:100px;height:100px;position: absolute;left:0;top:0;"></div>' +
-            '<div style="width:50px;height:60px;position: absolute;"></div>' +
-            '</div>').appendTo(document.body);
+          const node = $(
+            '<div>' +
+              '<div style="width:100px;height:100px;position: absolute;left:0;top:0;"></div>' +
+              '<div style="width:50px;height:60px;position: absolute;"></div>' +
+              '</div>',
+          ).appendTo(document.body);
           const target = node[0].firstChild;
           const source = target.nextSibling;
 
@@ -379,7 +404,10 @@ describe('dom-align', () => {
 
           expect(target.offset().left - containerOffset.left).within(-10, 10);
 
-          expect(target.offset().top - containerOffset.top - 30).within(-10, 10);
+          expect(target.offset().top - containerOffset.top - 30).within(
+            -10,
+            10,
+          );
 
           domAlign(target[0], lower[0], {
             points: ['tl', 'bl'],
@@ -409,7 +437,6 @@ describe('dom-align', () => {
           expect(target.offset().left - containerOffset.left).to.be(25);
           expect(target.offset().top - containerOffset.top).to.be(55);
         });
-
 
         it('should not auto adjust if target is out of visible rect', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
@@ -479,7 +506,10 @@ describe('dom-align', () => {
 
           expect(target.offset().left - containerOffset.left).within(-5, 5);
 
-          expect(target.offset().top - (containerOffset.top - 10)).within(-5, 5);
+          expect(target.offset().top - (containerOffset.top - 10)).within(
+            -5,
+            5,
+          );
 
           domAlign(target[0], lower[0], {
             points: ['tl', 'bl'],

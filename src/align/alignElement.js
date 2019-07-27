@@ -3,16 +3,17 @@ import getOffsetParent from '../getOffsetParent';
 import getVisibleRectForElement from '../getVisibleRectForElement';
 import getRegion from '../getRegion';
 
-
 function isOutOfVisibleRect(target) {
   const visibleRect = getVisibleRectForElement(target);
   const targetRegion = getRegion(target);
 
-  return !visibleRect ||
-    (targetRegion.left + targetRegion.width) <= visibleRect.left ||
-    (targetRegion.top + targetRegion.height) <= visibleRect.top ||
+  return (
+    !visibleRect ||
+    targetRegion.left + targetRegion.width <= visibleRect.left ||
+    targetRegion.top + targetRegion.height <= visibleRect.top ||
     targetRegion.left >= visibleRect.right ||
-    targetRegion.top >= visibleRect.bottom;
+    targetRegion.top >= visibleRect.bottom
+  );
 }
 
 function alignElement(el, refNode, align) {

@@ -12,31 +12,41 @@ import getElFuturePos from '../getElFuturePos';
 // http://yiminghe.iteye.com/blog/1124720
 
 function isFailX(elFuturePos, elRegion, visibleRect) {
-  return elFuturePos.left < visibleRect.left ||
-    elFuturePos.left + elRegion.width > visibleRect.right;
+  return (
+    elFuturePos.left < visibleRect.left ||
+    elFuturePos.left + elRegion.width > visibleRect.right
+  );
 }
 
 function isFailY(elFuturePos, elRegion, visibleRect) {
-  return elFuturePos.top < visibleRect.top ||
-    elFuturePos.top + elRegion.height > visibleRect.bottom;
+  return (
+    elFuturePos.top < visibleRect.top ||
+    elFuturePos.top + elRegion.height > visibleRect.bottom
+  );
 }
 
 function isCompleteFailX(elFuturePos, elRegion, visibleRect) {
-  return elFuturePos.left > visibleRect.right ||
-    elFuturePos.left + elRegion.width < visibleRect.left;
+  return (
+    elFuturePos.left > visibleRect.right ||
+    elFuturePos.left + elRegion.width < visibleRect.left
+  );
 }
 
 function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
-  return elFuturePos.top > visibleRect.bottom ||
-    elFuturePos.top + elRegion.height < visibleRect.top;
+  return (
+    elFuturePos.top > visibleRect.bottom ||
+    elFuturePos.top + elRegion.height < visibleRect.top
+  );
 }
 
 function flip(points, reg, map) {
   const ret = [];
-  utils.each(points, (p) => {
-    ret.push(p.replace(reg, (m) => {
-      return map[m];
-    }));
+  utils.each(points, p => {
+    ret.push(
+      p.replace(reg, m => {
+        return map[m];
+      }),
+    );
   });
   return ret;
 }
@@ -49,7 +59,7 @@ function flipOffset(offset, index) {
 function convertOffset(str, offsetLen) {
   let n;
   if (/%$/.test(str)) {
-    n = parseInt(str.substring(0, str.length - 1), 10) / 100 * offsetLen;
+    n = (parseInt(str.substring(0, str.length - 1), 10) / 100) * offsetLen;
   } else {
     n = parseInt(str, 10);
   }
@@ -85,17 +95,27 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   normalizeOffset(offset, elRegion);
   normalizeOffset(targetOffset, tgtRegion);
   // 当前节点将要被放置的位置
-  let elFuturePos = getElFuturePos(elRegion, tgtRegion, points, offset, targetOffset);
+  let elFuturePos = getElFuturePos(
+    elRegion,
+    tgtRegion,
+    points,
+    offset,
+    targetOffset,
+  );
   // 当前节点将要所处的区域
   let newElRegion = utils.merge(elRegion, elFuturePos);
 
   // 如果可视区域不能完全放置当前节点时允许调整
-  if (visibleRect && (overflow.adjustX || overflow.adjustY) && isTgtRegionVisible) {
+  if (
+    visibleRect &&
+    (overflow.adjustX || overflow.adjustY) &&
+    isTgtRegionVisible
+  ) {
     if (overflow.adjustX) {
       // 如果横向不能放下
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
         // 对齐位置反下
-        const newPoints = flip(points, /[lr]/ig, {
+        const newPoints = flip(points, /[lr]/gi, {
           l: 'r',
           r: 'l',
         });
@@ -107,7 +127,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
           tgtRegion,
           newPoints,
           newOffset,
-          newTargetOffset
+          newTargetOffset,
         );
 
         if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
@@ -123,7 +143,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
       // 如果纵向不能放下
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
         // 对齐位置反下
-        const newPoints = flip(points, /[tb]/ig, {
+        const newPoints = flip(points, /[tb]/gi, {
           t: 'b',
           b: 't',
         });
@@ -135,7 +155,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
           tgtRegion,
           newPoints,
           newOffset,
-          newTargetOffset
+          newTargetOffset,
         );
 
         if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
@@ -149,7 +169,13 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
 
     // 如果失败，重新计算当前节点将要被放置的位置
     if (fail) {
-      elFuturePos = getElFuturePos(elRegion, tgtRegion, points, offset, targetOffset);
+      elFuturePos = getElFuturePos(
+        elRegion,
+        tgtRegion,
+        points,
+        offset,
+        targetOffset,
+      );
       utils.mix(newElRegion, elFuturePos);
     }
     const isStillFailX = isFailX(elFuturePos, elRegion, visibleRect);
@@ -167,31 +193,48 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
 
     // 确实要调整，甚至可能会调整高度宽度
     if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
-      newElRegion = adjustForViewport(elFuturePos, elRegion, visibleRect, newOverflowCfg);
+      newElRegion = adjustForViewport(
+        elFuturePos,
+        elRegion,
+        visibleRect,
+        newOverflowCfg,
+      );
     }
   }
 
   // need judge to in case set fixed with in css on height auto element
   if (newElRegion.width !== elRegion.width) {
-    utils.css(source, 'width', utils.width(source) + newElRegion.width - elRegion.width);
+    utils.css(
+      source,
+      'width',
+      utils.width(source) + newElRegion.width - elRegion.width,
+    );
   }
 
   if (newElRegion.height !== elRegion.height) {
-    utils.css(source, 'height', utils.height(source) + newElRegion.height - elRegion.height);
+    utils.css(
+      source,
+      'height',
+      utils.height(source) + newElRegion.height - elRegion.height,
+    );
   }
 
   // https://github.com/kissyteam/kissy/issues/190
   // 相对于屏幕位置没变，而 left/top 变了
   // 例如 <div 'relative'><el absolute></div>
-  utils.offset(source, {
-    left: newElRegion.left,
-    top: newElRegion.top,
-  }, {
-    useCssRight: align.useCssRight,
-    useCssBottom: align.useCssBottom,
-    useCssTransform: align.useCssTransform,
-    ignoreShake: align.ignoreShake,
-  });
+  utils.offset(
+    source,
+    {
+      left: newElRegion.left,
+      top: newElRegion.top,
+    },
+    {
+      useCssRight: align.useCssRight,
+      useCssBottom: align.useCssBottom,
+      useCssTransform: align.useCssTransform,
+      ignoreShake: align.ignoreShake,
+    },
+  );
 
   return {
     points,

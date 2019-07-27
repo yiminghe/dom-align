@@ -1,6 +1,7 @@
 import React from 'react';
 import { alignPoint } from '../src';
 import ReactDOM from 'react-dom';
+import createReactClass from 'create-react-class';
 
 class Demo extends React.Component {
   state = {
@@ -23,7 +24,7 @@ class Demo extends React.Component {
     });
   };
 
-  onClick = (event) => {
+  onClick = event => {
     const { sx, sy, overflowAdjust } = this.state;
     const { clientX, clientY } = event;
 
@@ -44,7 +45,7 @@ class Demo extends React.Component {
     );
   };
 
-  rectRef = (ele) => {
+  rectRef = ele => {
     this.$rect = ele;
   };
 
@@ -64,17 +65,23 @@ class Demo extends React.Component {
             <option value="t">l (Left)</option>
             <option value="c">c (Center)</option>
             <option value="b">r (Right)</option>
-          </select>
-
-          {' '}
-
+          </select>{' '}
           Overflow Adjust:
-          <input type="checkbox" checked={overflowAdjust} onClick={this.onOverflowAdjust} />
+          <input
+            type="checkbox"
+            checked={overflowAdjust}
+            onClick={this.onOverflowAdjust}
+          />
         </div>
 
         <div
           onClick={this.onClick}
-          style={{ border: '1px solid black', textAlign: 'center', margin: 20, padding: '150px 0' }}
+          style={{
+            border: '1px solid black',
+            textAlign: 'center',
+            margin: 20,
+            padding: '150px 0',
+          }}
         >
           <div
             ref={this.rectRef}
@@ -88,7 +95,6 @@ class Demo extends React.Component {
           />
           Click me please!
         </div>
-
       </div>
     );
   }

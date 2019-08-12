@@ -1,6 +1,6 @@
 {
   "name": "dom-align",
-  "version": "1.10.1",
+  "version": "1.10.2",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
@@ -43,7 +43,7 @@
         }
       ],
       [
-        "@pika/plugin-build-web"
+        "pika-plugin-build-web-babel"
       ],
       [
         "@pika/plugin-build-node"
@@ -54,11 +54,11 @@
     ]
   },
   "devDependencies": {
-    "@pika/plugin-build-node": "^0.5.1",
-    "@pika/plugin-build-types": "^0.5.1",
-    "@pika/plugin-build-web": "^0.5.1",
-    "@pika/plugin-standard-pkg": "^0.5.1",
-    "@pika/types": "^0.5.1",
+    "@pika/plugin-build-node": "^0.6.0",
+    "@pika/plugin-build-types": "^0.6.0",
+    "pika-plugin-build-web-babel": "^0.6.0",
+    "@pika/plugin-standard-pkg": "^0.6.0",
+    "@pika/types": "^0.6.0",
     "babel-preset-env": "^1.7.0",
     "expect.js": "^0.3.1",
     "jquery": "^1.11.2",

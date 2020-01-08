@@ -38,7 +38,7 @@ function getOffsetParent(element) {
 
   for (
     parent = getParent(element);
-    parent && parent !== body;
+    parent && parent !== body && parent.nodeType !== 9;
     parent = getParent(parent)
   ) {
     positionStyle = utils.css(parent, 'position');

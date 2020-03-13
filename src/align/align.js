@@ -87,8 +87,9 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   overflow = overflow || {};
   const newOverflowCfg = {};
   let fail = 0;
+  const alwaysByViewport = !!(overflow && overflow.alwaysByViewport);
   // 当前节点可以被放置的显示区域
-  const visibleRect = getVisibleRectForElement(source);
+  const visibleRect = getVisibleRectForElement(source, alwaysByViewport);
   // 当前节点所占的区域, left/top/width/height
   const elRegion = getRegion(source);
   // 将 offset 转换成数值，支持百分比

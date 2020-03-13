@@ -95,9 +95,11 @@ domAlign(sourceNode, targetNode, alignConfig);
       </tr>
       <tr>
           <td>overflow</td>
-          <td>Object: `{ adjustX: true, adjustY: true }`</td>
-          <td>if adjustX field is true, then will adjust source node in x direction if source node is invisible.
+          <td>Object: `{ adjustX: boolean, adjustY: boolean, alwaysByViewport:boolean }`</td>
+          <td>
+          if adjustX field is true, then will adjust source node in x direction if source node is invisible.
           if adjustY field is true, then will adjust source node in y direction if source node is invisible.
+          if alwaysByViewport is true, the it will adjust if node is not inside viewport
           </td>
       </tr>
       <tr>

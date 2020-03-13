@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.11.0
+
+- add alwaysByViewport option
+
 ## 1.9.0
 
 - support shadow dom

@@ -5,7 +5,7 @@ import isAncestorFixed from './isAncestorFixed';
 /**
  * 获得元素的显示部分的区域
  */
-function getVisibleRectForElement(element) {
+function getVisibleRectForElement(element, alwaysByViewport) {
   const visibleRect = {
     left: 0,
     right: Infinity,
@@ -86,7 +86,7 @@ function getVisibleRectForElement(element) {
     element.style.position = originalPosition;
   }
 
-  if (isAncestorFixed(element)) {
+  if (alwaysByViewport || isAncestorFixed(element)) {
     // Clip by viewport's size.
     visibleRect.left = Math.max(visibleRect.left, scrollX);
     visibleRect.top = Math.max(visibleRect.top, scrollY);

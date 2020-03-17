@@ -3,8 +3,8 @@ import getOffsetParent from '../getOffsetParent';
 import getVisibleRectForElement from '../getVisibleRectForElement';
 import getRegion from '../getRegion';
 
-function isOutOfVisibleRect(target) {
-  const visibleRect = getVisibleRectForElement(target);
+function isOutOfVisibleRect(target, alwaysByViewport) {
+  const visibleRect = getVisibleRectForElement(target, alwaysByViewport);
   const targetRegion = getRegion(target);
 
   return (
@@ -20,7 +20,10 @@ function alignElement(el, refNode, align) {
   const target = align.target || refNode;
   const refNodeRegion = getRegion(target);
 
-  const isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
+  const isTargetNotOutOfVisible = !isOutOfVisibleRect(
+    target,
+    align.overflow && align.overflow.alwaysByViewport,
+  );
 
   return doAlign(el, refNodeRegion, align, isTargetNotOutOfVisible);
 }

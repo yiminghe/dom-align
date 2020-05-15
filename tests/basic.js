@@ -58,9 +58,9 @@ describe('dom-align', () => {
             return;
           }
 
-          $(`<div style='height: 1500px;width: 100000px;'></div>`).appendTo(
-            document.body,
-          );
+          const $ele = $(
+            `<div style='height: 1500px;width: 100000px;'></div>`,
+          ).appendTo(document.body);
 
           const node = $(`
             <div style="position: fixed;top: 0;left: 0;">
@@ -77,6 +77,8 @@ describe('dom-align', () => {
           expect(visibleRect.left).to.be(100);
           expect(visibleRect.right).to.be(100 + $(window).width());
           expect(visibleRect.bottom).to.be(100 + $(window).height());
+
+          $ele.remove();
         });
 
         it('getVisibleRectForElement clip by document if ancestor is not fixed', done => {
@@ -231,7 +233,7 @@ describe('dom-align', () => {
           const target = node[0].firstChild;
           const source = target.nextSibling;
 
-          domAlign(source, target, {
+          const result = domAlign(source, target, {
             points: ['tl', 'tl'],
             overflow: {
               adjustX: 0,
@@ -240,6 +242,7 @@ describe('dom-align', () => {
             offset: ['-50%', '-50%'],
             targetOffset: ['-50%', '-50%'],
           });
+          expect(result.points).to.eql(['tl', 'tl']);
 
           expect($(source).offset()).to.eql({
             top: 20,
@@ -259,7 +262,7 @@ describe('dom-align', () => {
           const target = node[0].firstChild;
           const source = target.nextSibling;
 
-          domAlign(source, target, {
+          const result = domAlign(source, target, {
             points: ['tl', 'tl'],
             overflow: {
               adjustX: 0,
@@ -270,6 +273,7 @@ describe('dom-align', () => {
             offset: ['-50%', '-50%'],
             targetOffset: ['-50%', '-50%'],
           });
+          expect(result.points).to.eql(['tl', 'tl']);
           expect($(source)[0].style.left).to.be('');
           expect($(source)[0].style.top).to.be('');
           expect($(source)[0].style.right).not.to.be('');
@@ -304,7 +308,7 @@ describe('dom-align', () => {
         const containerOffset = node.offset();
         // const targetOffset = target.offset();
 
-        domAlign(target[0], lower[0], {
+        const result = domAlign(target[0], lower[0], {
           points: ['bc', 'tc'],
         });
 
@@ -314,6 +318,7 @@ describe('dom-align', () => {
         //   |  |      |   |
         //   |__|______|___|
         //   |_____________|
+        expect(result.points).to.eql(['bc', 'tc']);
         expect(target.offset().left - 25).within(-10, 10);
 
         expect(target.offset().top - containerOffset.top - 30).within(-10, 10);
@@ -326,9 +331,10 @@ describe('dom-align', () => {
         const node = $(`
           <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
         `).appendTo('body');
-        domAlign(node.get(0), window, {
+        const result = domAlign(node.get(0), window, {
           points: ['tl', 'tl'],
         });
+        expect(result.points).to.eql(['tl', 'tl']);
         expect(node.offset().top).to.be(0);
         expect(node.offset().left).to.be(0);
       });
@@ -340,9 +346,10 @@ describe('dom-align', () => {
         const node = $(`
           <div style='position: absolute;left:50px;top:80px;width:100px;height:5px;'></div>
         `).appendTo('body');
-        domAlign(node.get(0), document, {
+        const result = domAlign(node.get(0), document, {
           points: ['tl', 'tl'],
         });
+        expect(result.points).to.eql(['tl', 'tl']);
         expect(node.offset().top).to.be(0);
         expect(node.offset().left).to.be(0);
       });
@@ -359,9 +366,10 @@ describe('dom-align', () => {
         `).appendTo('body');
         const target = node.find('rect');
         const source = node.children().eq(0);
-        domAlign(source[0], target[0], {
+        const result = domAlign(source[0], target[0], {
           points: ['cc', 'cc'],
         });
+        expect(result.points).to.eql(['cc', 'cc']);
         expect(source.offset().top).to.be(25);
         expect(source.offset().left).to.be(25);
       });
@@ -389,7 +397,7 @@ describe('dom-align', () => {
           let containerOffset = node.offset();
           // const targetOffset = target.offset();
 
-          domAlign(target[0], lower[0], {
+          const result = domAlign(target[0], lower[0], {
             points: ['bl', 'tl'],
           });
 
@@ -402,6 +410,8 @@ describe('dom-align', () => {
           //   |______|______|
           //   |_____________|
 
+          expect(result.points).to.eql(['bl', 'tl']);
+
           expect(target.offset().left - containerOffset.left).within(-10, 10);
 
           expect(target.offset().top - containerOffset.top - 30).within(
@@ -409,7 +419,7 @@ describe('dom-align', () => {
             10,
           );
 
-          domAlign(target[0], lower[0], {
+          const result2 = domAlign(target[0], lower[0], {
             points: ['tl', 'bl'],
             overflow: {
               adjustX: 1,
@@ -424,16 +434,18 @@ describe('dom-align', () => {
           //   |______|______|
           //   |_____________|
           // flip 然后 ok
+          expect(result2.points).to.eql(['bl', 'tl']);
           containerOffset = node.offset();
           expect(target.offset().left - containerOffset.left).within(-10, 10);
           const actual = target.offset().top;
           const expected = containerOffset.top + 30;
           expect(actual - expected).within(-5, 5);
 
-          domAlign(target[0], lower[0], {
+          const result3 = domAlign(target[0], lower[0], {
             points: ['bl', 'tl'],
             offset: ['50%', '50%'],
           });
+          expect(result3.points).to.eql(['bl', 'tl']);
           expect(target.offset().left - containerOffset.left).to.be(25);
           expect(target.offset().top - containerOffset.top).to.be(55);
         });
@@ -451,7 +463,7 @@ describe('dom-align', () => {
 
           const target = node.children().eq(0);
           const source = node.children().eq(1);
-          domAlign(source[0], target[0], {
+          const result = domAlign(source[0], target[0], {
             points: ['tl', 'tl'],
             overflow: {
               adjustX: 1,
@@ -459,11 +471,12 @@ describe('dom-align', () => {
             },
           });
 
+          expect(result.points).to.eql(['tl', 'tl']);
           expect(source.offset().top - target.offset().top).to.be(0);
           expect(source.offset().left - target.offset().left).to.be(0);
 
           target.css({ top: -50, left: -50 });
-          domAlign(source[0], target[0], {
+          const result2 = domAlign(source[0], target[0], {
             points: ['tl', 'tl'],
             overflow: {
               adjustX: 1,
@@ -471,6 +484,7 @@ describe('dom-align', () => {
             },
           });
 
+          expect(result.points).to.eql(['tl', 'tl']);
           expect(source.offset().top - target.offset().top).to.be(0);
           expect(source.offset().left - target.offset().left).to.be(0);
         });
@@ -495,7 +509,9 @@ describe('dom-align', () => {
           const lower = node.children().eq(2);
 
           const containerOffset = node.offset();
-          domAlign(target[0], lower[0], { points: ['bl', 'tl'] });
+          const result = domAlign(target[0], lower[0], {
+            points: ['bl', 'tl'],
+          });
           //   |------|
           //   | _____|________
           //   |      |      |
@@ -504,14 +520,14 @@ describe('dom-align', () => {
           //   |______|______|
           //   |_____________|
 
+          expect(result.points).to.eql(['bl', 'tl']);
           expect(target.offset().left - containerOffset.left).within(-5, 5);
-
           expect(target.offset().top - (containerOffset.top - 10)).within(
             -5,
             5,
           );
 
-          domAlign(target[0], lower[0], {
+          const result2 = domAlign(target[0], lower[0], {
             points: ['tl', 'bl'],
             overflow: {
               adjustX: 1,
@@ -527,8 +543,8 @@ describe('dom-align', () => {
           //   |      |      |
           //   |______|______|
           // flip 不 ok，对 flip 后的 adjustY 到视窗边界
+          expect(result2.points).to.eql(['tl', 'bl']);
           expect(target.offset().left - containerOffset.left).within(-5, 5);
-
           expect(target.offset().top - containerOffset.top).within(-5, 5);
         });
 
@@ -546,7 +562,7 @@ describe('dom-align', () => {
           const source = node.children().eq(1);
           const target = node.children().eq(0);
           // See: https://github.com/ant-design/ant-design/issues/6347
-          domAlign(source[0], target[0], {
+          const result = domAlign(source[0], target[0], {
             points: ['tl', 'tl'],
             offset: [-9, -9],
             overflow: {
@@ -554,6 +570,7 @@ describe('dom-align', () => {
               adjustY: 1,
             },
           });
+          expect(result.points).to.eql(['tl', 'tl']);
           expect(source.offset().top + 9 - target.offset().top).within(-5, 5);
           expect(source.offset().left + 9 - target.offset().left).within(-5, 5);
         });

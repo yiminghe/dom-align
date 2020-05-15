@@ -58,9 +58,9 @@ describe('dom-align', () => {
             return;
           }
 
-          $(`<div style='height: 1500px;width: 100000px;'></div>`).appendTo(
-            document.body,
-          );
+          const $ele = $(
+            `<div style='height: 1500px;width: 100000px;'></div>`,
+          ).appendTo(document.body);
 
           const node = $(`
             <div style="position: fixed;top: 0;left: 0;">
@@ -77,6 +77,8 @@ describe('dom-align', () => {
           expect(visibleRect.left).to.be(100);
           expect(visibleRect.right).to.be(100 + $(window).width());
           expect(visibleRect.bottom).to.be(100 + $(window).height());
+
+          $ele.remove();
         });
 
         it('getVisibleRectForElement clip by document if ancestor is not fixed', done => {

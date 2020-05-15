@@ -36,8 +36,8 @@ describe('point-align', () => {
       },
     );
     const offset = $(source).offset();
-    expect(offset.left).to.be((winWidth - width) / 2);
-    expect(offset.top).to.be((winHeight - height) / 2);
+    expect(offset.left).to.be(Math.ceil((winWidth - width) / 2));
+    expect(offset.top).to.be(Math.ceil((winHeight - height) / 2));
   });
 
   it('adjust position when overflow', () => {

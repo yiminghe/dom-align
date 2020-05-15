@@ -184,7 +184,24 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     // 检查反下后的位置是否可以放下了，如果仍然放不下：
     // 1. 复原修改过的定位参数
     if (isStillFailX || isStillFailY) {
-      points = align.points;
+      let newPoints = points;
+
+      // 重置对应部分的翻转逻辑
+      if (isStillFailX) {
+        newPoints = flip(points, /[lr]/gi, {
+          l: 'r',
+          r: 'l',
+        });
+      }
+      if (isStillFailY) {
+        newPoints = flip(points, /[tb]/gi, {
+          t: 'b',
+          b: 't',
+        });
+      }
+
+      points = newPoints;
+
       offset = align.offset || [0, 0];
       targetOffset = align.targetOffset || [0, 0];
     }

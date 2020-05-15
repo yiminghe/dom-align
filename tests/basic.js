@@ -513,7 +513,7 @@ describe('dom-align', () => {
             points: ['bl', 'tl'],
           });
           //   |------|
-          //   | _____|________
+          //   |______|_______
           //   |      |      |
           //   |      |      |
           //   |      |      |
@@ -548,7 +548,7 @@ describe('dom-align', () => {
           expect(target.offset().top - containerOffset.top).within(-5, 5);
         });
 
-        it('should consider offset when caculate realXRegion and realYRegion', () => {
+        it('should consider offset when calculate realXRegion and realYRegion', () => {
           if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
             return;
           }
@@ -573,6 +573,56 @@ describe('dom-align', () => {
           expect(result.points).to.eql(['tl', 'tl']);
           expect(source.offset().top + 9 - target.offset().top).within(-5, 5);
           expect(source.offset().left + 9 - target.offset().left).within(-5, 5);
+        });
+
+        it('should have correct points', () => {
+          if (navigator.userAgent.toLowerCase().indexOf('phantomjs') !== -1) {
+            return;
+          }
+
+          // 让 src 放不下，偏移到右侧
+          //   |-----|
+          //   |     | TOP |
+          //   |     |-----|
+          //   | src | tgt |
+          //   |     |-----|
+          //   |     |
+          //   |-----|
+
+          // To
+
+          //     TOP |-----|
+          //   |-----|     |
+          //   | tgt |     |
+          //   |-----| src |
+          //         |     |
+          //         |     |
+          //         |-----|
+
+          const node = $(`
+            <div style="position: absolute; width: 100px; height: 100px;">
+              <div style="position: absolute; top: 10px; left:0; width: 50px; height: 50px;">
+              </div>
+              <div style="position: absolute; width: 50px; height: 100px"></div>
+            </div>
+          `).appendTo('body');
+          const source = node.children().eq(1);
+          const target = node.children().eq(0);
+
+          const result = domAlign(source[0], target[0], {
+            points: ['cr', 'cl'],
+            offset: [0, 0],
+            overflow: {
+              adjustX: true,
+              adjustY: true,
+            },
+          });
+
+          expect(result.points).to.eql(['cl', 'cr']);
+          expect(source.offset().top).within(-5, 5);
+          expect(source.offset().left - target.width()).within(-5, 5);
+
+          node.remove();
         });
       });
     });

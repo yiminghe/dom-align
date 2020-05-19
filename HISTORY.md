@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.12.0
+
+- fix adjust: https://github.com/yiminghe/dom-align/pull/53
+
 ## 1.11.0
 
 - add alwaysByViewport option

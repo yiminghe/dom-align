@@ -186,14 +186,14 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     if (isStillFailX || isStillFailY) {
       let newPoints = points;
 
-      // 重置对应部分的翻转逻辑
-      if (isStillFailX) {
+      // 重置可调整方向对应部分的翻转逻辑
+      if (overflow.adjustX && isStillFailX) {
         newPoints = flip(points, /[lr]/gi, {
           l: 'r',
           r: 'l',
         });
       }
-      if (isStillFailY) {
+      if (overflow.adjustY && isStillFailY) {
         newPoints = flip(points, /[tb]/gi, {
           t: 'b',
           b: 't',

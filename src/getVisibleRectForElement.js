@@ -94,10 +94,10 @@ function getVisibleRectForElement(element, alwaysByViewport) {
     visibleRect.bottom = Math.min(visibleRect.bottom, scrollY + viewportHeight);
   } else {
     // Clip by document's size.
-    const maxVisibleWidth = Math.max(documentWidth, scrollX + viewportWidth);
+    const maxVisibleWidth = Math.max(documentElement.clientWidth, scrollX + viewportWidth);
     visibleRect.right = Math.min(visibleRect.right, maxVisibleWidth);
 
-    const maxVisibleHeight = Math.max(documentHeight, scrollY + viewportHeight);
+    const maxVisibleHeight = Math.max(documentElement.clientHeight, scrollY + viewportHeight);
     visibleRect.bottom = Math.min(visibleRect.bottom, maxVisibleHeight);
   }
 

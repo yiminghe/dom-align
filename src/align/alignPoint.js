@@ -40,7 +40,8 @@ function alignPoint(el, tgtPoint, align) {
   const pointInView =
     pageX >= 0 &&
     pageX <= scrollX + viewportWidth &&
-    (pageY >= 0 && pageY <= scrollY + viewportHeight);
+    pageY >= 0 &&
+    pageY <= scrollY + viewportHeight;
 
   // Provide default target point
   const points = [align.points[0], 'cc'];

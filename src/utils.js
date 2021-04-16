@@ -143,7 +143,7 @@ function _getComputedStyle(elem, name, cs) {
   computedStyle = computedStyle || d.defaultView.getComputedStyle(elem, null);
 
   // https://github.com/kissyteam/kissy/issues/61
-  if (computedStyle) {
+  if (computedStyle && name) {
     val = computedStyle.getPropertyValue(name) || computedStyle[name];
   }
 

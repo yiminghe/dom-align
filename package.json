@@ -23,7 +23,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write \"{src,tests}/**/*.{js,tsx}\"",
     "pub": "npm run build && npm publish pkg",
-    "build": "pack build",
+    "build": "pika-pack build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "karma": "rc-test run karma",
@@ -60,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@pika/pack": "0.5.x",
     "@pika/plugin-build-node": "^0.6.0",
     "@pika/plugin-build-types": "^0.6.0",
     "@pika/plugin-standard-pkg": "^0.6.0",

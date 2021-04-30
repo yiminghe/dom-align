@@ -1,6 +1,6 @@
 {
   "name": "dom-align",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
@@ -31,6 +31,9 @@
     "test": "rc-test run test",
     "chrome-test": "rc-test run chrome-test",
     "coverage": "rc-test run coverage"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   },
   "@pika/pack": {
     "pipeline": [

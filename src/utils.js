@@ -459,8 +459,7 @@ function getWH(elem, name, ex) {
     name === 'width'
       ? elem.getBoundingClientRect().width
       : elem.getBoundingClientRect().height;
-  const computedStyle = getComputedStyleX(elem);
-  const isBorderBox = isBorderBoxFn(elem, computedStyle);
+  const isBorderBox = isBorderBoxFn(elem);
   let cssBoxValue = 0;
   if (
     borderBoxValue === null ||
@@ -489,7 +488,7 @@ function getWH(elem, name, ex) {
   if (extra === CONTENT_INDEX) {
     if (borderBoxValueOrIsBorderBox) {
       return (
-        val - getPBMWidth(elem, ['border', 'padding'], which, computedStyle)
+        val - getPBMWidth(elem, ['border', 'padding'], which)
       );
     }
     return cssBoxValue;
@@ -500,13 +499,13 @@ function getWH(elem, name, ex) {
     return (
       val +
       (extra === PADDING_INDEX
-        ? -getPBMWidth(elem, ['border'], which, computedStyle)
-        : getPBMWidth(elem, ['margin'], which, computedStyle))
+        ? -getPBMWidth(elem, ['border'], which)
+        : getPBMWidth(elem, ['margin'], which))
     );
   }
   return (
     cssBoxValue +
-    getPBMWidth(elem, BOX_MODELS.slice(extra), which, computedStyle)
+    getPBMWidth(elem, BOX_MODELS.slice(extra), which)
   );
 }
 
@@ -546,10 +545,9 @@ each(['width', 'height'], name => {
     let val = v;
     if (val !== undefined) {
       if (elem) {
-        const computedStyle = getComputedStyleX(elem);
         const isBorderBox = isBorderBoxFn(elem);
         if (isBorderBox) {
-          val += getPBMWidth(elem, ['padding', 'border'], which, computedStyle);
+          val += getPBMWidth(elem, ['padding', 'border'], which);
         }
         return css(elem, name, val);
       }

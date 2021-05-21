@@ -220,6 +220,16 @@ function oppositeOffsetDirection(dir) {
 
 // 设置 elem 相对 elem.ownerDocument 的坐标
 function setLeftTop(elem, offset, option) {
+  // calling getOffset () will trigger the style recalculation, which has a
+  // high performance cost, so if offset is the same as the last recorded,
+  // we should skip this operation.
+  if (
+    elem._domAlignOffset &&
+    elem._domAlignOffset.left === offset.left &&
+    elem._domAlignOffset.top === offset.top
+  ) {
+    return;
+  }
   // set position first, in-case top/left are set even on static elem
   if (css(elem, 'position') === 'static') {
     elem.style.position = 'relative';
@@ -289,6 +299,7 @@ function setLeftTop(elem, offset, option) {
     }
   }
   css(elem, ret);
+  elem._domAlignOffset = offset;
 }
 
 function setTransform(elem, offset) {
@@ -487,9 +498,7 @@ function getWH(elem, name, ex) {
   const val = borderBoxValue || cssBoxValue;
   if (extra === CONTENT_INDEX) {
     if (borderBoxValueOrIsBorderBox) {
-      return (
-        val - getPBMWidth(elem, ['border', 'padding'], which)
-      );
+      return val - getPBMWidth(elem, ['border', 'padding'], which);
     }
     return cssBoxValue;
   } else if (borderBoxValueOrIsBorderBox) {
@@ -503,10 +512,7 @@ function getWH(elem, name, ex) {
         : getPBMWidth(elem, ['margin'], which))
     );
   }
-  return (
-    cssBoxValue +
-    getPBMWidth(elem, BOX_MODELS.slice(extra), which)
-  );
+  return cssBoxValue + getPBMWidth(elem, BOX_MODELS.slice(extra), which);
 }
 
 const cssShow = {

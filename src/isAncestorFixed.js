@@ -12,7 +12,8 @@ export default function isAncestorFixed(element) {
   let parent = null;
   for (
     parent = getParent(element);
-    parent && parent !== body;
+    // 修复元素位于 document.documentElement 下导致崩溃问题
+    parent && parent !== body && parent !== doc;
     parent = getParent(parent)
   ) {
     const positionStyle = utils.css(parent, 'position');

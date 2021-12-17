@@ -29,7 +29,9 @@ function getVisibleRectForElement(element, alwaysByViewport) {
       // document.documentElement, so check for that too.
       (el !== body &&
         el !== documentElement &&
-        utils.css(el, 'overflow') !== 'visible')
+        utils.css(el, 'overflow') !== 'visible') &&
+      // 排除从dom树中移除节点，vue-frag等框架通过实现虚拟节点实现Fragment效果
+      body.contains(el)
     ) {
       const pos = utils.offset(el);
       // add border

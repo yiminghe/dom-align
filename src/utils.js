@@ -52,8 +52,8 @@ function getClientPosition(elem) {
   // 但测试发现，这样反而会导致当 html 和 body 有边距/边框样式时，获取的值不正确
   // 此外，ie6 会忽略 html 的 margin 值，幸运地是没有谁会去设置 html 的 margin
 
-  x = box.left;
-  y = box.top;
+  x = Math.floor(box.left);
+  y = Math.floor(box.top);
 
   // In IE, most of the time, 2 extra pixels are added to the top and left
   // due to the implicit 2-pixel inset border.  In IE6/7 quirks mode and
@@ -457,8 +457,8 @@ function getWH(elem, name, ex) {
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
   let borderBoxValue =
     name === 'width'
-      ? elem.getBoundingClientRect().width
-      : elem.getBoundingClientRect().height;
+      ? Math.floor(elem.getBoundingClientRect().width)
+      : Math.floor(elem.getBoundingClientRect().height);
   const isBorderBox = isBorderBoxFn(elem);
   let cssBoxValue = 0;
   if (
@@ -487,9 +487,7 @@ function getWH(elem, name, ex) {
   const val = borderBoxValue || cssBoxValue;
   if (extra === CONTENT_INDEX) {
     if (borderBoxValueOrIsBorderBox) {
-      return (
-        val - getPBMWidth(elem, ['border', 'padding'], which)
-      );
+      return val - getPBMWidth(elem, ['border', 'padding'], which);
     }
     return cssBoxValue;
   } else if (borderBoxValueOrIsBorderBox) {
@@ -503,10 +501,7 @@ function getWH(elem, name, ex) {
         : getPBMWidth(elem, ['margin'], which))
     );
   }
-  return (
-    cssBoxValue +
-    getPBMWidth(elem, BOX_MODELS.slice(extra), which)
-  );
+  return cssBoxValue + getPBMWidth(elem, BOX_MODELS.slice(extra), which);
 }
 
 const cssShow = {

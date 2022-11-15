@@ -1,6 +1,6 @@
 {
   "name": "dom-align",
-  "version": "1.12.3",
+  "version": "1.12.4",
   "description": "Align DOM Node Flexibly ",
   "keywords": [
     "dom",
@@ -22,7 +22,7 @@
   "scripts": {
     "lint-staged": "lint-staged",
     "prettier": "prettier --write \"{src,tests}/**/*.{js,tsx}\"",
-    "pub": "npm run build && npm publish pkg",
+    "pub": "npm run build && cd pkg && npm publish",
     "build": "pika-pack build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",

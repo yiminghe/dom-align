@@ -477,7 +477,7 @@ function getWH(elem, name, ex) {
       cssBoxValue = elem.style[name] || 0;
     }
     // Normalize '', auto, and prepare for extra
-    cssBoxValue = parseFloat(cssBoxValue) || 0;
+    cssBoxValue = Math.floor(parseFloat(cssBoxValue)) || 0;
   }
   if (extra === undefined) {
     extra = isBorderBox ? BORDER_INDEX : CONTENT_INDEX;

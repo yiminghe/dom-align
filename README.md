@@ -6,13 +6,12 @@ align source html element with target html element flexibly.
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
-[![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: http://img.shields.io/npm/v/dom-align.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/dom-align
-[travis-image]: https://img.shields.io/travis/yiminghe/dom-align.svg?style=flat-square
-[travis-url]: https://travis-ci.org/yiminghe/dom-align
+[travis-image]: https://app.travis-ci.com/yiminghe/dom-align.svg?branch=master
+[travis-url]: https://app.travis-ci.com/github/yiminghe/dom-align
 [coveralls-image]: https://img.shields.io/coveralls/yiminghe/dom-align.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/yiminghe/dom-align?branch=master
 [gemnasium-image]: http://img.shields.io/gemnasium/yiminghe/dom-align.svg?style=flat-square

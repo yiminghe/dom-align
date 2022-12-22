@@ -295,11 +295,15 @@ function setTransform(elem, offset) {
   const originalOffset = getOffset(elem);
   const originalXY = getTransformXY(elem);
   const resultXY = { x: originalXY.x, y: originalXY.y };
+
+  // https://github.com/yiminghe/dom-align/issues/55
+  // 当元素的 scale 不为 1 就距离会等比例缩放
+  const scale = elem.getBoundingClientRect().width / elem.clientWidth;
   if ('left' in offset) {
-    resultXY.x = originalXY.x + offset.left - originalOffset.left;
+    resultXY.x = originalXY.x + (offset.left - originalOffset.left) / scale;
   }
   if ('top' in offset) {
-    resultXY.y = originalXY.y + offset.top - originalOffset.top;
+    resultXY.y = originalXY.y + (offset.top - originalOffset.top ) / scale;
   }
   setTransformXY(elem, resultXY);
 }

@@ -110,6 +110,7 @@ const div = (
         style={{
           width: 400,
           height: 400,
+          marginLeft: 100,
           overflow: 'auto',
           border: '1px solid green',
           position: 'relative',
@@ -154,3 +155,6 @@ const div = (
 );
 
 ReactDOM.render(div, $id('__react-content'));
+
+document.body.style.transform = 'scale(0.9)'
+document.body.style.transformOrigin = 'top left'

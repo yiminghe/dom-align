@@ -57,6 +57,7 @@ export function getTransitionProperty(node) {
   return node.style.transitionProperty || node.style[getTransitionName()];
 }
 
+// 获取偏移量
 export function getTransformXY(node) {
   const style = window.getComputedStyle(node, null);
   const transform =

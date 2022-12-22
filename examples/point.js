@@ -1,7 +1,6 @@
 import React from 'react';
 import { alignPoint } from '../src';
 import ReactDOM from 'react-dom';
-import createReactClass from 'create-react-class';
 
 class Demo extends React.Component {
   state = {
@@ -99,5 +98,6 @@ class Demo extends React.Component {
     );
   }
 }
-
+document.body.style.transform = 'scale(0.8)'
+document.body.style.transformOrigin = 'top left'
 ReactDOM.render(<Demo />, document.getElementById('__react-content'));

@@ -84,13 +84,13 @@ domAlign(sourceNode, targetNode, alignConfig);
       <tr>
           <td>offset</td>
           <td>Number[2]</td>
-          <td>offset source node by offset[0] in x and offset[1] in y. 
+          <td>offset source node by offset[0] in x and offset[1] in y.
           If offset contains percentage string value, it is relative to sourceNode region.</td>
       </tr>
       <tr>
           <td>targetOffset</td>
           <td>Number[2]</td>
-          <td>offset target node by offset[0] in x and offset[1] in y. 
+          <td>offset target node by offset[0] in x and offset[1] in y.
           If targetOffset contains percentage string value, it is relative to targetNode region.</td>
       </tr>
       <tr>

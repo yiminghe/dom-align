@@ -111,8 +111,9 @@ function getOffset(el) {
   const pos = getClientPosition(el);
   const doc = el.ownerDocument;
   const w = doc.defaultView || doc.parentWindow;
-  pos.left += getScrollLeft(w);
-  pos.top += getScrollTop(w);
+  const scale = utils.getScale(el);
+  pos.left = pos.left / scale + getScrollLeft(w);
+  pos.top = pos.top / scale + getScrollTop(w);
   return pos;
 }
 
@@ -296,15 +297,13 @@ function setTransform(elem, offset) {
   const originalXY = getTransformXY(elem);
   const resultXY = { x: originalXY.x, y: originalXY.y };
 
-  // https://github.com/yiminghe/dom-align/issues/55
-  // 当元素的 scale 不为 1 就距离会等比例缩放
-  const scale = elem.getBoundingClientRect().width / elem.clientWidth;
   if ('left' in offset) {
-    resultXY.x = originalXY.x + (offset.left - originalOffset.left) / scale;
+    resultXY.x = originalXY.x + offset.left - originalOffset.left;
   }
   if ('top' in offset) {
-    resultXY.y = originalXY.y + (offset.top - originalOffset.top ) / scale;
+    resultXY.y = originalXY.y + offset.top - originalOffset.top ;
   }
+
   setTransformXY(elem, resultXY);
 }
 
@@ -566,6 +565,11 @@ function mix(to, from) {
 }
 
 const utils = {
+  getScale(el) {
+    // https://github.com/yiminghe/dom-align/issues/55
+    // 当元素的 scale 不为 1 就距离会等比例缩放
+    return el.getBoundingClientRect().width / el.clientWidth;
+  },
   getWindow(node) {
     if (node && node.document && node.setTimeout) {
       return node;

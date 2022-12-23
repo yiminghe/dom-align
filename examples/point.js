@@ -39,7 +39,7 @@ class Demo extends React.Component {
       {
         points: [`${sy}${sx}`],
         overflow,
-        useCssTransform: true,
+        // useCssTransform: true,
       },
     );
   };

@@ -16,6 +16,8 @@ function forceRelayout(elem) {
   elem.style.display = 'none';
   elem.offsetHeight; // eslint-disable-line
   elem.style.display = originalStyle;
+  // 结束当前动画，否则会重新执行导致闪烁
+  elem.getAnimations().forEach(animation => animation.finish());
 }
 
 function css(el, name, v) {

@@ -155,3 +155,6 @@ const div = (
 );
 
 ReactDOM.render(div, $id('__react-content'));
+
+document.body.style.transform = 'scale(0.9)'
+document.body.style.transformOrigin = 'top left'

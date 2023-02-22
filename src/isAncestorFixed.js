@@ -17,7 +17,7 @@ export default function isAncestorFixed(element) {
     parent = getParent(parent)
   ) {
     const positionStyle = utils.css(parent, 'position');
-    if (positionStyle === 'fixed') {
+    if (positionStyle === 'fixed' || positionStyle === 'sticky') {
       return true;
     }
   }

@@ -137,7 +137,7 @@ const div = (
           style={{
             background: 'red',
             width: 80,
-            height: 370,
+            height: 360,
             left: 0,
             top: 0,
             position: 'absolute',

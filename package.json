@@ -80,7 +80,8 @@
     "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "16.x",
-    "react-dom": "16.x"
+    "react-dom": "16.x",
+    "typescript": "4.9.5"
   },
   "lint-staged": {
     "*.{tsx,js,jsx,ts}": [

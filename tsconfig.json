@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "module": "CommonJS",
+    "noImplicitAny": true,
+    "lib": ["ES2015", "ES7", "dom.iterable", "ES6", "dom", "esnext"],
+    "outDir": "./dist",
+    "target": "ES2017",
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}

@@ -5,6 +5,7 @@ import {
   setTransformXY,
   getTransformName,
 } from './propertyUtils';
+import { getPBMWidth } from './lib/dom';
 
 const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 
@@ -367,28 +368,6 @@ function swap(elem, options, callback) {
       style[name] = old[name];
     }
   }
-}
-
-function getPBMWidth(elem, props, which) {
-  let value = 0;
-  let prop;
-  let j;
-  let i;
-  for (j = 0; j < props.length; j++) {
-    prop = props[j];
-    if (prop) {
-      for (i = 0; i < which.length; i++) {
-        let cssProp;
-        if (prop === 'border') {
-          cssProp = `${prop}${which[i]}Width`;
-        } else {
-          cssProp = prop + which[i];
-        }
-        value += parseFloat(getComputedStyleX(elem, cssProp)) || 0;
-      }
-    }
-  }
-  return value;
 }
 
 const domUtils = {

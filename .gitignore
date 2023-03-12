@@ -23,7 +23,6 @@ node_modules
 dist
 assets/**/*.css
 build
-lib
 coverage
 yarn.lock
 /es/

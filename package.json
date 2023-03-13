@@ -45,7 +45,7 @@
     "jquery": "^3.4.1",
     "lint-staged": "^9.2.1",
     "pre-commit": "1.x",
-    "prettier": "^1.18.2",
+    "prettier": "2.8.4",
     "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "16.x",

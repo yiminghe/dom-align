@@ -1,5 +1,5 @@
-import { setTransitionProperty, getTransformXY, setTransformXY } from './propertyUtils'
-import { getTransformName, getTransitionProperty } from './lib/style'
+import { getTransformXY, setTransformXY } from './propertyUtils'
+import { getTransformName, getTransitionProperty, setTransitionProperty } from './lib/style'
 import { getPBMWidth, getWHIgnoreDisplay, getClientPosition, forceRelayout } from './lib/dom'
 import { getOffsetDirection, getOppositeOffsetDirection } from './lib/config'
 

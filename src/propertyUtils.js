@@ -1,15 +1,5 @@
 import { getVendorPrefix, getTransitionName, setTransform } from './lib/style'
 
-export function setTransitionProperty(node, value) {
-  const name = getTransitionName()
-  if (name) {
-    node.style[name] = value
-    if (name !== 'transitionProperty') {
-      node.style.transitionProperty = value
-    }
-  }
-}
-
 export function getTransformXY(node) {
   const style = window.getComputedStyle(node, null)
   const transform = style.getPropertyValue('transform') || style.getPropertyValue(getTransformName())

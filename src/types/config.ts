@@ -16,6 +16,8 @@ export interface Config {
     alwaysByViewport?: boolean
     adjustX?: boolean
     adjustY?: boolean
+    resizeWidth?: boolean
+    resizeHeight?: boolean
   }
 
   useCssRight: boolean

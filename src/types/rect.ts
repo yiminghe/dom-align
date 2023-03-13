@@ -15,7 +15,7 @@ export interface Sides {
   bottom: number
 }
 
-export interface Rect extends Size, Position {
+export interface Rect extends Size, Position, Sides {
   right?: number
   bottom?: number
 }

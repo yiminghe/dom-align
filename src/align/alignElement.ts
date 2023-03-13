@@ -1,9 +1,10 @@
-import doAlign from './align.ts'
+import doAlign from './align'
 import getOffsetParent from '../getOffsetParent'
 import getVisibleRectForElement from '../getVisibleRectForElement'
 import getRegion from '../getRegion'
+import { Config } from '../types/config'
 
-function isOutOfVisibleRect(target, alwaysByViewport) {
+function isOutOfVisibleRect(target: HTMLElement, alwaysByViewport = false) {
   const visibleRect = getVisibleRectForElement(target, alwaysByViewport)
   const targetRegion = getRegion(target)
 
@@ -16,13 +17,13 @@ function isOutOfVisibleRect(target, alwaysByViewport) {
   )
 }
 
-function alignElement(el, refNode, align) {
+function alignElement(el: HTMLElement, refNode: HTMLElement, align: Config) {
   const target = align.target || refNode
   const refNodeRegion = getRegion(target)
 
-  const isTargetNotOutOfVisible = !isOutOfVisibleRect(target, align.overflow && align.overflow.alwaysByViewport)
+  const isTargetOutOfVisible = isOutOfVisibleRect(target, align?.overflow && align.overflow.alwaysByViewport)
 
-  return doAlign(el, refNodeRegion, align, isTargetNotOutOfVisible)
+  return doAlign(el, refNodeRegion, align, !isTargetOutOfVisible)
 }
 
 alignElement.__getOffsetParent = getOffsetParent

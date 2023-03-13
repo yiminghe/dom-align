@@ -4,7 +4,7 @@ function getOuterSize(el: HTMLElement, name: 'width' | 'height', includeMargin: 
   return el && getWHIgnoreDisplay(el, name, includeMargin ? MARGIN_INDEX : BORDER_INDEX)
 }
 
-export function getOuterWidtht(el: HTMLElement, includeMargin: boolean) {
+export function getOuterWidth(el: HTMLElement, includeMargin: boolean) {
   return getOuterSize(el, 'width', includeMargin)
 }
 

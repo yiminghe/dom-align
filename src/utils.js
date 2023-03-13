@@ -6,7 +6,7 @@ import {
   getTransformName,
 } from './propertyUtils'
 import { getPBMWidth, getWHIgnoreDisplay, getClientPosition, forceRelayout } from './lib/dom'
-import { getOffsetDirection } from './lib/config'
+import { getOffsetDirection, getOppositeOffsetDirection } from './lib/config'
 
 const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source
 
@@ -145,18 +145,6 @@ if (typeof window !== 'undefined') {
   getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE
 }
 
-function oppositeOffsetDirection(dir) {
-  if (dir === 'left') {
-    return 'right'
-  } else if (dir === 'right') {
-    return 'left'
-  } else if (dir === 'top') {
-    return 'bottom'
-  } else if (dir === 'bottom') {
-    return 'top'
-  }
-}
-
 // 设置 elem 相对 elem.ownerDocument 的坐标
 function setLeftTop(elem, offset, option) {
   // set position first, in-case top/left are set even on static elem
@@ -167,8 +155,8 @@ function setLeftTop(elem, offset, option) {
   let presetV = -999
   const horizontalProperty = getOffsetDirection('left', option)
   const verticalProperty = getOffsetDirection('top', option)
-  const oppositeHorizontalProperty = oppositeOffsetDirection(horizontalProperty)
-  const oppositeVerticalProperty = oppositeOffsetDirection(verticalProperty)
+  const oppositeHorizontalProperty = getOppositeOffsetDirection(horizontalProperty)
+  const oppositeVerticalProperty = getOppositeOffsetDirection(verticalProperty)
 
   if (horizontalProperty !== 'left') {
     presetH = 999

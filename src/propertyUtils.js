@@ -10,10 +10,6 @@ export function setTransitionProperty(node, value) {
   }
 }
 
-export function getTransitionProperty(node) {
-  return node.style.transitionProperty || node.style[getTransitionName()]
-}
-
 export function getTransformXY(node) {
   const style = window.getComputedStyle(node, null)
   const transform = style.getPropertyValue('transform') || style.getPropertyValue(getTransformName())

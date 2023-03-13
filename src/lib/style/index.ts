@@ -1,4 +1,5 @@
 export * from './get-transform-name'
+export * from './get-transform-xy'
 export * from './get-transition-name'
 export * from './get-transition-property'
 export * from './get-vendor-prefix'

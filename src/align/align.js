@@ -3,7 +3,6 @@
  * @author yiminghe@gmail.com
  */
 
-import utils from '../utils'
 import getVisibleRectForElement from '../getVisibleRectForElement'
 import adjustForViewport from '../adjustForViewport'
 import getRegion from '../getRegion'
@@ -58,7 +57,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   // 当前节点将要被放置的位置
   let elFuturePos = getAbsolutePosition(elRegion, tgtRegion, points, offset, targetOffset)
   // 当前节点将要所处的区域
-  let newElRegion = utils.merge(elRegion, elFuturePos)
+  let newElRegion = { ...elRegion, ...elFuturePos }
 
   // 如果可视区域不能完全放置当前节点时允许调整
   if (visibleRect && (overflow.adjustX || overflow.adjustY) && isTgtRegionVisible) {
@@ -109,7 +108,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     // 如果失败，重新计算当前节点将要被放置的位置
     if (fail) {
       elFuturePos = getAbsolutePosition(elRegion, tgtRegion, points, offset, targetOffset)
-      utils.mix(newElRegion, elFuturePos)
+      newElRegion = { ...newElRegion, ...elFuturePos }
     }
     const isStillFailX = isFailX(elFuturePos, elRegion, visibleRect)
     const isStillFailY = isFailY(elFuturePos, elRegion, visibleRect)

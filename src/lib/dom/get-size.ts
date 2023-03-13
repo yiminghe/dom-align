@@ -3,7 +3,7 @@ import { getStyle } from './get-style'
 import { CONTENT_INDEX, getWHIgnoreDisplay } from './get-wh'
 import { setStyle } from './set-style'
 
-function getSize(elem: HTMLElement, v: number, name: 'width' | 'height'): number | undefined {
+function getSize(elem: HTMLElement, v: number | undefined, name: 'width' | 'height'): number | undefined {
   const which: Side[] = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom']
   let val = v
   // TODO remove if-block because it seems like val is always undefined
@@ -21,10 +21,10 @@ function getSize(elem: HTMLElement, v: number, name: 'width' | 'height'): number
   return elem && getWHIgnoreDisplay(elem, name, CONTENT_INDEX)
 }
 
-export function getWidth(elem: HTMLElement, v: number) {
+export function getWidth(elem: HTMLElement, v?: number) {
   return getSize(elem, v, 'width')
 }
 
-export function getHeight(elem: HTMLElement, v: number) {
+export function getHeight(elem: HTMLElement, v?: number) {
   return getSize(elem, v, 'height')
 }

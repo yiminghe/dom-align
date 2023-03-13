@@ -9,6 +9,7 @@ import adjustForViewport from '../adjustForViewport'
 import getRegion from '../getRegion'
 import { getHeight, getWidth, setStyle } from '../lib/dom'
 import { getAbsolutePosition } from '../lib/area/get-absolute-position'
+import { flip as flipPoints } from '../lib/points'
 
 // http://yiminghe.iteye.com/blog/1124720
 
@@ -26,18 +27,6 @@ function isCompleteFailX(elFuturePos, elRegion, visibleRect) {
 
 function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
   return elFuturePos.top > visibleRect.bottom || elFuturePos.top + elRegion.height < visibleRect.top
-}
-
-function flip(points, reg, map) {
-  const ret = []
-  utils.each(points, (p) => {
-    ret.push(
-      p.replace(reg, (m) => {
-        return map[m]
-      }),
-    )
-  })
-  return ret
 }
 
 function flipOffset(offset, index) {
@@ -95,7 +84,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
       // 如果横向不能放下
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
         // 对齐位置反下
-        const newPoints = flip(points, /[lr]/gi, {
+        const newPoints = flipPoints(points, /[lr]/gi, {
           l: 'r',
           r: 'l',
         })
@@ -117,7 +106,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
       // 如果纵向不能放下
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
         // 对齐位置反下
-        const newPoints = flip(points, /[tb]/gi, {
+        const newPoints = flipPoints(points, /[tb]/gi, {
           t: 'b',
           b: 't',
         })
@@ -149,13 +138,13 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
 
       // 重置对应部分的翻转逻辑
       if (isStillFailX) {
-        newPoints = flip(points, /[lr]/gi, {
+        newPoints = flipPoints(points, /[lr]/gi, {
           l: 'r',
           r: 'l',
         })
       }
       if (isStillFailY) {
-        newPoints = flip(points, /[tb]/gi, {
+        newPoints = flipPoints(points, /[tb]/gi, {
           t: 'b',
           b: 't',
         })

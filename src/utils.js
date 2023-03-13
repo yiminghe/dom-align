@@ -6,6 +6,7 @@ import {
   getTransformName,
 } from './propertyUtils'
 import { getPBMWidth, getWHIgnoreDisplay, getClientPosition, forceRelayout } from './lib/dom'
+import { getOffsetDirection } from './lib/config'
 
 const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source
 
@@ -142,13 +143,6 @@ function _getComputedStyleIE(elem, name) {
 
 if (typeof window !== 'undefined') {
   getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE
-}
-
-function getOffsetDirection(dir, option) {
-  if (dir === 'left') {
-    return option.useCssRight ? 'right' : dir
-  }
-  return option.useCssBottom ? 'bottom' : dir
 }
 
 function oppositeOffsetDirection(dir) {

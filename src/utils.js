@@ -5,6 +5,7 @@ import {
   setTransformXY,
   getTransformXY,
   setLeftTop,
+  setOffset,
 } from './lib/style'
 import { getPBMWidth, getWHIgnoreDisplay, getClientPosition, forceRelayout } from './lib/dom'
 import { getOffsetDirection, getOppositeOffsetDirection } from './lib/config'
@@ -157,29 +158,6 @@ function setTransform(elem, offset) {
     resultXY.y = originalXY.y + offset.top - originalOffset.top
   }
   setTransformXY(elem, resultXY)
-}
-
-function setOffset(elem, offset, option) {
-  if (option.ignoreShake) {
-    const oriOffset = getOffset(elem)
-
-    const oLeft = oriOffset.left.toFixed(0)
-    const oTop = oriOffset.top.toFixed(0)
-    const tLeft = offset.left.toFixed(0)
-    const tTop = offset.top.toFixed(0)
-
-    if (oLeft === tLeft && oTop === tTop) {
-      return
-    }
-  }
-
-  if (option.useCssRight || option.useCssBottom) {
-    setLeftTop(elem, offset, option)
-  } else if (option.useCssTransform && getTransformName() in document.body.style) {
-    setTransform(elem, offset, option)
-  } else {
-    setLeftTop(elem, offset, option)
-  }
 }
 
 function each(arr, fn) {

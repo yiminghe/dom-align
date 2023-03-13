@@ -11,6 +11,7 @@ import { getHeight, getWidth, setStyle } from '../lib/dom'
 import { getAbsolutePosition } from '../lib/area/get-absolute-position'
 import { flip as flipPoints } from '../lib/points'
 import { normalize as normalizeOffset, flip as flipOffset } from '../lib/offset'
+import { setOffset } from '../lib/style/set-offset'
 
 // http://yiminghe.iteye.com/blog/1124720
 
@@ -158,7 +159,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   // https://github.com/kissyteam/kissy/issues/190
   // 相对于屏幕位置没变，而 left/top 变了
   // 例如 <div 'relative'><el absolute></div>
-  utils.offset(
+  setOffset(
     source,
     {
       left: newElRegion.left,

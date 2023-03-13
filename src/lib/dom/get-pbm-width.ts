@@ -3,7 +3,7 @@ import { getStyle } from './get-style';
 type PBM = 'padding' | 'margin' | 'border';
 type Side = 'Top' | 'Left' | 'Right' | 'Bottom';
 
-export function getPBMWidth(elem: HTMLElement, props: PBM[], which: Side) {
+export function getPBMWidth(elem: HTMLElement, props: PBM[], which: Side[]) {
   let value = 0;
   let prop;
   let j;

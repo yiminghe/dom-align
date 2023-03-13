@@ -5,7 +5,7 @@ import {
   setTransformXY,
   getTransformName,
 } from './propertyUtils';
-import { getPBMWidth } from './lib/dom';
+import { getPBMWidth, getWHIgnoreDisplay } from './lib/dom';
 
 const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 
@@ -413,97 +413,6 @@ each(['Width', 'Height'], name => {
     );
   };
 });
-
-/*
- 得到元素的大小信息
- @param elem
- @param name
- @param {String} [extra]  'padding' : (css width) + padding
- 'border' : (css width) + padding + border
- 'margin' : (css width) + padding + border + margin
- */
-function getWH(elem, name, ex) {
-  let extra = ex;
-  if (isWindow(elem)) {
-    return name === 'width'
-      ? domUtils.viewportWidth(elem)
-      : domUtils.viewportHeight(elem);
-  } else if (elem.nodeType === 9) {
-    return name === 'width'
-      ? domUtils.docWidth(elem)
-      : domUtils.docHeight(elem);
-  }
-  const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
-  let borderBoxValue =
-    name === 'width'
-      ? Math.floor(elem.getBoundingClientRect().width)
-      : Math.floor(elem.getBoundingClientRect().height);
-  const isBorderBox = isBorderBoxFn(elem);
-  let cssBoxValue = 0;
-  if (
-    borderBoxValue === null ||
-    borderBoxValue === undefined ||
-    borderBoxValue <= 0
-  ) {
-    borderBoxValue = undefined;
-    // Fall back to computed then un computed css if necessary
-    cssBoxValue = getComputedStyleX(elem, name);
-    if (
-      cssBoxValue === null ||
-      cssBoxValue === undefined ||
-      Number(cssBoxValue) < 0
-    ) {
-      cssBoxValue = elem.style[name] || 0;
-    }
-    // Normalize '', auto, and prepare for extra
-    cssBoxValue = Math.floor(parseFloat(cssBoxValue)) || 0;
-  }
-  if (extra === undefined) {
-    extra = isBorderBox ? BORDER_INDEX : CONTENT_INDEX;
-  }
-  const borderBoxValueOrIsBorderBox =
-    borderBoxValue !== undefined || isBorderBox;
-  const val = borderBoxValue || cssBoxValue;
-  if (extra === CONTENT_INDEX) {
-    if (borderBoxValueOrIsBorderBox) {
-      return val - getPBMWidth(elem, ['border', 'padding'], which);
-    }
-    return cssBoxValue;
-  } else if (borderBoxValueOrIsBorderBox) {
-    if (extra === BORDER_INDEX) {
-      return val;
-    }
-    return (
-      val +
-      (extra === PADDING_INDEX
-        ? -getPBMWidth(elem, ['border'], which)
-        : getPBMWidth(elem, ['margin'], which))
-    );
-  }
-  return cssBoxValue + getPBMWidth(elem, BOX_MODELS.slice(extra), which);
-}
-
-const cssShow = {
-  position: 'absolute',
-  visibility: 'hidden',
-  display: 'block',
-};
-
-// fix #119 : https://github.com/kissyteam/kissy/issues/119
-function getWHIgnoreDisplay(...args) {
-  let val;
-  const elem = args[0];
-  // in case elem is window
-  // elem.offsetWidth === undefined
-  if (elem.offsetWidth !== 0) {
-    val = getWH.apply(undefined, args);
-  } else {
-    swap(elem, cssShow, () => {
-      val = getWH.apply(undefined, args);
-    });
-  }
-  return val;
-}
 
 each(['width', 'height'], name => {
   const first = name.charAt(0).toUpperCase() + name.slice(1);

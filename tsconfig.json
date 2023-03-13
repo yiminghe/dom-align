@@ -1,20 +1,24 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "declaration": true,
-    "module": "CommonJS",
-    "noImplicitAny": true,
-    "lib": ["ES2015", "ES7", "dom.iterable", "ES6", "dom", "esnext"],
-    "outDir": "./dist",
-    "target": "ES2017",
-    "sourceMap": false,
-    "esModuleInterop": true,
-    "moduleResolution": "node"
-  },
-  "typedocOptions": {
-    "mode": "modules",
-    "out": "docs"
-  },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "exclude": ["node_modules", "dist", "tests", "./src/**/*.spec.ts"],
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
 }

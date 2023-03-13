@@ -7,8 +7,8 @@ import utils from '../utils'
 import getVisibleRectForElement from '../getVisibleRectForElement'
 import adjustForViewport from '../adjustForViewport'
 import getRegion from '../getRegion'
-import getElFuturePos from '../getElFuturePos'
 import { getHeight, getWidth, setStyle } from '../lib/dom'
+import { getAbsolutePosition } from '../lib/area/get-absolute-position'
 
 // http://yiminghe.iteye.com/blog/1124720
 
@@ -85,7 +85,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   normalizeOffset(offset, elRegion)
   normalizeOffset(targetOffset, tgtRegion)
   // 当前节点将要被放置的位置
-  let elFuturePos = getElFuturePos(elRegion, tgtRegion, points, offset, targetOffset)
+  let elFuturePos = getAbsolutePosition(elRegion, tgtRegion, points, offset, targetOffset)
   // 当前节点将要所处的区域
   let newElRegion = utils.merge(elRegion, elFuturePos)
 
@@ -102,7 +102,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
         // 偏移量也反下
         const newOffset = flipOffset(offset, 0)
         const newTargetOffset = flipOffset(targetOffset, 0)
-        const newElFuturePos = getElFuturePos(elRegion, tgtRegion, newPoints, newOffset, newTargetOffset)
+        const newElFuturePos = getAbsolutePosition(elRegion, tgtRegion, newPoints, newOffset, newTargetOffset)
 
         if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
           fail = 1
@@ -124,7 +124,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
         // 偏移量也反下
         const newOffset = flipOffset(offset, 1)
         const newTargetOffset = flipOffset(targetOffset, 1)
-        const newElFuturePos = getElFuturePos(elRegion, tgtRegion, newPoints, newOffset, newTargetOffset)
+        const newElFuturePos = getAbsolutePosition(elRegion, tgtRegion, newPoints, newOffset, newTargetOffset)
 
         if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
           fail = 1
@@ -137,7 +137,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
 
     // 如果失败，重新计算当前节点将要被放置的位置
     if (fail) {
-      elFuturePos = getElFuturePos(elRegion, tgtRegion, points, offset, targetOffset)
+      elFuturePos = getAbsolutePosition(elRegion, tgtRegion, points, offset, targetOffset)
       utils.mix(newElRegion, elFuturePos)
     }
     const isStillFailX = isFailX(elFuturePos, elRegion, visibleRect)

@@ -1,3 +1,4 @@
+export * from './get-client-position'
 export * from './is/document'
 export * from './is/window'
 export * from './get-size'

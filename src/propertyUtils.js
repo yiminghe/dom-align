@@ -1,12 +1,4 @@
-import { getVendorPrefix } from './lib/style'
-
-function getTransitionName() {
-  return getVendorPrefix() ? `${getVendorPrefix()}TransitionProperty` : 'transitionProperty'
-}
-
-export function getTransformName() {
-  return getVendorPrefix() ? `${getVendorPrefix()}Transform` : 'transform'
-}
+import { getVendorPrefix, getTransitionName } from './lib/style'
 
 export function setTransitionProperty(node, value) {
   const name = getTransitionName()

@@ -8,7 +8,7 @@ export interface Config {
    * move point of source node to align with point of target node.
    * Such as ['tr','cc'], align top right point of source node with center point of target node.
    * Point can be 't'(top), 'b'(bottom), 'c'(center), 'l'(left), 'r'(right) */
-  points?: Points
+  points: Points
   offset?: Offset
   targetOffset?: Offset
 

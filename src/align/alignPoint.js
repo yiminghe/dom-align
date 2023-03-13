@@ -1,5 +1,5 @@
-import utils from '../utils';
-import doAlign from './align';
+import utils from '../utils'
+import doAlign from './align.ts'
 
 /**
  * `tgtPoint`: { pageX, pageY } or { clientX, clientY }.
@@ -7,27 +7,27 @@ import doAlign from './align';
  */
 
 function alignPoint(el, tgtPoint, align) {
-  let pageX;
-  let pageY;
+  let pageX
+  let pageY
 
-  const doc = utils.getDocument(el);
-  const win = doc.defaultView || doc.parentWindow;
+  const doc = utils.getDocument(el)
+  const win = doc.defaultView || doc.parentWindow
 
-  const scrollX = utils.getWindowScrollLeft(win);
-  const scrollY = utils.getWindowScrollTop(win);
-  const viewportWidth = utils.viewportWidth(win);
-  const viewportHeight = utils.viewportHeight(win);
+  const scrollX = utils.getWindowScrollLeft(win)
+  const scrollY = utils.getWindowScrollTop(win)
+  const viewportWidth = utils.viewportWidth(win)
+  const viewportHeight = utils.viewportHeight(win)
 
   if ('pageX' in tgtPoint) {
-    pageX = tgtPoint.pageX;
+    pageX = tgtPoint.pageX
   } else {
-    pageX = scrollX + tgtPoint.clientX;
+    pageX = scrollX + tgtPoint.clientX
   }
 
   if ('pageY' in tgtPoint) {
-    pageY = tgtPoint.pageY;
+    pageY = tgtPoint.pageY
   } else {
-    pageY = scrollY + tgtPoint.clientY;
+    pageY = scrollY + tgtPoint.clientY
   }
 
   const tgtRegion = {
@@ -35,17 +35,14 @@ function alignPoint(el, tgtPoint, align) {
     top: pageY,
     width: 0,
     height: 0,
-  };
+  }
 
-  const pointInView =
-    pageX >= 0 &&
-    pageX <= scrollX + viewportWidth &&
-    (pageY >= 0 && pageY <= scrollY + viewportHeight);
+  const pointInView = pageX >= 0 && pageX <= scrollX + viewportWidth && pageY >= 0 && pageY <= scrollY + viewportHeight
 
   // Provide default target point
-  const points = [align.points[0], 'cc'];
+  const points = [align.points[0], 'cc']
 
-  return doAlign(el, tgtRegion, { ...align, points }, pointInView);
+  return doAlign(el, tgtRegion, { ...align, points }, pointInView)
 }
 
-export default alignPoint;
+export default alignPoint

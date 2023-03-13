@@ -1,3 +1,3 @@
 export function isDocument(input: unknown): input is Document {
-  return (input as any)?.nodeType === 9;
+  return (input as any)?.nodeType === 9
 }

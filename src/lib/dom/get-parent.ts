@@ -1,7 +1,7 @@
 import { isDocument } from './is/document'
 import { isElement } from './is/element'
 
-export function getParent(element: HTMLElement): HTMLElement {
+export function getParent(element: HTMLElement | Document): HTMLElement {
   let parent = element
 
   do {

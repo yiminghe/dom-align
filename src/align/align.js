@@ -10,6 +10,7 @@ import getRegion from '../getRegion'
 import { getHeight, getWidth, setStyle } from '../lib/dom'
 import { getAbsolutePosition } from '../lib/area/get-absolute-position'
 import { flip as flipPoints } from '../lib/points'
+import { normalize as normalizeOffset, flip as flipOffset } from '../lib/offset'
 
 // http://yiminghe.iteye.com/blog/1124720
 
@@ -27,26 +28,6 @@ function isCompleteFailX(elFuturePos, elRegion, visibleRect) {
 
 function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
   return elFuturePos.top > visibleRect.bottom || elFuturePos.top + elRegion.height < visibleRect.top
-}
-
-function flipOffset(offset, index) {
-  offset[index] = -offset[index]
-  return offset
-}
-
-function convertOffset(str, offsetLen) {
-  let n
-  if (/%$/.test(str)) {
-    n = (parseInt(str.substring(0, str.length - 1), 10) / 100) * offsetLen
-  } else {
-    n = parseInt(str, 10)
-  }
-  return n || 0
-}
-
-function normalizeOffset(offset, el) {
-  offset[0] = convertOffset(offset[0], el.width)
-  offset[1] = convertOffset(offset[1], el.height)
 }
 
 /**

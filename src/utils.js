@@ -5,19 +5,11 @@ import {
   setTransformXY,
   getTransformName,
 } from './propertyUtils'
-import { getPBMWidth, getWHIgnoreDisplay, getClientPosition } from './lib/dom'
+import { getPBMWidth, getWHIgnoreDisplay, getClientPosition, forceRelayout } from './lib/dom'
 
 const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source
 
 let getComputedStyleX
-
-// https://stackoverflow.com/a/3485654/3040605
-function forceRelayout(elem) {
-  const originalStyle = elem.style.display
-  elem.style.display = 'none'
-  elem.offsetHeight // eslint-disable-line
-  elem.style.display = originalStyle
-}
 
 function css(el, name, v) {
   let value = v

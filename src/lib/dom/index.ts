@@ -1,5 +1,6 @@
 export * from './is/document'
 export * from './is/window'
+export * from './force-relayout'
 export * from './get-client-position'
 export * from './get-document-size'
 export * from './get-document'

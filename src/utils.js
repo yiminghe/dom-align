@@ -4,6 +4,7 @@ import {
   setTransitionProperty,
   setTransformXY,
   getTransformXY,
+  setLeftTop,
 } from './lib/style'
 import { getPBMWidth, getWHIgnoreDisplay, getClientPosition, forceRelayout } from './lib/dom'
 import { getOffsetDirection, getOppositeOffsetDirection } from './lib/config'
@@ -143,77 +144,6 @@ function _getComputedStyleIE(elem, name) {
 
 if (typeof window !== 'undefined') {
   getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE
-}
-
-// 设置 elem 相对 elem.ownerDocument 的坐标
-function setLeftTop(elem, offset, option) {
-  // set position first, in-case top/left are set even on static elem
-  if (css(elem, 'position') === 'static') {
-    elem.style.position = 'relative'
-  }
-  let presetH = -999
-  let presetV = -999
-  const horizontalProperty = getOffsetDirection('left', option)
-  const verticalProperty = getOffsetDirection('top', option)
-  const oppositeHorizontalProperty = getOppositeOffsetDirection(horizontalProperty)
-  const oppositeVerticalProperty = getOppositeOffsetDirection(verticalProperty)
-
-  if (horizontalProperty !== 'left') {
-    presetH = 999
-  }
-
-  if (verticalProperty !== 'top') {
-    presetV = 999
-  }
-  let originalTransition = ''
-  const originalOffset = getOffset(elem)
-  if ('left' in offset || 'top' in offset) {
-    originalTransition = getTransitionProperty(elem) || ''
-    setTransitionProperty(elem, 'none')
-  }
-  if ('left' in offset) {
-    elem.style[oppositeHorizontalProperty] = ''
-    elem.style[horizontalProperty] = `${presetH}px`
-  }
-  if ('top' in offset) {
-    elem.style[oppositeVerticalProperty] = ''
-    elem.style[verticalProperty] = `${presetV}px`
-  }
-  // force relayout
-  forceRelayout(elem)
-  const old = getOffset(elem)
-  const originalStyle = {}
-  for (const key in offset) {
-    if (offset.hasOwnProperty(key)) {
-      const dir = getOffsetDirection(key, option)
-      const preset = key === 'left' ? presetH : presetV
-      const off = originalOffset[key] - old[key]
-      if (dir === key) {
-        originalStyle[dir] = preset + off
-      } else {
-        originalStyle[dir] = preset - off
-      }
-    }
-  }
-  css(elem, originalStyle)
-  // force relayout
-  forceRelayout(elem)
-  if ('left' in offset || 'top' in offset) {
-    setTransitionProperty(elem, originalTransition)
-  }
-  const ret = {}
-  for (const key in offset) {
-    if (offset.hasOwnProperty(key)) {
-      const dir = getOffsetDirection(key, option)
-      const off = offset[key] - originalOffset[key]
-      if (key === dir) {
-        ret[dir] = originalStyle[dir] + off
-      } else {
-        ret[dir] = originalStyle[dir] - off
-      }
-    }
-  }
-  css(elem, ret)
 }
 
 function setTransform(elem, offset) {

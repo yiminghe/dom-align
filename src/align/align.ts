@@ -6,7 +6,7 @@
 import getVisibleRectForElement from '../getVisibleRectForElement'
 import adjustForViewport from '../adjustForViewport'
 import getRegion from '../getRegion'
-import { getHeight, getWidth, setStyle } from '../lib/dom'
+import { CONTENT_INDEX, getWH, setStyle } from '../lib/dom'
 import { getAbsolutePosition } from '../lib/area/get-absolute-position'
 import { flip as flipPoints } from '../lib/points'
 import { normalize as normalizeOffset, flip as flipOffset } from '../lib/offset'
@@ -161,11 +161,11 @@ function doAlign(el: HTMLElement, tgtRegion: Rect, align: Config, isTgtRegionVis
 
   // need judge to in case set fixed with in css on height auto element
   if (newElRegion.width !== elRegion.width) {
-    setStyle(source, 'width', getWidth(source) + newElRegion.width - elRegion.width)
+    setStyle(source, 'width', getWH(source, 'width', CONTENT_INDEX) + newElRegion.width - elRegion.width)
   }
 
   if (newElRegion.height !== elRegion.height) {
-    setStyle(source, 'height', getHeight(source) + newElRegion.height - elRegion.height)
+    setStyle(source, 'height', getWH(source, 'height', CONTENT_INDEX) + newElRegion.height - elRegion.height)
   }
 
   // https://github.com/kissyteam/kissy/issues/190

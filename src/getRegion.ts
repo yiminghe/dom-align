@@ -1,8 +1,8 @@
+import { getOffset } from './lib/area/get-offset'
 import {
   isWindow,
   isDocument,
   getWindow,
-  getOffset,
   getScrollLeft,
   getScrollTop,
   getViewportWidth,

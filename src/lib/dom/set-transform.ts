@@ -1,8 +1,9 @@
+import { Position } from '../../types/rect'
+import { getOffset } from '../area/get-offset'
 import { getTransformXY } from '../style/get-transform-xy'
 import { setTransformXY } from '../style/set-transform-xy'
-import { getOffset } from './get-offset'
 
-export function setTransform(elem, offset) {
+export function setTransform(elem: HTMLElement, offset: Position) {
   const originalOffset = getOffset(elem)
   const originalXY = getTransformXY(elem)
   const resultXY = { x: originalXY.x, y: originalXY.y }

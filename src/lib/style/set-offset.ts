@@ -1,4 +1,5 @@
-import { getOffset, setTransform } from '../dom'
+import { getOffset } from '../area/get-offset'
+import { setTransform } from '../dom'
 import { getTransformName } from './get-transform-name'
 import { setLeftTop } from './set-left-top'
 

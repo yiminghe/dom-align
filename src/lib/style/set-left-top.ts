@@ -1,7 +1,8 @@
 import { Config } from '../../types/config'
+import { getOffset } from '../area/get-offset'
 
 import { getOffsetDirection, getOppositeOffsetDirection } from '../config'
-import { forceRelayout, getOffset, getStyle } from '../dom'
+import { forceRelayout, getStyle } from '../dom'
 import { setStyle } from '../dom/set-style'
 import { getTransitionProperty } from './get-transition-property'
 import { setTransitionProperty } from './set-transition-property'

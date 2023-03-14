@@ -1,7 +1,7 @@
-import { BORDER_INDEX, getWHIgnoreDisplay, MARGIN_INDEX } from './get-wh'
+import { BORDER_INDEX, getWH, MARGIN_INDEX } from './get-wh'
 
 function getOuterSize(el: HTMLElement, name: 'width' | 'height', includeMargin = false) {
-  return el && getWHIgnoreDisplay(el, name, includeMargin ? MARGIN_INDEX : BORDER_INDEX)
+  return el && getWH(el, name, includeMargin ? MARGIN_INDEX : BORDER_INDEX)
 }
 
 export function getOuterWidth(el: HTMLElement, includeMargin?: boolean) {

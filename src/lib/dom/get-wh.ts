@@ -4,7 +4,6 @@ import { getStyle } from './get-style'
 import { getViewportHeight, getViewportWidth } from './get-viewport-size'
 import { isDocument } from './is/document'
 import { isWindow } from './is/window'
-import { swap } from './swap'
 
 type Side = 'Top' | 'Left' | 'Right' | 'Bottom'
 
@@ -22,7 +21,7 @@ export const MARGIN_INDEX = 0
  'border' : (css width) + padding + border
  'margin' : (css width) + padding + border + margin
  */
-function getWH(elem: HTMLElement | Document, name: string, ex: number) {
+export function getWH(elem: HTMLElement | Document, name: string, ex: number) {
   let extra = ex
   if (isWindow(elem)) {
     return name === 'width' ? getViewportWidth(elem) : getViewportHeight(elem)
@@ -64,26 +63,4 @@ function getWH(elem: HTMLElement | Document, name: string, ex: number) {
     )
   }
   return cssBoxValue + getPBMWidth(elem, BOX_MODELS.slice(extra), which)
-}
-
-const cssShow = {
-  position: 'absolute',
-  visibility: 'hidden',
-  display: 'block',
-}
-
-// fix #119 : https://github.com/kissyteam/kissy/issues/119
-export function getWHIgnoreDisplay(...args: [HTMLElement | Document, string, number]) {
-  let val
-  const elem = args[0]
-  // in case elem is window
-  // elem.offsetWidth === undefined
-  if ((elem as HTMLElement).offsetWidth !== 0) {
-    val = getWH.apply(undefined, args as any)
-  } else {
-    swap(elem as HTMLElement, cssShow, () => {
-      val = getWH.apply(undefined, args as any)
-    })
-  }
-  return val
 }

@@ -1,23 +1,20 @@
-import React from 'react';
-import domAlign from 'dom-align';
-import ReactDOM from 'react-dom';
-import createReactClass from 'create-react-class';
+import React from 'react'
+import domAlign from 'dom-align'
+import ReactDOM from 'react-dom'
+import createReactClass from 'create-react-class'
 
 function $id(id) {
-  return document.getElementById(id);
+  return document.getElementById(id)
 }
 
 function $val(sel) {
-  sel = $id(sel);
-  return sel.value;
+  sel = $id(sel)
+  return sel.value
 }
 
 function align() {
-  domAlign($id('source'), $id('target'), {
-    points: [
-      $val('source_align_tb') + $val('source_align_lr'),
-      $val('target_align_tb') + $val('target_align_lr'),
-    ],
+  domAlign($id('source'), document.body, {
+    points: [$val('source_align_tb') + $val('source_align_lr'), $val('target_align_tb') + $val('target_align_lr')],
     offset: [$val('offset1'), $val('offset2')],
     targetOffset: [$val('targetOffset1'), $val('targetOffset2')],
     overflow: {
@@ -29,7 +26,7 @@ function align() {
     useCssTransform: $id('useCssTransform').checked,
 
     ignoreShake: $id('ignoreShake').checked,
-  });
+  })
 }
 
 const div = (
@@ -38,71 +35,66 @@ const div = (
 
     <div>
       source:
-      <select id="source_align_tb">
-        <option value="t">t</option>
-        <option value="c">c</option>
-        <option value="b">b</option>
+      <select id='source_align_tb'>
+        <option value='t'>t</option>
+        <option value='c'>c</option>
+        <option value='b'>b</option>
       </select>
-      <select id="source_align_lr">
-        <option value="l">l</option>
-        <option value="c">c</option>
-        <option value="r">r</option>
+      <select id='source_align_lr'>
+        <option value='l'>l</option>
+        <option value='c'>c</option>
+        <option value='r'>r</option>
       </select>
       &nbsp; target:
-      <select id="target_align_tb">
-        <option value="t">t</option>
-        <option value="c">c</option>
-        <option value="b">b</option>
+      <select id='target_align_tb'>
+        <option value='t'>t</option>
+        <option value='c'>c</option>
+        <option value='b'>b</option>
       </select>
-      <select id="target_align_lr">
-        <option value="l">l</option>
-        <option value="c">c</option>
-        <option value="r">r</option>
+      <select id='target_align_lr'>
+        <option value='l'>l</option>
+        <option value='c'>c</option>
+        <option value='r'>r</option>
       </select>
       &nbsp; offset: [
-      <input type="offset" id="offset1" defaultValue="0" size="3" />
+      <input type='offset' id='offset1' defaultValue='0' size='3' />
       ,
-      <input type="offset" id="offset2" defaultValue="0" size="3" />
+      <input type='offset' id='offset2' defaultValue='0' size='3' />
       ] &nbsp; targetOffset: [
-      <input type="offset" id="targetOffset1" defaultValue="0" size="3" />
+      <input type='offset' id='targetOffset1' defaultValue='0' size='3' />
       ,
-      <input type="offset" id="targetOffset2" defaultValue="0" size="3" />]
-      &nbsp; overflow: &nbsp;
+      <input type='offset' id='targetOffset2' defaultValue='0' size='3' />] &nbsp; overflow: &nbsp;
       <label>
         adjustX:
-        <input type="checkbox" id="adjustX" />
+        <input type='checkbox' id='adjustX' />
       </label>
       &nbsp;
       <label>
         adjustY:
-        <input type="checkbox" id="adjustY" />
+        <input type='checkbox' id='adjustY' />
       </label>
       &nbsp;
       <label>
         useCssBottom:
-        <input type="checkbox" id="useCssBottom" />
+        <input type='checkbox' id='useCssBottom' />
       </label>
       &nbsp;
       <label>
         useCssRight:
-        <input type="checkbox" id="useCssRight" />
+        <input type='checkbox' id='useCssRight' />
       </label>
       &nbsp;
       <label>
         useCssTransform:
-        <input
-          type="checkbox"
-          id="useCssTransform"
-          defaultChecked={!!window.TransitionEvent}
-        />
+        <input type='checkbox' id='useCssTransform' defaultChecked={!!window.TransitionEvent} />
       </label>
       &nbsp;
       <label>
         ignoreShake:
-        <input type="checkbox" id="ignoreShake" />
+        <input type='checkbox' id='ignoreShake' />
       </label>
       &nbsp;
-      <button id="align" onClick={align}>
+      <button id='align' onClick={align}>
         align
       </button>
       <br />
@@ -110,7 +102,7 @@ const div = (
         style={{
           width: 400,
           height: 400,
-          overflow: 'auto',
+          // overflow: 'auto',
           border: '1px solid green',
           position: 'relative',
         }}
@@ -122,7 +114,7 @@ const div = (
             height: 240,
             margin: 50,
           }}
-          id="target"
+          id='target'
         >
           target node
         </div>
@@ -138,7 +130,7 @@ const div = (
             transition: 'all 0.5s',
             overflowY: 'auto',
           }}
-          id="source"
+          id='source'
         >
           source node
           <br />
@@ -151,6 +143,6 @@ const div = (
       </div>
     </div>
   </div>
-);
+)
 
-ReactDOM.render(div, $id('__react-content'));
+ReactDOM.render(div, $id('__react-content'))

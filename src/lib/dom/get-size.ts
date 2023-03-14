@@ -1,6 +1,6 @@
 import { getPBMWidth, Side } from './get-pbm-width'
 import { getStyle } from './get-style'
-import { CONTENT_INDEX, getWHIgnoreDisplay } from './get-wh'
+import { CONTENT_INDEX, getWH } from './get-wh'
 import { setStyle } from './set-style'
 
 function getSize(elem: HTMLElement, v: number | undefined, name: 'width' | 'height'): number | undefined {
@@ -18,7 +18,7 @@ function getSize(elem: HTMLElement, v: number | undefined, name: 'width' | 'heig
     }
     return undefined
   }
-  return elem && getWHIgnoreDisplay(elem, name, CONTENT_INDEX)
+  return elem && getWH(elem, name, CONTENT_INDEX)
 }
 
 export function getWidth(elem: HTMLElement, v?: number) {

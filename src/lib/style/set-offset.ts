@@ -1,7 +1,6 @@
-import { getOffset } from '../dom'
+import { getOffset, setTransform } from '../dom'
 import { getTransformName } from './get-transform-name'
 import { setLeftTop } from './set-left-top'
-import { setTransform } from './set-transform'
 
 export function setOffset(elem: HTMLElement, offset: any, option: any) {
   if (option.ignoreShake) {

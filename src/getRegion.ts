@@ -3,12 +3,12 @@ import {
   isDocument,
   getWindow,
   getOffset,
-  getOuterWidth,
-  getOuterHeight,
   getScrollLeft,
   getScrollTop,
   getViewportWidth,
   getViewportHeight,
+  getWH,
+  BORDER_INDEX,
 } from './lib/dom'
 
 function getRegion(node: HTMLElement | Window | Document) {
@@ -17,8 +17,8 @@ function getRegion(node: HTMLElement | Window | Document) {
   let h
   if (!isWindow(node) && !isDocument(node)) {
     offset = getOffset(node)
-    w = getOuterWidth(node)
-    h = getOuterHeight(node)
+    w = getWH(node, 'width', BORDER_INDEX)
+    h = getWH(node, 'height', BORDER_INDEX)
   } else {
     const win = getWindow(node)
     offset = {

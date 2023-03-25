@@ -1,19 +1,22 @@
 {
-  "name": "dom-align",
-  "version": "1.12.4",
-  "description": "Align DOM Node Flexibly ",
+  "name": "dom-align-ts",
+  "version": "0.0.1",
+  "description": "Align DOM Node Flexibly",
   "keywords": [
     "dom",
     "align"
   ],
-  "homepage": "http://github.com/yiminghe/dom-align",
-  "author": "yiminghe@gmail.com",
+  "homepage": "http://github.com/yiminghe/dom-align-ts",
+  "author": "savchenkoalexander91@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:yiminghe/dom-align.git"
+    "url": "git@github.com:yiminghe/dom-align-ts.git"
   },
   "bugs": {
-    "url": "http://github.com/yiminghe/dom-align/issues"
+    "url": "http://github.com/yiminghe/dom-align-ts/issues"
+  },
+  "publishConfig": {
+    "tag": "v1-latest"
   },
   "license": "MIT",
   "config": {
@@ -23,7 +26,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write \"{src,tests}/**/*.{js,tsx}\"",
     "pub": "npm run build && cd pkg && npm publish",
-    "build": "pika-pack build",
+    "build": "tsc",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "karma": "rc-test run karma",
@@ -35,52 +38,27 @@
   "resolutions": {
     "graceful-fs": "^4.2.4"
   },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg",
-        {
-          "exclude": [
-            "tests/**/*"
-          ]
-        }
-      ],
-      [
-        "pika-plugin-build-web-babel"
-      ],
-      [
-        "@pika/plugin-build-node"
-      ],
-      [
-        "@pika/plugin-build-types"
-      ],
-      [
-        "pika-plugin-clean-dist-src"
-      ]
-    ]
-  },
   "overrides": {
     "graceful-fs": "^4.2.10"
   },
   "devDependencies": {
-    "@pika/pack": "0.5.x",
-    "@pika/plugin-build-node": "^0.6.0",
-    "@pika/plugin-build-types": "^0.6.0",
-    "@pika/plugin-standard-pkg": "^0.6.0",
-    "@pika/types": "^0.6.0",
+    "@babel/preset-typescript": "^7.21.0",
+    "@types/jest": "^29.4.0",
     "babel-preset-env": "^1.7.0",
     "create-react-class": "^15.6.3",
     "expect.js": "^0.3.1",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "jquery": "^3.4.1",
     "lint-staged": "^9.2.1",
-    "pika-plugin-build-web-babel": "^0.6.0",
-    "pika-plugin-clean-dist-src": "^0.1.1",
     "pre-commit": "1.x",
-    "prettier": "^1.18.2",
+    "prettier": "2.8.4",
     "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "16.x",
-    "react-dom": "16.x"
+    "react-dom": "16.x",
+    "ts-jest": "^29.0.5",
+    "typescript": "4.9.5"
   },
   "lint-staged": {
     "*.{tsx,js,jsx,ts}": [

@@ -1,4 +1,4 @@
-console.log('Load babel config');
+console.log('Load babel config')
 
 module.exports = {
   presets: [
@@ -6,7 +6,9 @@ module.exports = {
       '@babel/preset-env',
       {
         modules: false,
+        targets: { node: 'current' },
       },
     ],
+    '@babel/preset-typescript',
   ],
-};
+}

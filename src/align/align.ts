@@ -205,6 +205,7 @@ export default doAlign
 
 // Private
 
+// @ts-ignore
 function assertNormalizedOffset(input: unknown): asserts input is NormalizedOffset {
   //
 }

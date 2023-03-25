@@ -6,14 +6,14 @@
     "dom",
     "align"
   ],
-  "homepage": "http://github.com/yiminghe/dom-align-ts",
+  "homepage": "http://github.com/sashulinator/dom-align-ts",
   "author": "savchenkoalexander91@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:yiminghe/dom-align-ts.git"
+    "url": "git@github.com:sashulinator/dom-align-ts.git"
   },
   "bugs": {
-    "url": "http://github.com/yiminghe/dom-align-ts/issues"
+    "url": "http://github.com/sashulinator/dom-align-ts/issues"
   },
   "publishConfig": {
     "tag": "v1-latest"
@@ -26,7 +26,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write \"{src,tests}/**/*.{js,tsx}\"",
     "pub": "npm run build && cd pkg && npm publish",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "karma": "rc-test run karma",

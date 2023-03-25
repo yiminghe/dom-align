@@ -1,19 +1,22 @@
 {
-  "name": "dom-align",
-  "version": "1.12.4",
-  "description": "Align DOM Node Flexibly ",
+  "name": "dom-align-ts",
+  "version": "0.0.1",
+  "description": "Align DOM Node Flexibly",
   "keywords": [
     "dom",
     "align"
   ],
-  "homepage": "http://github.com/yiminghe/dom-align",
-  "author": "yiminghe@gmail.com",
+  "homepage": "http://github.com/yiminghe/dom-align-ts",
+  "author": "savchenkoalexander91@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:yiminghe/dom-align.git"
+    "url": "git@github.com:yiminghe/dom-align-ts.git"
   },
   "bugs": {
-    "url": "http://github.com/yiminghe/dom-align/issues"
+    "url": "http://github.com/yiminghe/dom-align-ts/issues"
+  },
+  "publishConfig": {
+    "tag": "v1-latest"
   },
   "license": "MIT",
   "config": {

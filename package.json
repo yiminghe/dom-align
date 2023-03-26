@@ -1,17 +1,23 @@
 {
   "name": "dom-align-ts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Align DOM Node Flexibly",
   "keywords": [
     "dom",
     "align"
   ],
-  "homepage": "http://github.com/sashulinator/dom-align-ts",
-  "author": "savchenkoalexander91@gmail.com",
+  "private": false,
+  "main": "./dist",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:sashulinator/dom-align-ts.git"
+    "url": "git+https://github.com/savchenko91/schema-validator.git"
   },
+  "files": [
+    "/dist"
+  ],
+  "homepage": "http://github.com/sashulinator/dom-align-ts",
+  "author": "savchenkoalexander91@gmail.com",
   "bugs": {
     "url": "http://github.com/sashulinator/dom-align-ts/issues"
   },

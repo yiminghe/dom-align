@@ -1,6 +1,8 @@
-import alignElement from './align/alignElement';
-import alignPoint from './align/alignPoint';
+import alignElement from './align/alignElement'
+import alignPoint from './align/alignPoint'
 
-export { alignElement, alignPoint };
+export { alignElement, alignPoint }
+export default alignElement
 
-export default alignElement;
+export { flipHorizontally as flipPointsHorizontally } from './lib/points/flip'
+export { flipVertically as flipPointsVertically } from './lib/points/flip'

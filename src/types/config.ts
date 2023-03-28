@@ -20,8 +20,8 @@ export interface Config {
     resizeHeight?: boolean
   }
 
-  useCssRight: boolean
-  useCssBottom: boolean
-  useCssTransform: boolean
-  ignoreShake: boolean
+  useCssRight?: boolean
+  useCssBottom?: boolean
+  useCssTransform?: boolean
+  ignoreShake?: boolean
 }

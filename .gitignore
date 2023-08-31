@@ -30,3 +30,4 @@ yarn.lock
 /pkg/
 .vscode/
 /dom-align/
+*.tsbuildinfo

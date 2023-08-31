@@ -18,7 +18,7 @@
   "license": "MIT",
   "scripts": {
     "lint-staged": "lint-staged",
-    "lint": "eslint -c ./.eslintrc-src.js src && next lint",
+    "lint": "eslint -c ./.eslintrc-src.js src && tsc --noEmit &&next lint",
     "prettier": "prettier --write \"{src,tests,app,cypress}/**/*.{js,jsx,ts,tsx}\"",
     "pub": "npm run build && cd pkg && npm publish",
     "build": "node scripts/build",

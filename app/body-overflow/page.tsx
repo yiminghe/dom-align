@@ -6,7 +6,7 @@ import domAlign from '../../src/';
 export default function Overflow() {
   const source = useRef();
   const target = useRef();
-  const timer = useRef<NodeJS.Timer>();
+  const timer = useRef<any>();
   const align = () => {
     const ret = domAlign(source.current, target.current, {
       points: ['tl', 'bl'],

@@ -118,8 +118,8 @@ domAlign(sourceNode, targetNode, alignConfig);
 ## Development
 
 ```
-npm install
-npm start
+pnpm install
+pnpm start
 ```
 
 ## Example

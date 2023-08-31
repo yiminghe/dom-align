@@ -6,7 +6,7 @@ import {
   getTransformName,
 } from './propertyUtils';
 
-const RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
+const RE_NUM = /[-+]?(?:\d*\.|)\d+(?:[eE][-+]?\d+|)/.source;
 
 let getComputedStyleX;
 
@@ -18,11 +18,13 @@ function forceRelayout(elem) {
   elem.style.display = originalStyle;
 }
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 function css(el, name, v) {
   let value = v;
   if (typeof name === 'object') {
     for (const i in name) {
-      if (name.hasOwnProperty(i)) {
+      if (hasOwnProperty.call(name, i)) {
         css(el, i, name[i]);
       }
     }
@@ -258,7 +260,7 @@ function setLeftTop(elem, offset, option) {
   const old = getOffset(elem);
   const originalStyle = {};
   for (const key in offset) {
-    if (offset.hasOwnProperty(key)) {
+    if (hasOwnProperty.call(offset, key)) {
       const dir = getOffsetDirection(key, option);
       const preset = key === 'left' ? presetH : presetV;
       const off = originalOffset[key] - old[key];
@@ -277,7 +279,7 @@ function setLeftTop(elem, offset, option) {
   }
   const ret = {};
   for (const key in offset) {
-    if (offset.hasOwnProperty(key)) {
+    if (hasOwnProperty.call(offset, key)) {
       const dir = getOffsetDirection(key, option);
       const off = offset[key] - originalOffset[key];
       if (key === dir) {
@@ -352,7 +354,7 @@ function swap(elem, options, callback) {
 
   // Remember the old values, and insert the new ones
   for (name in options) {
-    if (options.hasOwnProperty(name)) {
+    if (hasOwnProperty.call(options, name)) {
       old[name] = style[name];
       style[name] = options[name];
     }
@@ -362,7 +364,7 @@ function swap(elem, options, callback) {
 
   // Revert the old values
   for (name in options) {
-    if (options.hasOwnProperty(name)) {
+    if (hasOwnProperty.call(options, name)) {
       style[name] = old[name];
     }
   }
@@ -553,7 +555,7 @@ each(['width', 'height'], (name) => {
 
 function mix(to, from) {
   for (const i in from) {
-    if (from.hasOwnProperty(i)) {
+    if (hasOwnProperty.call(from, i)) {
       to[i] = from[i];
     }
   }
@@ -583,14 +585,14 @@ const utils = {
     let i;
     const ret = {};
     for (i in obj) {
-      if (obj.hasOwnProperty(i)) {
+      if (hasOwnProperty.call(obj, i)) {
         ret[i] = obj[i];
       }
     }
     const overflow = obj.overflow;
     if (overflow) {
       for (i in obj) {
-        if (obj.hasOwnProperty(i)) {
+        if (hasOwnProperty.call(obj, i)) {
           ret.overflow[i] = obj.overflow[i];
         }
       }

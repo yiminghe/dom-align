@@ -21,6 +21,8 @@ pkg.module = 'dist-web/index.js';
 
 fs.writeFileSync(r('../pkg/package.json'), JSON.stringify(pkg, null, 2));
 
+fs.copyFileSync(r('../README.md'), r('../pkg', 'README.md'));
+
 execSync('swc ./src -d pkg/dist-web --config-file ./scripts/web-swc.json', {
   stdio: 'inherit',
 });

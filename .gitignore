@@ -29,3 +29,4 @@ yarn.lock
 /es/
 /pkg/
 .vscode/
+/dom-align/

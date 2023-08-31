@@ -81,7 +81,7 @@ describe('dom-align', () => {
           $ele.remove();
         });
 
-        it('getVisibleRectForElement clip by document if ancestor is not fixed', done => {
+        it('getVisibleRectForElement clip by document if ancestor is not fixed', (done) => {
           const gap = $(
             `<div style='height: 1500px;width: 100000px;'></div>`,
           )[0];

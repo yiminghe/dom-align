@@ -228,9 +228,8 @@ function setLeftTop(elem, offset, option) {
   let presetV = -999;
   const horizontalProperty = getOffsetDirection('left', option);
   const verticalProperty = getOffsetDirection('top', option);
-  const oppositeHorizontalProperty = oppositeOffsetDirection(
-    horizontalProperty,
-  );
+  const oppositeHorizontalProperty =
+    oppositeOffsetDirection(horizontalProperty);
   const oppositeVerticalProperty = oppositeOffsetDirection(verticalProperty);
 
   if (horizontalProperty !== 'left') {
@@ -405,8 +404,8 @@ const domUtils = {
   },
 };
 
-each(['Width', 'Height'], name => {
-  domUtils[`doc${name}`] = refWin => {
+each(['Width', 'Height'], (name) => {
+  domUtils[`doc${name}`] = (refWin) => {
     const d = refWin.document;
     return Math.max(
       // firefox chrome documentElement.scrollHeight< body.scrollHeight
@@ -418,7 +417,7 @@ each(['Width', 'Height'], name => {
     );
   };
 
-  domUtils[`viewport${name}`] = win => {
+  domUtils[`viewport${name}`] = (win) => {
     // pc browser includes scrollbar in window.innerWidth
     const prop = `client${name}`;
     const doc = win.document;
@@ -526,7 +525,7 @@ function getWHIgnoreDisplay(...args) {
   return val;
 }
 
-each(['width', 'height'], name => {
+each(['width', 'height'], (name) => {
   const first = name.charAt(0).toUpperCase() + name.slice(1);
   domUtils[`outer${first}`] = (el, includeMargin) => {
     return (

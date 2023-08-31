@@ -1,0 +1,8 @@
+{
+  "module": {
+    "type": "es6"
+  },
+  "jsc": {
+    "target": "es5"
+  }
+}

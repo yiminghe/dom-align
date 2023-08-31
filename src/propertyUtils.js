@@ -88,7 +88,7 @@ export function setTransformXY(node, xy) {
     let match2d = transform.match(matrix2d);
     if (match2d) {
       match2d = match2d[1];
-      arr = match2d.split(',').map(item => {
+      arr = match2d.split(',').map((item) => {
         return parseFloat(item, 10);
       });
       arr[4] = xy.x;
@@ -96,7 +96,7 @@ export function setTransformXY(node, xy) {
       setTransform(node, `matrix(${arr.join(',')})`);
     } else {
       const match3d = transform.match(matrix3d)[1];
-      arr = match3d.split(',').map(item => {
+      arr = match3d.split(',').map((item) => {
         return parseFloat(item, 10);
       });
       arr[12] = xy.x;

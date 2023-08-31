@@ -4,18 +4,13 @@
 align source html element with target html element flexibly.
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: http://img.shields.io/npm/v/dom-align.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/dom-align
-[travis-image]: https://app.travis-ci.com/yiminghe/dom-align.svg?branch=master
-[travis-url]: https://app.travis-ci.com/github/yiminghe/dom-align
 [coveralls-image]: https://img.shields.io/coveralls/yiminghe/dom-align.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/yiminghe/dom-align?branch=master
-[gemnasium-image]: http://img.shields.io/gemnasium/yiminghe/dom-align.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/yiminghe/dom-align
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/dom-align.svg?style=flat-square
@@ -129,23 +124,7 @@ npm start
 
 ## Example
 
-http://localhost:8020/examples/
-
-## Test Case
-
-```
-npm test
-npm run chrome-test
-```
-
-## Coverage
-
-```
-npm run coverage
-```
-
-open coverage/ dir
-
+http://localhost:3000/
 
 ## License
 

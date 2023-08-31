@@ -1,0 +1,119 @@
+0:["tVbyf5sS3IDH5RmObd93X",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],"$L1",[[],"$L2"]]]]
+3:HL["/dom-align/_next/static/css/e5a398ae6b72d3be.css",{"as":"style"}]
+4:I{"id":1788,"chunks":["272:static/chunks/webpack-8b98dbbbb09ef465.js","702:static/chunks/e0f3dcf3-b09dd8ff9aeee011.js","431:static/chunks/431-73aef88c8a770b84.js"],"name":"default","async":false}
+5:I{"id":9085,"chunks":["272:static/chunks/webpack-8b98dbbbb09ef465.js","702:static/chunks/e0f3dcf3-b09dd8ff9aeee011.js","431:static/chunks/431-73aef88c8a770b84.js"],"name":"default","async":false}
+7:I{"id":9101,"chunks":["931:static/chunks/app/page-44dbe58f7f94ded0.js"],"name":"","async":false}
+2:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"dom-align"}],["$","meta","2",{"name":"description","content":"dom-align demo"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+8:T1a88,<h1>dom-align</h1>
+<hr>
+<p>align source html element with target html element flexibly.</p>
+<p><a href="http://npmjs.org/package/dom-align"><img src="http://img.shields.io/npm/v/dom-align.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://app.travis-ci.com/github/yiminghe/dom-align"><img src="https://app.travis-ci.com/yiminghe/dom-align.svg?branch=master" alt="build status"></a>
+<a href="https://coveralls.io/r/yiminghe/dom-align?branch=master"><img src="https://img.shields.io/coveralls/yiminghe/dom-align.svg?style=flat-square" alt="Test coverage"></a>
+<a href="https://npmjs.org/package/dom-align"><img src="https://img.shields.io/npm/dm/dom-align.svg?style=flat-square" alt="npm download"></a></p>
+<h2>Screenshot</h2>
+<img height=444 src="http://gtms02.alicdn.com/tps/i2/TB1XIp2HXXXXXajaXXXgJfr8XXX-548-888.png">
+<h2>Install</h2>
+<p><a href="https://npmjs.org/package/dom-align"><img src="https://nodei.co/npm/dom-align.png" alt="dom-align"></a></p>
+<h2>Feature</h2>
+<ul>
+<li>support IE9+ chrome firefox</li>
+<li>support align points and offset</li>
+<li>support auto adjust according to visible area</li>
+</ul>
+<h2>Online Demo</h2>
+<ul>
+<li><a href="http://yiminghe.github.io/dom-align/">http://yiminghe.github.io/dom-align/</a></li>
+</ul>
+<h2>Usage</h2>
+<pre><code class="language-js"><span class="token keyword">import</span> domAlign <span class="token keyword">from</span> <span class="token string">'dom-align'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// use domAlign</span>
+<span class="token comment">// sourceNode's initial style should be position:absolute;left:-9999px;top:-9999px;</span>
+
+<span class="token keyword">const</span> alignConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">points</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'tl'</span><span class="token punctuation">,</span> <span class="token string">'tr'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>        <span class="token comment">// align top left point of sourceNode with top right point of targetNode</span>
+  <span class="token literal-property property">offset</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">,</span>            <span class="token comment">// the offset sourceNode by 10px in x and 20px in y,</span>
+  <span class="token literal-property property">targetOffset</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'30%'</span><span class="token punctuation">,</span><span class="token string">'40%'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// the offset targetNode by 30% of targetNode width in x and 40% of targetNode height in y,</span>
+  <span class="token literal-property property">overflow</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">adjustX</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token literal-property property">adjustY</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment">// auto adjust position when sourceNode is overflowed</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">domAlign</span><span class="token punctuation">(</span>sourceNode<span class="token punctuation">,</span> targetNode<span class="token punctuation">,</span> alignConfig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2>API</h2>
+<h3>void domAlign(source: HTMLElement, target: HTMLElement, alignConfig: Object):Function</h3>
+<h4>alignConfig object details</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th style="width: 100px;">name</th>
+        <th style="width: 50px;">type</th>
+        <th>description</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td>points</td>
+          <td>String[2]</td>
+          <td>move point of source node to align with point of target node, such as ['tr','cc'],
+          align top right point of source node with center point of target node.
+          point can be 't'(top), 'b'(bottom), 'c'(center), 'l'(left), 'r'(right)
+      </td>
+      </tr>
+      <tr>
+          <td>offset</td>
+          <td>Number[2]</td>
+          <td>offset source node by offset[0] in x and offset[1] in y. 
+          If offset contains percentage string value, it is relative to sourceNode region.</td>
+      </tr>
+      <tr>
+          <td>targetOffset</td>
+          <td>Number[2]</td>
+          <td>offset target node by offset[0] in x and offset[1] in y. 
+          If targetOffset contains percentage string value, it is relative to targetNode region.</td>
+      </tr>
+      <tr>
+          <td>overflow</td>
+          <td>Object: `{ adjustX: boolean, adjustY: boolean, alwaysByViewport:boolean }`</td>
+          <td>
+          if adjustX field is true, then will adjust source node in x direction if source node is invisible.
+          if adjustY field is true, then will adjust source node in y direction if source node is invisible.
+          if alwaysByViewport is true, the it will adjust if node is not inside viewport
+          </td>
+      </tr>
+      <tr>
+          <td>useCssRight</td>
+          <td>Boolean</td>
+          <td>whether use css right instead of left to position</td>
+      </tr>
+      <tr>
+          <td>useCssBottom</td>
+          <td>Boolean</td>
+          <td>whether use css bottom instead of top to position</td>
+      </tr>
+      <tr>
+          <td>useCssTransform</td>
+          <td>Boolean</td>
+          <td>whether use css transform instead of left/top/right/bottom to position if browser supports.
+          Defaults to false.</td>
+      </tr>
+    </tbody>
+</table>
+<h2>Development</h2>
+<pre><code>npm install
+npm start
+</code></pre>
+<h2>Example</h2>
+<p><a href="http://localhost:8020/examples/">http://localhost:8020/examples/</a></p>
+<h2>Test Case</h2>
+<pre><code>npm test
+npm run chrome-test
+</code></pre>
+<h2>Coverage</h2>
+<pre><code>npm run coverage
+</code></pre>
+<p>open coverage/ dir</p>
+<h2>License</h2>
+<p>dom-align is released under the MIT license.</p>
+1:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"childProp":{"current":["$L6",["$","div",null,{"style":{"width":800,"margin":"auto"},"children":[["$","h2",null,{"children":"examples"}],["$","p",null,{"children":["$","$L7",null,{"href":"/simple","children":"simple"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/body-overflow","children":"body-overflow"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/fail","children":"fail"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/point","children":"point"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/shadow-dom","children":"shadow-dom"}]}],["$","h2",null,{"children":"readme"}],["$","div",null,{"className":"markdown-body","dangerouslySetInnerHTML":{"__html":"$8"}}]]}],null],"segment":"__PAGE__"},"styles":[["$","link","0",{"rel":"stylesheet","href":"/dom-align/_next/static/css/e5a398ae6b72d3be.css","precedence":"next"}]]}]}]}],null]
+6:null

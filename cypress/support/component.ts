@@ -15,7 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
-
+import '@cypress/code-coverage/support';
 import 'normalize.css';
 
 // Alternatively you can use CommonJS syntax:

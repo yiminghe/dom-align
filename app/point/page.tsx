@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { alignPoint } from '../../src';
+import React from 'react';
 export default function Point() {
   const [sx, setSx] = useState('l');
   const [sy, setSy] = useState('t');

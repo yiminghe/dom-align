@@ -45,6 +45,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - run: cp test-coverage-babelrc .babelrc
       - run: pnpm test:ci
         env:
           CYPRESS_RECORD_KEY: ${{vars.CYPRESS_RECORD_KEY}}
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2    

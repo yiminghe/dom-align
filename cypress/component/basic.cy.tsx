@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import domAlign from '../../src';
+import React from 'react';
 
 const { $ } = Cypress;
 

@@ -18,17 +18,20 @@
   "license": "MIT",
   "scripts": {
     "lint-staged": "lint-staged",
-    "lint": "eslint -c ./.eslintrc-src.js src && tsc --noEmit &&next lint",
-    "prettier": "prettier --write \"{src,tests,app,cypress}/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint -c ./.eslintrc-src.js src && tsc --noEmit && next lint",
+    "prettier": "prettier --write \"{src,app,cypress}/**/*.{js,jsx,ts,tsx}\"",
     "pub": "npm run build && cd pkg && npm publish",
     "build": "node scripts/build",
     "gh-pages": "next build && touch dom-align/.nojekyll && gh-pages -d dom-align -t",
-    "start": "next dev"
+    "start": "next dev",
+    "test": "cypress run --component",
+    "test:ci": "cypress run --component --record --key $CYPRESS_RECORD_KEY"
   },
   "devDependencies": {
     "@swc/cli": "0.1.x",
     "@swc/core": "1.3.x",
     "@types/react": "18.2.21",
+    "cypress": "^13.1.0",
     "eslint": "^8.48.0",
     "eslint-config-next": "13.4.19",
     "gh-pages": "6.x",
@@ -36,6 +39,7 @@
     "lint-staged": "14.x",
     "markdown-it": "^13.0.1",
     "next": "13.x",
+    "normalize.css": "^8.0.1",
     "pre-commit": "1.x",
     "prettier": "3.x",
     "prismjs": "^1.29.0",

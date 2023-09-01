@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const metadata = {
   title: 'dom-align',
   description: 'dom-align demo',

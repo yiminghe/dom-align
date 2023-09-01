@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
-
+import React from 'react';
 import MarkdownIt from 'markdown-it';
 import 'github-markdown-css/github-markdown-light.css';
 // @ts-ignore

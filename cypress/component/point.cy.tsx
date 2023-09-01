@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import { alignPoint } from '../../src';
+import React from 'react';
 
 const { $ } = Cypress;
 

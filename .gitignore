@@ -31,3 +31,5 @@ yarn.lock
 .vscode/
 /dom-align/
 *.tsbuildinfo
+.nyc_output/
+.next/

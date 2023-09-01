@@ -6,6 +6,8 @@ align source html element with target html element flexibly.
 [![NPM version][npm-image]][npm-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![npm download][download-image]][download-url]
+![Build Status](https://github.com/yiminghe/dom-align/actions/workflows/ci.yaml/badge.svg)
+[![dom-align](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/22j6d7/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/22j6d7/runs)
 
 [npm-image]: http://img.shields.io/npm/v/dom-align.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/dom-align

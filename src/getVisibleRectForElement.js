@@ -29,7 +29,8 @@ function getVisibleRectForElement(element, alwaysByViewport) {
       // document.documentElement, so check for that too.
       el !== body &&
       el !== documentElement &&
-      utils.css(el, 'overflow') !== 'visible'
+      utils.css(el, 'overflow') !== 'visible' &&
+      body.contains(el)
     ) {
       const pos = utils.offset(el);
       // add border

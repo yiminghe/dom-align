@@ -29,9 +29,6 @@ devDependencies:
   github-markdown-css:
     specifier: ^5.2.0
     version: 5.2.0
-  jquery:
-    specifier: ^3.7.1
-    version: 3.7.1
   lint-staged:
     specifier: 14.x
     version: 14.0.1
@@ -2826,10 +2823,6 @@ packages:
       '@types/node': 20.5.7
       merge-stream: 2.0.0
       supports-color: 8.1.1
-    dev: true
-
-  /jquery@3.7.1:
-    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
     dev: true
 
   /js-tokens@4.0.0:

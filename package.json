@@ -56,5 +56,5 @@
   "pre-commit": [
     "lint-staged"
   ],
-  "packageManager": "pnpm@8.7.0"
+  "packageManager": "pnpm@8.7.1"
 }

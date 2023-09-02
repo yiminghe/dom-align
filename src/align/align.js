@@ -115,27 +115,32 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     if (overflow.adjustX) {
       // 如果横向不能放下
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
-        // 对齐位置反下
-        const newPoints = flip(points, /[lr]/gi, {
-          l: 'r',
-          r: 'l',
-        });
-        // 偏移量也反下
-        const newOffset = flipOffset(offset, 0);
-        const newTargetOffset = flipOffset(targetOffset, 0);
-        const newElFuturePos = getElFuturePos(
-          elRegion,
-          tgtRegion,
-          newPoints,
-          newOffset,
-          newTargetOffset,
-        );
+        // 不锁定对齐点的话将会做对齐镜像操作
+        if (!overflow.lockedPoints) {
+          // 对齐位置反下
+          const newPoints = flip(points, /[lr]/gi, {
+            l: 'r',
+            r: 'l',
+          });
+          // 偏移量也反下
+          const newOffset = flipOffset(offset, 0);
+          const newTargetOffset = flipOffset(targetOffset, 0);
+          const newElFuturePos = getElFuturePos(
+            elRegion,
+            tgtRegion,
+            newPoints,
+            newOffset,
+            newTargetOffset,
+          );
 
-        if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
+          if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
+            fail = 1;
+            points = newPoints;
+            offset = newOffset;
+            targetOffset = newTargetOffset;
+          }
+        } else {
           fail = 1;
-          points = newPoints;
-          offset = newOffset;
-          targetOffset = newTargetOffset;
         }
       }
     }
@@ -143,27 +148,32 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     if (overflow.adjustY) {
       // 如果纵向不能放下
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
-        // 对齐位置反下
-        const newPoints = flip(points, /[tb]/gi, {
-          t: 'b',
-          b: 't',
-        });
-        // 偏移量也反下
-        const newOffset = flipOffset(offset, 1);
-        const newTargetOffset = flipOffset(targetOffset, 1);
-        const newElFuturePos = getElFuturePos(
-          elRegion,
-          tgtRegion,
-          newPoints,
-          newOffset,
-          newTargetOffset,
-        );
+        // 不锁定对齐点的话将会做对齐镜像操作
+        if (!overflow.lockedPoints) {
+          // 对齐位置反下
+          const newPoints = flip(points, /[tb]/gi, {
+            t: 'b',
+            b: 't',
+          });
+          // 偏移量也反下
+          const newOffset = flipOffset(offset, 1);
+          const newTargetOffset = flipOffset(targetOffset, 1);
+          const newElFuturePos = getElFuturePos(
+            elRegion,
+            tgtRegion,
+            newPoints,
+            newOffset,
+            newTargetOffset,
+          );
 
-        if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
+          if (!isCompleteFailY(newElFuturePos, elRegion, visibleRect)) {
+            fail = 1;
+            points = newPoints;
+            offset = newOffset;
+            targetOffset = newTargetOffset;
+          }
+        } else {
           fail = 1;
-          points = newPoints;
-          offset = newOffset;
-          targetOffset = newTargetOffset;
         }
       }
     }
@@ -183,7 +193,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     const isStillFailY = isFailY(elFuturePos, elRegion, visibleRect);
     // 检查反下后的位置是否可以放下了，如果仍然放不下：
     // 1. 复原修改过的定位参数
-    if (isStillFailX || isStillFailY) {
+    if ((isStillFailX || isStillFailY) && !overflow.lockedPoints) {
       let newPoints = points;
 
       // 重置对应部分的翻转逻辑

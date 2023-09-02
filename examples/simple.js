@@ -23,6 +23,7 @@ function align() {
     overflow: {
       adjustX: $id('adjustX').checked,
       adjustY: $id('adjustY').checked,
+      lockedPoints: $id('lockedPoints').checked,
     },
     useCssRight: $id('useCssRight').checked,
     useCssBottom: $id('useCssBottom').checked,
@@ -79,6 +80,11 @@ const div = (
       </label>
       &nbsp;
       <label>
+        lockedPoints:
+        <input type="checkbox" id="lockedPoints" />
+      </label>
+      &nbsp;
+      <label>
         useCssBottom:
         <input type="checkbox" id="useCssBottom" />
       </label>
@@ -131,7 +137,7 @@ const div = (
           style={{
             background: 'red',
             width: 80,
-            height: 80,
+            height: 360,
             left: 0,
             top: 0,
             position: 'absolute',

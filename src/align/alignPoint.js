@@ -30,9 +30,10 @@ function alignPoint(el, tgtPoint, align) {
     pageY = scrollY + tgtPoint.clientY;
   }
 
+  const scale = utils.getScale(el);
   const tgtRegion = {
-    left: pageX,
-    top: pageY,
+    left: pageX / scale,
+    top: pageY / scale,
     width: 0,
     height: 0,
   };

@@ -46,7 +46,10 @@ function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
     pos.top = Math.max(visibleRect.bottom - size.height, visibleRect.top);
   }
 
-  return utils.mix(pos, size);
+  return {
+    ...pos,
+    ...size,
+  };
 }
 
 export default adjustForViewport;

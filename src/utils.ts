@@ -553,15 +553,6 @@ each(['width', 'height'], (name) => {
   };
 });
 
-function mix(to, from) {
-  for (const i in from) {
-    if (hasOwnProperty.call(from, i)) {
-      to[i] = from[i];
-    }
-  }
-  return to;
-}
-
 const utils = {
   getWindow(node) {
     if (node && node.document && node.setTimeout) {
@@ -599,24 +590,15 @@ const utils = {
     }
     return ret;
   },
-  mix,
   getWindowScrollLeft(w) {
     return getScrollLeft(w);
   },
   getWindowScrollTop(w) {
     return getScrollTop(w);
   },
-  merge(...args) {
-    const ret = {};
-    for (let i = 0; i < args.length; i++) {
-      utils.mix(ret, args[i]);
-    }
-    return ret;
-  },
   viewportWidth: 0,
   viewportHeight: 0,
+  ...domUtils,
 };
-
-mix(utils, domUtils);
 
 export default utils as any;

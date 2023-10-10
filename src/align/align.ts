@@ -104,7 +104,10 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     targetOffset,
   );
   // 当前节点将要所处的区域
-  let newElRegion = utils.merge(elRegion, elFuturePos);
+  let newElRegion = {
+    ...elRegion,
+    ...elFuturePos,
+  };
 
   // 如果可视区域不能完全放置当前节点时允许调整
   if (
@@ -177,7 +180,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
         offset,
         targetOffset,
       );
-      utils.mix(newElRegion, elFuturePos);
+      Object.assign(newElRegion, elFuturePos);
     }
     const isStillFailX = isFailX(elFuturePos, elRegion, visibleRect);
     const isStillFailY = isFailY(elFuturePos, elRegion, visibleRect);

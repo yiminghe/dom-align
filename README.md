@@ -1,4 +1,4 @@
-# dom-align
+# @rc-component/dom-align
 ---
 
 align source html element with target html element flexibly.
@@ -6,17 +6,17 @@ align source html element with target html element flexibly.
 [![NPM version][npm-image]][npm-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![npm download][download-image]][download-url]
-![Build Status](https://github.com/yiminghe/dom-align/actions/workflows/ci.yaml/badge.svg)
-[![dom-align](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/22j6d7/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/22j6d7/runs)
+![Build Status](https://github.com/react-component/dom-align/actions/workflows/ci.yaml/badge.svg)
+[![@rc-component/dom-align](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/22j6d7/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/22j6d7/runs)
 
-[npm-image]: http://img.shields.io/npm/v/dom-align.svg?style=flat-square
-[npm-url]: http://npmjs.org/package/dom-align
-[coveralls-image]: https://img.shields.io/coveralls/yiminghe/dom-align.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/yiminghe/dom-align?branch=master
+[npm-image]: http://img.shields.io/npm/v/@rc-component/dom-align.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/@rc-component/dom-align
+[coveralls-image]: https://img.shields.io/coveralls/react-component/dom-align.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/react-component/dom-align?branch=master
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
-[download-image]: https://img.shields.io/npm/dm/dom-align.svg?style=flat-square
-[download-url]: https://npmjs.org/package/dom-align
+[download-image]: https://img.shields.io/npm/dm/@rc-component/dom-align.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@rc-component/dom-align
 
 ## Screenshot
 
@@ -24,7 +24,7 @@ align source html element with target html element flexibly.
 
 ## Install
 
-[![dom-align](https://nodei.co/npm/dom-align.png)](https://npmjs.org/package/dom-align)
+[![@rc-component/dom-align](https://nodei.co/npm/@rc-component/dom-align.png)](https://npmjs.org/package/@rc-component/dom-align)
 
 ## Feature
 
@@ -34,12 +34,12 @@ align source html element with target html element flexibly.
 
 ## Online Demo
 
-* http://yiminghe.github.io/dom-align/
+* http://yiminghe.github.io/@rc-component/dom-align/
 
 ## Usage
 
 ```js
-import domAlign from 'dom-align';
+import domAlign from '@rc-component/dom-align';
 
 // use domAlign
 // sourceNode's initial style should be position:absolute;left:-9999px;top:-9999px;
@@ -126,8 +126,8 @@ pnpm start
 
 ## Example
 
-http://localhost:3000/
+http://localhost:8000/
 
 ## License
 
-dom-align is released under the MIT license.
+@rc-component/dom-align is released under the MIT license.

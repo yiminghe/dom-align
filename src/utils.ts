@@ -6,10 +6,6 @@ import {
   getTransformName,
 } from './propertyUtils';
 
-const RE_NUM = /[-+]?(?:\d*\.|)\d+(?:[eE][-+]?\d+|)/.source;
-
-let getComputedStyleX;
-
 // https://stackoverflow.com/a/3485654/3040605
 function forceRelayout(elem) {
   const originalStyle = elem.style.display;
@@ -37,7 +33,7 @@ function css(el, name, v = undefined) {
     el.style[name] = value;
     return undefined;
   }
-  return getComputedStyleX(el, name);
+  return getComputedStyle(el, name);
 }
 
 function getClientPosition(elem) {
@@ -138,11 +134,10 @@ function getDocument(node) {
   return node.ownerDocument;
 }
 
-function _getComputedStyle(elem, name, cs) {
-  let computedStyle = cs;
+function getComputedStyle(elem, name) {
   let val = '';
   const d = getDocument(elem);
-  computedStyle = computedStyle || d.defaultView.getComputedStyle(elem, null);
+  const computedStyle = d.defaultView.getComputedStyle(elem, null);
 
   // https://github.com/kissyteam/kissy/issues/61
   if (computedStyle) {
@@ -150,55 +145,6 @@ function _getComputedStyle(elem, name, cs) {
   }
 
   return val;
-}
-
-const _RE_NUM_NO_PX = new RegExp(`^(${RE_NUM})(?!px)[a-z%]+$`, 'i');
-const RE_POS = /^(top|right|bottom|left)$/;
-const CURRENT_STYLE = 'currentStyle';
-const RUNTIME_STYLE = 'runtimeStyle';
-const LEFT = 'left';
-const PX = 'px';
-
-function _getComputedStyleIE(elem, name) {
-  // currentStyle maybe null
-  // http://msdn.microsoft.com/en-us/library/ms535231.aspx
-  let ret = elem[CURRENT_STYLE] && elem[CURRENT_STYLE][name];
-
-  // 当 width/height 设置为百分比时，通过 pixelLeft 方式转换的 width/height 值
-  // 一开始就处理了! CUSTOM_STYLE.height,CUSTOM_STYLE.width ,cssHook 解决@2011-08-19
-  // 在 ie 下不对，需要直接用 offset 方式
-  // borderWidth 等值也有问题，但考虑到 borderWidth 设为百分比的概率很小，这里就不考虑了
-
-  // From the awesome hack by Dean Edwards
-  // http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
-  // If we're not dealing with a regular pixel number
-  // but a number that has a weird ending, we need to convert it to pixels
-  // exclude left right for relativity
-  if (_RE_NUM_NO_PX.test(ret) && !RE_POS.test(name)) {
-    // Remember the original values
-    const style = elem.style;
-    const left = style[LEFT];
-    const rsLeft = elem[RUNTIME_STYLE][LEFT];
-
-    // prevent flashing of content
-    elem[RUNTIME_STYLE][LEFT] = elem[CURRENT_STYLE][LEFT];
-
-    // Put in the new values to get a computed value out
-    style[LEFT] = name === 'fontSize' ? '1em' : ret || 0;
-    ret = style.pixelLeft + PX;
-
-    // Revert the changed values
-    style[LEFT] = left;
-
-    elem[RUNTIME_STYLE][LEFT] = rsLeft;
-  }
-  return ret === '' ? 'auto' : ret;
-}
-
-if (typeof window !== 'undefined') {
-  getComputedStyleX = window.getComputedStyle
-    ? _getComputedStyle
-    : _getComputedStyleIE;
 }
 
 function getOffsetDirection(dir, option) {
@@ -338,7 +284,7 @@ function each(arr, fn) {
 }
 
 function isBorderBoxFn(elem) {
-  return getComputedStyleX(elem, 'boxSizing') === 'border-box';
+  return getComputedStyle(elem, 'boxSizing') === 'border-box';
 }
 
 const BOX_MODELS = ['margin', 'border', 'padding'];
@@ -385,7 +331,7 @@ function getPBMWidth(elem, props, which) {
         } else {
           cssProp = prop + which[i];
         }
-        value += parseFloat(getComputedStyleX(elem, cssProp)) || 0;
+        value += parseFloat(getComputedStyle(elem, cssProp)) || 0;
       }
     }
   }
@@ -461,7 +407,7 @@ function getWH(elem, name, ex) {
       ? Math.floor(elem.getBoundingClientRect().width)
       : Math.floor(elem.getBoundingClientRect().height);
   const isBorderBox = isBorderBoxFn(elem);
-  let cssBoxValue = 0;
+  let cssBoxValue = 0 as any;
   if (
     borderBoxValue === null ||
     borderBoxValue === undefined ||
@@ -469,7 +415,7 @@ function getWH(elem, name, ex) {
   ) {
     borderBoxValue = undefined;
     // Fall back to computed then un computed css if necessary
-    cssBoxValue = getComputedStyleX(elem, name);
+    cssBoxValue = getComputedStyle(elem, name);
     if (
       cssBoxValue === null ||
       cssBoxValue === undefined ||

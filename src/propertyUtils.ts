@@ -1,36 +1,9 @@
-let vendorPrefix;
-
-const jsCssMap = {
-  Webkit: '-webkit-',
-  Moz: '-moz-',
-  // IE did it wrong again ...
-  ms: '-ms-',
-  O: '-o-',
-};
-
-function getVendorPrefix() {
-  if (vendorPrefix !== undefined) {
-    return vendorPrefix;
-  }
-  vendorPrefix = '';
-  const style = document.createElement('p').style;
-  const testProp = 'Transform';
-  for (const key in jsCssMap) {
-    if (key + testProp in style) {
-      vendorPrefix = key;
-    }
-  }
-  return vendorPrefix;
-}
-
 function getTransitionName() {
-  return getVendorPrefix()
-    ? `${getVendorPrefix()}TransitionProperty`
-    : 'transitionProperty';
+  return 'transitionProperty';
 }
 
 export function getTransformName() {
-  return getVendorPrefix() ? `${getVendorPrefix()}Transform` : 'transform';
+  return 'transform';
 }
 
 export function setTransitionProperty(node, value) {
@@ -65,8 +38,8 @@ export function getTransformXY(node) {
   if (transform && transform !== 'none') {
     const matrix = transform.replace(/[^0-9\-.,]/g, '').split(',');
     return {
-      x: parseFloat(matrix[12] || matrix[4], 0),
-      y: parseFloat(matrix[13] || matrix[5], 0),
+      x: parseFloat(matrix[12] || matrix[4]),
+      y: parseFloat(matrix[13] || matrix[5]),
     };
   }
   return {
@@ -85,11 +58,10 @@ export function setTransformXY(node, xy) {
     style.getPropertyValue(getTransformName());
   if (transform && transform !== 'none') {
     let arr;
-    let match2d = transform.match(matrix2d);
+    const match2d = transform.match(matrix2d);
     if (match2d) {
-      match2d = match2d[1];
-      arr = match2d.split(',').map((item) => {
-        return parseFloat(item, 10);
+      arr = match2d[1].split(',').map((item) => {
+        return parseFloat(item);
       });
       arr[4] = xy.x;
       arr[5] = xy.y;
@@ -97,7 +69,7 @@ export function setTransformXY(node, xy) {
     } else {
       const match3d = transform.match(matrix3d)[1];
       arr = match3d.split(',').map((item) => {
-        return parseFloat(item, 10);
+        return parseFloat(item);
       });
       arr[12] = xy.x;
       arr[13] = xy.y;

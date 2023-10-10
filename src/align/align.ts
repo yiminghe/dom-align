@@ -85,7 +85,7 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   offset = [].concat(offset);
   targetOffset = [].concat(targetOffset);
   overflow = overflow || {};
-  const newOverflowCfg = {};
+  const newOverflowCfg = {} as any;
   let fail = 0;
   const alwaysByViewport = !!(overflow && overflow.alwaysByViewport);
   // 当前节点可以被放置的显示区域

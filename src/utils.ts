@@ -20,7 +20,7 @@ function forceRelayout(elem) {
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function css(el, name, v) {
+function css(el, name, v = undefined) {
   let value = v;
   if (typeof name === 'object') {
     for (const i in name) {
@@ -86,7 +86,7 @@ function getClientPosition(elem) {
   };
 }
 
-function getScroll(w, top) {
+function getScroll(w, top: boolean = false) {
   let ret = w[`page${top ? 'Y' : 'X'}Offset`];
   const method = `scroll${top ? 'Top' : 'Left'}`;
   if (typeof ret !== 'number') {
@@ -325,7 +325,7 @@ function setOffset(elem, offset, option) {
     option.useCssTransform &&
     getTransformName() in document.body.style
   ) {
-    setTransform(elem, offset, option);
+    setTransform(elem, offset);
   } else {
     setLeftTop(elem, offset, option);
   }
@@ -448,12 +448,12 @@ function getWH(elem, name, ex) {
   let extra = ex;
   if (isWindow(elem)) {
     return name === 'width'
-      ? domUtils.viewportWidth(elem)
-      : domUtils.viewportHeight(elem);
+      ? (domUtils as any).viewportWidth(elem)
+      : (domUtils as any).viewportHeight(elem);
   } else if (elem.nodeType === 9) {
     return name === 'width'
-      ? domUtils.docWidth(elem)
-      : domUtils.docHeight(elem);
+      ? (domUtils as any).docWidth(elem)
+      : (domUtils as any).docHeight(elem);
   }
   const which = name === 'width' ? ['Left', 'Right'] : ['Top', 'Bottom'];
   let borderBoxValue =
@@ -478,7 +478,7 @@ function getWH(elem, name, ex) {
       cssBoxValue = elem.style[name] || 0;
     }
     // Normalize '', auto, and prepare for extra
-    cssBoxValue = Math.floor(parseFloat(cssBoxValue)) || 0;
+    cssBoxValue = Math.floor(parseFloat(cssBoxValue.toString())) || 0;
   }
   if (extra === undefined) {
     extra = isBorderBox ? BORDER_INDEX : CONTENT_INDEX;
@@ -583,7 +583,7 @@ const utils = {
   css,
   clone(obj) {
     let i;
-    const ret = {};
+    const ret = {} as any;
     for (i in obj) {
       if (hasOwnProperty.call(obj, i)) {
         ret[i] = obj[i];
@@ -619,4 +619,4 @@ const utils = {
 
 mix(utils, domUtils);
 
-export default utils;
+export default utils as any;

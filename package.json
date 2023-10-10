@@ -1,69 +1,65 @@
 {
-  "name": "dom-align",
+  "name": "@rc-component/dom-align",
   "version": "1.12.4",
   "description": "Align DOM Node Flexibly ",
+  "engines": {
+    "node": ">=8.x"
+  },
   "keywords": [
-    "dom",
-    "align"
+    "react",
+    "react-component",
+    "dom-align"
   ],
-  "homepage": "http://github.com/yiminghe/dom-align",
-  "author": "yiminghe@gmail.com",
+  "main": "./lib/index",
+  "module": "./es/index",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "homepage": "http://github.com/react-component/dom-align",
   "repository": {
     "type": "git",
-    "url": "git@github.com:yiminghe/dom-align.git"
+    "url": "git@github.com:react-component/dom-align.git"
   },
   "bugs": {
-    "url": "http://github.com/yiminghe/dom-align/issues"
+    "url": "http://github.com/react-component/dom-align/issues"
   },
   "license": "MIT",
   "scripts": {
-    "lint-staged": "lint-staged",
-    "lint": "eslint -c ./.eslintrc-src.js src && tsc --noEmit && next lint",
-    "prettier": "prettier --write \"{src,app,cypress}/**/*.{js,jsx,ts,tsx}\"",
-    "pub": "npm run build && cd pkg && npm publish",
-    "build": "node scripts/build",
-    "gh-pages": "next build && touch dom-align/.nojekyll && gh-pages -d dom-align -t",
-    "start": "next dev",
-    "test": "cypress run --component",
-    "test:ci": "cypress run --component --record --key $CYPRESS_RECORD_KEY"
+    "start": "dumi dev",
+    "build": "dumi build",
+    "compile": "father build",
+    "prepublishOnly": "npm run compile && np --yolo --no-publish",
+    "lint": "eslint src/ docs/examples/ --ext .tsx,.ts,.jsx,.js",
+    "test": "rc-test",
+    "tsc": "tsc --noEmit",
+    "now-build": "npm run build"
   },
-  "nyc": {
-    "all": true,
-    "include": "src/**/*.js"
+  "dependencies": {
+    "@babel/runtime": "^7.23.1"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.22.5",
-    "@babel/preset-typescript": "^7.22.11",
-    "@cypress/code-coverage": "^3.11.0",
-    "@swc/cli": "0.1.x",
-    "@swc/core": "1.3.x",
-    "@types/react": "18.2.21",
-    "babel-plugin-istanbul": "^6.1.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "cypress": "^13.1.0",
-    "eslint": "^8.48.0",
-    "eslint-config-next": "13.4.19",
-    "gh-pages": "6.x",
-    "github-markdown-css": "^5.2.0",
-    "lint-staged": "14.x",
-    "markdown-it": "^13.0.1",
-    "next": "13.x",
-    "normalize.css": "^8.0.1",
-    "pre-commit": "1.x",
-    "prettier": "3.x",
-    "prismjs": "^1.29.0",
-    "raw-loader": "^4.0.2",
-    "react": "18.x",
-    "react-dom": "18.x",
-    "typescript": "5.x"
-  },
-  "lint-staged": {
-    "*.{tsx,js,jsx,ts}": [
-      "prettier --write"
-    ]
-  },
-  "pre-commit": [
-    "lint-staged"
-  ],
-  "packageManager": "pnpm@8.7.1"
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@types/enzyme": "^3.10.9",
+    "@types/jest": "^26.0.24",
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.3",
+    "babel-jest": "^29.6.1",
+    "cross-env": "^7.0.0",
+    "dumi": "^1.1.32",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.15.7",
+    "enzyme-to-json": "^3.4.0",
+    "eslint": "^7.1.0",
+    "father": "^4.0.0",
+    "jsonp": "^0.2.1",
+    "np": "^7.5.0",
+    "prettier": "^2.7.1",
+    "querystring": "^0.2.1",
+    "rc-dialog": "^9.0.0",
+    "rc-test": "^7.0.9",
+    "typescript": "^4.2.3"
+  }
 }

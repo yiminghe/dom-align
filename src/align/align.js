@@ -185,6 +185,8 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     // 1. 复原修改过的定位参数
     if (isStillFailX || isStillFailY) {
       let newPoints = points;
+      let newOffset = offset;
+      let newTargetOffset = targetOffset;
 
       // 重置对应部分的翻转逻辑
       if (isStillFailX) {
@@ -192,18 +194,22 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
           l: 'r',
           r: 'l',
         });
+        newOffset = flipOffset(offset, 0);
+        newTargetOffset = flipOffset(targetOffset, 0);
       }
       if (isStillFailY) {
         newPoints = flip(points, /[tb]/gi, {
           t: 'b',
           b: 't',
         });
+        newOffset = flipOffset(offset, 1);
+        newTargetOffset = flipOffset(targetOffset, 1);
       }
 
       points = newPoints;
 
-      offset = align.offset || [0, 0];
-      targetOffset = align.targetOffset || [0, 0];
+      offset = newOffset || [0, 0];
+      targetOffset = newTargetOffset || [0, 0];
     }
     // 2. 只有指定了可以调整当前方向才调整
     newOverflowCfg.adjustX = overflow.adjustX && isStillFailX;

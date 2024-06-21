@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
       - name: Checkout
@@ -45,7 +45,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - run: cp test-coverage-babelrc .babelrc
       - run: pnpm test:ci
         env:
           CYPRESS_RECORD_KEY: ${{vars.CYPRESS_RECORD_KEY}}

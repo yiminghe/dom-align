@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import domAlign from '../../src/';
+import domAlign from '../../src';
 
 function Test() {
   const source = useRef();

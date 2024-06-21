@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import domAlign from '../../src/';
+import domAlign from '../../src';
 
 function $id(id): any {
   return document.getElementById(id);

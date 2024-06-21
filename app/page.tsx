@@ -4,12 +4,17 @@ import React from 'react';
 import MarkdownIt from 'markdown-it';
 import 'github-markdown-css/github-markdown-light.css';
 // @ts-ignore
-import readme from '!!raw-loader!../README.md';
 import prism from 'prismjs';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
+import fs from 'fs';
+import path from 'path';
 
+const readme = fs.readFileSync(
+  path.join(process.cwd(), './README.md'),
+  'utf-8',
+);
 const md = new MarkdownIt({
   html: true,
   linkify: true,

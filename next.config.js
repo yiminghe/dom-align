@@ -1,9 +1,17 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
-  output: 'export',
   reactStrictMode: false,
+  pageExtensions: ['ts', 'tsx', 'js'],
   experimental: {
-    appDir: true,
+    swcPlugins: process.env.NODE_ENV !== 'production' ? [
+      [
+        require.resolve('swc-plugin-coverage-instrument'),
+        {
+        },
+      ],
+    ] : [],
   },
+  output: 'export',
   distDir: 'dom-align',
   basePath: process.env.NODE_ENV === 'production' ? '/dom-align' : '',
   assetPrefix:

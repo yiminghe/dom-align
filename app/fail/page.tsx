@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import domAlign from '../../src/';
+import domAlign from '../../src';
 
 export default function Fail() {
   const source = useRef();

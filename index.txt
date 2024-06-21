@@ -1,15 +1,14 @@
-0:["QBBh5NmHXI8rjLTH8AOy1",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],"$L1",[[],"$L2"]]]]
-3:HL["/dom-align/_next/static/css/8e5061bc006788b4.css",{"as":"style"}]
-4:I{"id":1788,"chunks":["272:static/chunks/webpack-f7ef71e24fb9561d.js","702:static/chunks/e0f3dcf3-b09dd8ff9aeee011.js","431:static/chunks/431-73aef88c8a770b84.js"],"name":"default","async":false}
-5:I{"id":9085,"chunks":["272:static/chunks/webpack-f7ef71e24fb9561d.js","702:static/chunks/e0f3dcf3-b09dd8ff9aeee011.js","431:static/chunks/431-73aef88c8a770b84.js"],"name":"default","async":false}
-7:I{"id":9101,"chunks":["931:static/chunks/app/page-8b31905aea0f8867.js"],"name":"","async":false}
-2:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"dom-align"}],["$","meta","2",{"name":"description","content":"dom-align demo"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-8:T1937,<h1>dom-align</h1>
+2:I[3009,["558","static/chunks/558-5b6abb7103620800.js","931","static/chunks/app/page-767e8da3bfa66ef7.js"],""]
+4:I[8897,[],""]
+5:I[5349,[],""]
+3:T1a70,<h1>dom-align</h1>
 <hr>
 <p>align source html element with target html element flexibly.</p>
 <p><a href="http://npmjs.org/package/dom-align"><img src="http://img.shields.io/npm/v/dom-align.svg?style=flat-square" alt="NPM version"></a>
 <a href="https://coveralls.io/r/yiminghe/dom-align?branch=master"><img src="https://img.shields.io/coveralls/yiminghe/dom-align.svg?style=flat-square" alt="Test coverage"></a>
-<a href="https://npmjs.org/package/dom-align"><img src="https://img.shields.io/npm/dm/dom-align.svg?style=flat-square" alt="npm download"></a></p>
+<a href="https://npmjs.org/package/dom-align"><img src="https://img.shields.io/npm/dm/dom-align.svg?style=flat-square" alt="npm download"></a>
+<img src="https://github.com/yiminghe/dom-align/actions/workflows/ci.yaml/badge.svg" alt="Build Status">
+<a href="https://cloud.cypress.io/projects/22j6d7/runs"><img src="https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/22j6d7/main&amp;style=flat&amp;logo=cypress" alt="dom-align"></a></p>
 <h2>Screenshot</h2>
 <img height=444 src="http://gtms02.alicdn.com/tps/i2/TB1XIp2HXXXXXajaXXXgJfr8XXX-548-888.png">
 <h2>Install</h2>
@@ -99,12 +98,13 @@
     </tbody>
 </table>
 <h2>Development</h2>
-<pre><code>npm install
-npm start
+<pre><code>pnpm install
+pnpm start
 </code></pre>
 <h2>Example</h2>
 <p><a href="http://localhost:3000/">http://localhost:3000/</a></p>
 <h2>License</h2>
 <p>dom-align is released under the MIT license.</p>
-1:[null,["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":"$undefined","loadingStyles":"$undefined","hasLoading":false,"error":"$undefined","errorStyles":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"childProp":{"current":["$L6",["$","div",null,{"style":{"width":1200,"margin":"auto"},"children":[["$","h2",null,{"children":"examples"}],["$","p",null,{"children":["$","$L7",null,{"href":"/simple","children":"simple"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/body-overflow","children":"body-overflow"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/fail","children":"fail"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/point","children":"point"}]}],["$","p",null,{"children":["$","$L7",null,{"href":"/shadow-dom","children":"shadow-dom"}]}],["$","h2",null,{"children":"readme"}],["$","div",null,{"className":"markdown-body","dangerouslySetInnerHTML":{"__html":"$8"}}]]}],null],"segment":"__PAGE__"},"styles":[["$","link","0",{"rel":"stylesheet","href":"/dom-align/_next/static/css/8e5061bc006788b4.css","precedence":"next"}]]}]}]}],null]
-6:null
+0:["tf7bMjDJT7EPOkxZ-R-kQ",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",{"children":["__PAGE__",{},[["$L1",["$","div",null,{"style":{"width":1200,"margin":"auto"},"children":[["$","h2",null,{"children":"examples"}],["$","p",null,{"children":["$","$L2",null,{"href":"/simple","children":"simple"}]}],["$","p",null,{"children":["$","$L2",null,{"href":"/body-overflow","children":"body-overflow"}]}],["$","p",null,{"children":["$","$L2",null,{"href":"/fail","children":"fail"}]}],["$","p",null,{"children":["$","$L2",null,{"href":"/point","children":"point"}]}],["$","p",null,{"children":["$","$L2",null,{"href":"/shadow-dom","children":"shadow-dom"}]}],["$","h2",null,{"children":"readme"}],["$","div",null,{"className":"markdown-body","dangerouslySetInnerHTML":{"__html":"$3"}}]]}]],null],null]},[["$","html",null,{"lang":"en","children":["$","body",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[],"styles":[["$","link","0",{"rel":"stylesheet","href":"/dom-align/_next/static/css/61488e21587bc3fa.css","precedence":"next","crossOrigin":"$undefined"}]]}]}]}],null],null],[null,"$L6"]]]]
+6:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"dom-align"}],["$","meta","3",{"name":"description","content":"dom-align demo"}]]
+1:null
